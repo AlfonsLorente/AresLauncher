@@ -13,6 +13,7 @@ public class SplashActivity extends AppCompatActivity {
     private TextView topLetters, bottomLetters;
     private Animation lettersAnimation, logoAnimation;
 
+    //TODO: REMINDER - RELATIVELAYOUT CHANGES
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
