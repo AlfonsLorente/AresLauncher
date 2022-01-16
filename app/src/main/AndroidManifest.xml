@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.areslauncher">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Splash">
+        <activity
+            android:name="com.example.areslauncher.GamesActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.areslauncher.ScoresActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.areslauncher.HelpActivity"
+            android:exported="false" />
+
+
+        <activity
+            android:name="com.example.areslauncher.MainActivity"
+            android:exported="false">
+
+        </activity>
+
+        <activity
+            android:name="com.example.areslauncher.MenuActivity"
+            android:exported="false">
+
+        </activity>
+
+        <activity
+            android:name="com.example.areslauncher.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
