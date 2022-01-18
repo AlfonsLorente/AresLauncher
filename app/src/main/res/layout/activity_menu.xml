@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/menu_relative_layout"
-    android:background="@drawable/menubackground"
+    android:background="@drawable/menubackground1080"
     tools:context=".MenuActivity">
 
     <TextView
