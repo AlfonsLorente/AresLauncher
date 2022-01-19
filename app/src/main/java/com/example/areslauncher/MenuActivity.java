@@ -94,7 +94,6 @@ public class MenuActivity extends AppCompatActivity {
         else {
             relativeLayout.setBackground(getDrawable(R.drawable.menubackground1080));
         }
-        //Log.d("aa", "w: " + width + "\nh: " + height);
 
     }
 }
