@@ -7,7 +7,11 @@
     android:id="@+id/menu_relative_layout"
     android:background="@drawable/menubackground1080"
     tools:context=".MenuActivity">
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/rltitle">
     <TextView
         android:id="@+id/menu_title_text"
         android:layout_width="match_parent"
@@ -23,75 +27,18 @@
         android:text="@string/menu_title"
         android:textColor="@color/title_color"
         android:textSize="60dp" />
+    </RelativeLayout>
 
-
-    <TextView
+    <ListView
+        android:layout_below="@id/rltitle"
+        android:id="@+id/ListView_Menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
-        android:layout_marginBottom="@dimen/menu_button_bottom_margin"
-        android:id="@+id/menu_play"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/menu_title_text"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:shadowColor="@color/menu_glow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="15"
-        android:text="@string/menu_item_play"
-        android:textColor="@color/menu_color"
-        android:textSize="@dimen/menu_item_size" />
-
-    <TextView
-        android:layout_marginTop="@dimen/menu_button_top_margin"
-        android:layout_marginBottom="@dimen/menu_button_bottom_margin"
-        android:id="@+id/menu_score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/menu_play"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:shadowColor="@color/menu_glow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="15"
-        android:text="@string/menu_item_scores"
-        android:textColor="@color/menu_color"
-        android:textSize="@dimen/menu_item_size" />
-
-    <TextView
-        android:layout_marginTop="@dimen/menu_button_top_margin"
-        android:layout_marginBottom="@dimen/menu_button_bottom_margin"
-        android:id="@+id/menu_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/menu_score"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:shadowColor="@color/menu_glow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="15"
-        android:text="@string/menu_item_settings"
-        android:textColor="@color/menu_color"
-        android:textSize="@dimen/menu_item_size" />
-
-    <TextView
-        android:layout_marginTop="@dimen/menu_button_top_margin"
-        android:layout_marginBottom="@dimen/menu_button_bottom_margin"
-        android:id="@+id/menu_help"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/menu_settings"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:shadowColor="@color/menu_glow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="15"
-        android:text="@string/menu_item_help"
-        android:textColor="@color/menu_color"
-        android:textSize="@dimen/menu_item_size" />
-
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:divider="@drawable/list_divider"
+        android:listSelector="@drawable/item_selector"
+        ></ListView>
 
 </RelativeLayout>

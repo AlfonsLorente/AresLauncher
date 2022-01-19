@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class SplashActivity extends AppCompatActivity {
     private TextView topLetters, bottomLetters;
-    private Animation lettersAnimation, logoAnimation;
+    private Animation lettersAnimation, logoAnimation, waitAnimation;
     private ImageView logo;
 
     @Override
@@ -25,11 +25,12 @@ public class SplashActivity extends AppCompatActivity {
         logo = findViewById(R.id.splashImage);
         lettersAnimation = (Animation) AnimationUtils.loadAnimation(this, R.anim.fade_in);
         logoAnimation = (Animation) AnimationUtils.loadAnimation(this, R.anim.custom_anim_logo);
+        waitAnimation = AnimationUtils.loadAnimation(this, R.anim.wait);
         topLetters.startAnimation(lettersAnimation);
         bottomLetters.startAnimation(lettersAnimation);
         logo.startAnimation(logoAnimation);
 
-
+        Log.d("aa", "aaaaa");
         logoAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -38,8 +39,25 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                logo.startAnimation(waitAnimation);
 
-                SystemClock.sleep(500);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        waitAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                logo.setBackground(getDrawable(R.drawable.logo_eye));
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
                 startActivity(new Intent(SplashActivity.this, MenuActivity.class));
                 SplashActivity.this.finish();
             }
@@ -58,7 +76,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onPause();
         topLetters.clearAnimation();
         bottomLetters.clearAnimation();
-        logo.setBackground(getDrawable(R.drawable.logo_eye));
         logo.clearAnimation();
 
 

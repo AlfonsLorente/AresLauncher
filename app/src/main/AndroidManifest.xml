@@ -7,37 +7,52 @@
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Splash">
         <activity
-            android:name="com.example.areslauncher.GamesActivity"
-            android:exported="false" />
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:parentActivityName=".MenuActivity"
+            />
         <activity
-            android:name="com.example.areslauncher.ScoresActivity"
-            android:exported="false" />
+            android:name=".GamesActivity"
+            android:exported="false"
+            android:parentActivityName=".MenuActivity"
+            />
         <activity
-            android:name="com.example.areslauncher.HelpActivity"
-            android:exported="false" />
-
-
+            android:name=".ScoresActivity"
+            android:exported="false"
+            android:parentActivityName=".MenuActivity"
+            />
         <activity
-            android:name="com.example.areslauncher.MainActivity"
-            android:exported="false">
-
+            android:name=".HelpActivity"
+            android:exported="false"
+            android:parentActivityName=".MenuActivity"
+            />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:parentActivityName=".MenuActivity"
+            />
+        <activity
+            android:name=".MenuActivity"
+            android:exported="false"
+            android:parentActivityName=".MenuActivity"
+            >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
 
         <activity
-            android:name="com.example.areslauncher.MenuActivity"
-            android:exported="false">
-
-        </activity>
-
-        <activity
-            android:name="com.example.areslauncher.SplashActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
     </application>
