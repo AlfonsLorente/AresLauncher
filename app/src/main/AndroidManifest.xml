@@ -11,48 +11,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Splash">
         <activity
+            android:name=".GameChooserActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="true"
-            android:parentActivityName=".MenuActivity"
-            />
-        <activity
-            android:name=".GamesActivity"
-            android:exported="false"
-            android:parentActivityName=".MenuActivity"
-            />
+            android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".ScoresActivity"
             android:exported="false"
-            android:parentActivityName=".MenuActivity"
-            />
+            android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".HelpActivity"
             android:exported="false"
-            android:parentActivityName=".MenuActivity"
-            />
+            android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:parentActivityName=".MenuActivity"
-            />
+            android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".MenuActivity"
-            android:exported="false"
-            android:parentActivityName=".MenuActivity"
-            >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            android:exported="true"
+            android:parentActivityName=".MenuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
