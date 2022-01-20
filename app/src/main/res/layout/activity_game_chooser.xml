@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/menu_relative_layout"
+    android:background="@drawable/menubackground1080"
+    tools:context=".MenuActivity">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/rltitle">
+        <TextView
+            android:id="@+id/menu_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/greek"
+            android:gravity="center"
+            android:shadowColor="@color/menu_glow"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="15"
+            android:text="@string/menu_title"
+            android:textColor="@color/title_color"
+            android:textSize="60dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/rltitle"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.819">
+
+        <GridLayout
+            android:id="@+id/gridLayout_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:useDefaultMargins="true">
+
+            <ImageButton
+                android:background="@drawable/button_start_2048_png"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                />
+
+            <ImageButton
+                android:background="@drawable/button_start_peg_png"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                />
+        </GridLayout>
+    </LinearLayout>
+
+</RelativeLayout>
