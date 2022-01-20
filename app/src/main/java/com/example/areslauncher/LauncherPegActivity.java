@@ -31,6 +31,7 @@ public class LauncherPegActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laucher_peg);
+        Log.d("cc", "pito");
 
         //initialize variables
         gridLayout = findViewById(R.id.grid_peg);

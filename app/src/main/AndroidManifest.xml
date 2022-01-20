@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Splash">
         <activity
-            android:name=".LaucherPegActivity"
+            android:name=".LauncherPegActivity"
             android:exported="false" />
         <activity
             android:name=".Launcher2048Activity"
