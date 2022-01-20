@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LauncherPegActivity"
+    android:background="@drawable/stonepegbg"
+    >
+
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="59dp"
+        android:layout_marginBottom="44dp"
+        android:fontFamily="cursive"
+        android:text="PEG SOLITARIE"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.087" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:fontFamily="serif"
+        android:text="Pegs on the board: "
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.202" />
+
+    <TextView
+        android:id="@+id/pegs_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginBottom="67dp"
+        android:fontFamily="serif"
+        android:text="32"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.284" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="39dp"
+        android:clickable="false"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.962">
+
+
+        <GridLayout
+            android:id="@+id/grid_peg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:columnCount="7"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegempty"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pegunpressed"
+                android:gravity="center"
+                android:onClick="buttonClicked" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/peginvisible"
+                android:gravity="center"
+                android:onClick="buttonClicked"
+                tools:visibility="gone" />
+
+
+        </GridLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Possible moves: "
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.345" />
+
+    <TextView
+        android:id="@+id/possibleMoves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="4"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.339" />
+
+    <ImageView
+        android:id="@+id/pegVictory"
+        android:layout_width="413dp"
+        android:layout_height="231dp"
+        android:background="@drawable/victory"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
+        android:clickable="false"></ImageView>
+    <ImageView
+        android:id="@+id/pegGameOver"
+        android:layout_width="405dp"
+        android:layout_height="231dp"
+        android:background="@drawable/game_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"
+        android:clickable="false"
+        ></ImageView>
+</androidx.constraintlayout.widget.ConstraintLayout>
