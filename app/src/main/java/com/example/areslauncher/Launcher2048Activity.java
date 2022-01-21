@@ -19,7 +19,7 @@ public class Launcher2048Activity extends Activity {
     //VARIABLES
     private ArrayList<ArrayList<Button>> buttons = new ArrayList<ArrayList<Button>>();
     private GridLayout gridLayoutGame;
-    private ImageView victorySplash, gameOverSplash;
+    private ImageView victorySplash, gameOverSplash, backButton;
     private Animation fadeIn;
     private Random random = new Random();
     private ConstraintLayout constraintLayout;
@@ -35,6 +35,7 @@ public class Launcher2048Activity extends Activity {
         //Inicialitze variables
         gridLayoutGame = (GridLayout) findViewById(R.id.gridLayout_game);
         constraintLayout = findViewById(R.id.constraintLayout);
+        backButton = findViewById(R.id.back_button);
         victorySplash = findViewById(R.id.Victory2048);
         gameOverSplash = findViewById(R.id.GameOver2048);
         fadeIn = (Animation) AnimationUtils.loadAnimation(this, R.anim.fade_in);
@@ -55,7 +56,7 @@ public class Launcher2048Activity extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
 
-                startActivity(new Intent(Launcher2048Activity.this, MenuActivity.class));
+                startActivity(new Intent(Launcher2048Activity.this, GameChooserActivity.class));
                 Launcher2048Activity.this.finish();
 
             }
@@ -101,6 +102,14 @@ public class Launcher2048Activity extends Activity {
 
             }
 
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Launcher2048Activity.this, MenuActivity.class));
+                Launcher2048Activity.this.finish();
+            }
         });
     }
 
@@ -329,10 +338,11 @@ public class Launcher2048Activity extends Activity {
 
 
     public void resumeGame() {
-        updatePuntuation();
         if(!isFull()) {
             setNewNumber();
         }
+        updatePuntuation();
+
         setColors();
 
         serch2024();
@@ -407,20 +417,18 @@ public class Launcher2048Activity extends Activity {
     }
 
     private void updatePuntuation() {
-        int biggerNumber = 0;
+        int score = 0;
 
         for(int i = 0; i < buttons.size(); i++) {
             for (int j = 0; j < buttons.size(); j++) {
                 String numString = buttons.get(i).get(j).getText().toString();
                 if(!numString.equals("")) {
                     int num = Integer.parseInt(numString);
-                    if (num > biggerNumber) {
-                        biggerNumber = num;
-                    }
+                    score += num;
                 }
             }
         }
-        puntuation.setText("" + biggerNumber);
+        puntuation.setText("" + score);
 
     }
 
@@ -602,8 +610,6 @@ public class Launcher2048Activity extends Activity {
             return 2;
         }
     }
-
-
 
 
 }

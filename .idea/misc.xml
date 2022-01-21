@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/alfon/Desktop/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_game_chooser.xml" value="0.264" />
+        <entry key="..\:/Users/alfon/Desktop/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_help.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/alfon/Desktop/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_laucher_peg.xml" value="0.264" />
+        <entry key="..\:/Users/alfon/Desktop/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_launcher2048.xml" value="0.4" />
+        <entry key="..\:/Users/alfon/Desktop/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_menu.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/alfon/Desktop/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_scores.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/alfon/Desktop/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_settings.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/drawable-v24/background2048.xml" value="0.24581939799331104" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/drawable-v24/backgroundpeg.xml" value="0.24581939799331104" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/drawable-v24/button1024.xml" value="0.24581939799331104" />
@@ -15,7 +22,7 @@
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_game_chooser.xml" value="0.25" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_games.xml" value="0.23783783783783785" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_help.xml" value="0.23783783783783785" />
-        <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_laucher_peg.xml" value="0.2271174863387978" />
+        <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_laucher_peg.xml" value="0.2" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_launcher2048.xml" value="0.2271174863387978" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_menu.xml" value="0.18" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_scores.xml" value="0.23783783783783785" />
