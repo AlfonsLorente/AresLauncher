@@ -22,7 +22,7 @@ public class LauncherPegActivity extends AppCompatActivity {
     private ArrayList<ArrayList<ImageButton>> pegs = new ArrayList<ArrayList<ImageButton>>();
     private GridLayout gridLayout;
     private TextView pegsAmount, possibleMoves;
-    private ImageView victorySplash, gameOverSplash;
+    private ImageView victorySplash, gameOverSplash, backButton;
     private int oldi, oldj;
     private Animation fadeIn;
 
@@ -36,6 +36,7 @@ public class LauncherPegActivity extends AppCompatActivity {
         //initialize variables
         gridLayout = findViewById(R.id.grid_peg);
         pegsAmount = findViewById(R.id.pegs_amount);
+        backButton = findViewById(R.id.back_button);
         possibleMoves = findViewById(R.id.possibleMoves);
         victorySplash = findViewById(R.id.pegVictory);
         gameOverSplash = findViewById(R.id.pegGameOver);
@@ -67,7 +68,13 @@ public class LauncherPegActivity extends AppCompatActivity {
 
             }
         });
-
+        backButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LauncherPegActivity.this, GameChooserActivity.class));
+                LauncherPegActivity.this.finish();
+            }
+        });
 
     }
 
@@ -311,4 +318,6 @@ public class LauncherPegActivity extends AppCompatActivity {
 
         return false;
     }
+
+
 }
