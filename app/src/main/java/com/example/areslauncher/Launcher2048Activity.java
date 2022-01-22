@@ -123,7 +123,6 @@ public class Launcher2048Activity extends Activity {
 
         });
 
-
         backButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
