@@ -12,5 +12,4 @@
     android:shadowRadius="15"
     android:textColor="@color/menu_color"
     android:textSize="@dimen/menu_item_size" >
-
 </TextView>

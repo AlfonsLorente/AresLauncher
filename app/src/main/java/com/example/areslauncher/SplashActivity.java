@@ -29,8 +29,6 @@ public class SplashActivity extends AppCompatActivity {
         topLetters.startAnimation(lettersAnimation);
         bottomLetters.startAnimation(lettersAnimation);
         logo.startAnimation(logoAnimation);
-
-        Log.d("aa", "aaaaa");
         logoAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

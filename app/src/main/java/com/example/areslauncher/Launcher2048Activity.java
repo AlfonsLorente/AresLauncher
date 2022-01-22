@@ -2,13 +2,16 @@ package com.example.areslauncher;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -18,14 +21,17 @@ import java.util.Random;
 public class Launcher2048Activity extends Activity {
     //VARIABLES
     private ArrayList<ArrayList<Button>> buttons = new ArrayList<ArrayList<Button>>();
+    private ArrayList<ArrayList<String>>  oldButtonsText = new ArrayList<ArrayList<String>>();
     private GridLayout gridLayoutGame;
-    private ImageView victorySplash, gameOverSplash, backButton;
+    private ImageView victorySplash, gameOverSplash;
+    private ImageButton backButton, restartButton, undoButton;
     private Animation fadeIn;
     private Random random = new Random();
     private ConstraintLayout constraintLayout;
     private boolean win = false;
     private boolean isOver = false;
-    private TextView puntuation;
+    private TextView score;
+    private boolean canUndo=false;
 
     //ONCREATE
     @Override
@@ -35,17 +41,28 @@ public class Launcher2048Activity extends Activity {
         //Inicialitze variables
         gridLayoutGame = (GridLayout) findViewById(R.id.gridLayout_game);
         constraintLayout = findViewById(R.id.constraintLayout);
-        backButton = findViewById(R.id.back_button);
+        backButton = findViewById(R.id.back_button_2048);
+        restartButton = findViewById(R.id.restart_button_2048);
+        undoButton = findViewById(R.id.undo_button_2048);
         victorySplash = findViewById(R.id.Victory2048);
         gameOverSplash = findViewById(R.id.GameOver2048);
         fadeIn = (Animation) AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        puntuation = findViewById(R.id.puntuation);
-        //Set up game
-        getAllGLButtons();
-        setNewNumber();
-        updatePuntuation();
-        setColors();
+        score = findViewById(R.id.score);
         fadeIn.setDuration(2500);
+        setListeners();
+
+        //Set up game
+        setUpNewButtons();
+        setNewNumber();
+        setUpOldButtons();
+        updateScore();
+        setColors();
+
+
+    }
+
+    private void setListeners() {
+
         fadeIn.setAnimationListener(new Animation.AnimationListener(){
 
             @Override
@@ -67,11 +84,10 @@ public class Launcher2048Activity extends Activity {
             }
         });
 
-
-        //Main game logic - On swipes
         constraintLayout.setOnTouchListener(new SwipeListener(this){
             //Swipe top
             public void onSwipeTop() {
+                updateOldButtons();
                 swipeTopNumberSum();
                 swipeTopArrangeNumbers();
                 resumeGame();
@@ -80,6 +96,7 @@ public class Launcher2048Activity extends Activity {
 
             //Swipe Right
             public void onSwipeRight() {
+                updateOldButtons();
                 swipeRightNumberSum();
                 swipeRightArrangeNumbers();
                 resumeGame();
@@ -88,6 +105,7 @@ public class Launcher2048Activity extends Activity {
 
             //Swipe left
             public void onSwipeLeft() {
+                updateOldButtons();
                 swipeLeftNumberSum();
                 swipeLeftArrangeNumbers();
                 resumeGame();
@@ -96,6 +114,7 @@ public class Launcher2048Activity extends Activity {
 
             //Swipe Bottom
             public void onSwipeBottom() {
+                updateOldButtons();
                 swipeBottomNumberSum();
                 swipeBottomArrangeNumbers();
                 resumeGame();
@@ -104,15 +123,37 @@ public class Launcher2048Activity extends Activity {
 
         });
 
+
         backButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Launcher2048Activity.this, MenuActivity.class));
+                startActivity(new Intent(Launcher2048Activity.this, GameChooserActivity.class));
                 Launcher2048Activity.this.finish();
             }
         });
-    }
 
+        restartButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Launcher2048Activity.this, Launcher2048Activity.class));
+                Launcher2048Activity.this.finish();
+            }
+        });
+
+        undoButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (canUndo) {
+                    updateNewButtons();
+                    setColors();
+                    updateScore();
+                }else{
+                    Toast.makeText(Launcher2048Activity.this, "Can't undo", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
 
 
 
@@ -341,7 +382,7 @@ public class Launcher2048Activity extends Activity {
         if(!isFull()) {
             setNewNumber();
         }
-        updatePuntuation();
+        updateScore();
 
         setColors();
 
@@ -416,7 +457,7 @@ public class Launcher2048Activity extends Activity {
 
     }
 
-    private void updatePuntuation() {
+    private void updateScore() {
         int score = 0;
 
         for(int i = 0; i < buttons.size(); i++) {
@@ -428,7 +469,7 @@ public class Launcher2048Activity extends Activity {
                 }
             }
         }
-        puntuation.setText("" + score);
+        this.score.setText("" + score);
 
     }
 
@@ -572,8 +613,18 @@ public class Launcher2048Activity extends Activity {
         }while (!done);
 
     }
+    //Generate random number
+    public Integer generateNumber(){
+        //Probability of 10 per cent to be a 4
+        int rand = new Random().nextInt(10);
+        if(rand == 0){
+            return 4;
+        }else{
+            return 2;
+        }
+    }
 
-    public void getAllGLButtons() {
+    public void setUpNewButtons() {
         //Fill list
         for (int i = 0; i < 4; i++){
             //Fill with arraylists
@@ -581,7 +632,7 @@ public class Launcher2048Activity extends Activity {
             for(int j = 0; j < 4;j++) {
                 //fill with numbers
                 int num = j;
-                switch (i){
+                switch (i) {
                     case 1:
                         num += 4;
                         break;
@@ -595,21 +646,56 @@ public class Launcher2048Activity extends Activity {
                 }
                 buttons.get(i).add((Button) gridLayoutGame.getChildAt(num));
 
+            }
+
+        }
+
+
+    }
+
+    public void setUpOldButtons() {
+        canUndo = false;
+        //Fill list
+        for (int i = 0; i < 4; i++){
+            //Fill with arraylists
+            oldButtonsText.add(new ArrayList<String>());
+            for(int j = 0; j < 4;j++) {
+                //fill with numbers
+                oldButtonsText.get(i).add(buttons.get(i).get(j).getText().toString());
+
+            }
+
+        }
+
+
+    }
+
+
+
+
+    private void updateOldButtons(){
+        canUndo = true;
+        //Fill list
+        for (int i = 0; i < 4; i++) {
+            //Fill with arraylists
+            for (int j = 0; j < 4; j++) {
+                oldButtonsText.get(i).set(j, buttons.get(i).get(j).getText().toString());
+
+            }
+        }
+    }
+    private void updateNewButtons(){
+        canUndo = false;
+        //Fill list
+        for (int i = 0; i < 4; i++) {
+            //Fill with arraylists
+            for (int j = 0; j < 4; j++) {
+                buttons.get(i).get(j).setText(oldButtonsText.get(i).get(j));
 
             }
         }
     }
 
-    //Generate random number
-    public Integer generateNumber(){
-        //Probability of 10 per cent to be a 4
-        int rand = new Random().nextInt(10);
-        if(rand == 0){
-            return 4;
-        }else{
-            return 2;
-        }
-    }
 
 
 }
