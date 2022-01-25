@@ -7,6 +7,15 @@
     android:id="@+id/chooser_relative_layout"
     android:background="@drawable/menubackground1080"
     tools:context=".MenuActivity">
+
+    <ImageView
+        style="@style/MenuSwordL"
+        ></ImageView>
+
+    <ImageView style="@style/MenuSwordR"></ImageView>
+    <ImageView
+        style="@style/MenuHelmet"
+        ></ImageView>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,6 +47,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/back" />
     </RelativeLayout>
+
 
 
     <LinearLayout
