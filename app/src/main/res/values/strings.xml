@@ -13,5 +13,6 @@
     <string name="menu_item_play">Play</string>
     <string name="menu_item_scores">Scores</string>
     <string name="menu_item_help">Help</string>
+    <string name="starting_score_2048">0</string>
 
 </resources>

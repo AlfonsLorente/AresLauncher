@@ -31,6 +31,7 @@ public class Launcher2048Activity extends Activity {
     private boolean win = false;
     private boolean isOver = false;
     private TextView score;
+    private String oldScore = "0";
     private boolean canUndo=false;
 
     //ONCREATE
@@ -55,7 +56,6 @@ public class Launcher2048Activity extends Activity {
         setUpNewButtons();
         setNewNumber();
         setUpOldButtons();
-        updateScore();
         setColors();
 
 
@@ -145,7 +145,6 @@ public class Launcher2048Activity extends Activity {
                 if (canUndo) {
                     updateNewButtons();
                     setColors();
-                    updateScore();
                 }else{
                     Toast.makeText(Launcher2048Activity.this, "Can't undo", Toast.LENGTH_SHORT).show();
                 }
@@ -197,10 +196,14 @@ public class Launcher2048Activity extends Activity {
                             //Look if both numbers are equal
                             if(buttons.get(i).get(j).getText().equals(buttons.get(k).get(j).getText())){
                                 //Set the number multiplied by 2
-                                int num = Integer.parseInt(buttons.get(i).get(j).getText().toString());
+                                int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
-                                buttons.get(i).get(j).setText("" + (num * 2));
+                                buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
+                                //Change score
+                                int score = Integer.parseInt(this.score.getText().toString());
+                                score += num;
+                                this.score.setText("" + score);
                             }
                             break;
                         }
@@ -252,10 +255,14 @@ public class Launcher2048Activity extends Activity {
                             //Look if both numbers are equal
                             if(buttons.get(i).get(j).getText().equals(buttons.get(k).get(j).getText())){
                                 //Set the number multiplied by 2
-                                int num = Integer.parseInt(buttons.get(i).get(j).getText().toString());
+                                int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
-                                buttons.get(i).get(j).setText("" + (num * 2));
+                                buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
+                                //Change score
+                                int score = Integer.parseInt(this.score.getText().toString());
+                                score += num;
+                                this.score.setText("" + score);
                             }
                             break;
                         }
@@ -307,10 +314,14 @@ public class Launcher2048Activity extends Activity {
                             //Look if both numbers are equal
                             if(buttons.get(i).get(j).getText().equals(buttons.get(i).get(k).getText())){
                                 //Set the number multiplied by 2
-                                int num = Integer.parseInt(buttons.get(i).get(j).getText().toString());
+                                int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
-                                buttons.get(i).get(j).setText("" + (num * 2));
-                                buttons.get(i).get(k).setText("");
+                                buttons.get(i).get(j).setText("" + (num));
+                                buttons.get(k).get(j).setText("");
+                                //Change score
+                                int score = Integer.parseInt(this.score.getText().toString());
+                                score += num;
+                                this.score.setText("" + score);
                             }
                             break;
                         }
@@ -362,10 +373,14 @@ public class Launcher2048Activity extends Activity {
                             //Look if both numbers are equal
                             if(buttons.get(i).get(j).getText().equals(buttons.get(i).get(k).getText())){
                                 //Set the number multiplied by 2
-                                int num = Integer.parseInt(buttons.get(i).get(j).getText().toString());
+                                int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
-                                buttons.get(i).get(j).setText("" + (num * 2));
-                                buttons.get(i).get(k).setText("");
+                                buttons.get(i).get(j).setText("" + (num));
+                                buttons.get(k).get(j).setText("");
+                                //Change score
+                                int score = Integer.parseInt(this.score.getText().toString());
+                                score += num;
+                                this.score.setText("" + score);
                             }
                             break;
                         }
@@ -381,7 +396,6 @@ public class Launcher2048Activity extends Activity {
         if(!isFull()) {
             setNewNumber();
         }
-        updateScore();
 
         setColors();
 
@@ -456,21 +470,6 @@ public class Launcher2048Activity extends Activity {
 
     }
 
-    private void updateScore() {
-        int score = 0;
-
-        for(int i = 0; i < buttons.size(); i++) {
-            for (int j = 0; j < buttons.size(); j++) {
-                String numString = buttons.get(i).get(j).getText().toString();
-                if(!numString.equals("")) {
-                    int num = Integer.parseInt(numString);
-                    score += num;
-                }
-            }
-        }
-        this.score.setText("" + score);
-
-    }
 
     private boolean isFull() {
         for(int i = 0; i < buttons.size(); i++) {
@@ -674,6 +673,7 @@ public class Launcher2048Activity extends Activity {
 
     private void updateOldButtons(){
         canUndo = true;
+        oldScore = score.getText().toString();
         //Fill list
         for (int i = 0; i < 4; i++) {
             //Fill with arraylists
@@ -685,6 +685,8 @@ public class Launcher2048Activity extends Activity {
     }
     private void updateNewButtons(){
         canUndo = false;
+        score.setText(oldScore);
+
         //Fill list
         for (int i = 0; i < 4; i++) {
             //Fill with arraylists
