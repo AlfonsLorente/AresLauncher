@@ -19,7 +19,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
-    public static final String GAME_PREFERENCES = "GamePrefs";
+    public static final String PREFS_KEY = "preferences";
+    public static final String PREF_UNAME = "username";
+    public static final String EXTRAS = "extras";
+    private String username;
     private RelativeLayout relativeLayout;
     private ListView menuList;
 
