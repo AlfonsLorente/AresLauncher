@@ -50,15 +50,19 @@ public class MenuActivity extends AppCompatActivity {
                 if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_play))) {
                     // Launch the Game Activity
                     startActivity(new Intent(MenuActivity.this, GameChooserActivity.class));
+                    MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_help))) {
                     // Launch the Help Activity
                     startActivity(new Intent(MenuActivity.this, HelpActivity.class));
+                    MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_settings))) {
                     // Launch the Settings Activity
                     startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
+                    MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_scores))) {
                     // Launch the Scores Activity
                     startActivity(new Intent(MenuActivity.this, ScoresActivity.class));
+                    MenuActivity.this.finish();
                 }
             }
         });
