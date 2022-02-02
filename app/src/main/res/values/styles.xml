@@ -24,4 +24,16 @@
         <item name="android:layout_centerInParent">true</item>
 
     </style>
+    <style name="MenuTitle">
+        <item name="android:fontFamily">@font/greek</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowColor">@color/menu_glow</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">15</item>
+        <item name="android:text">@string/menu_title</item>
+        <item name="android:textColor">@color/title_color</item>
+        <item name="android:textSize">60dp</item>
+
+    </style>
 </resources>
