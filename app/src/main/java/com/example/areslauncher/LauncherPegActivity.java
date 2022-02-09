@@ -71,7 +71,6 @@ public class LauncherPegActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
 
-                startActivity(new Intent(LauncherPegActivity.this, MenuActivity.class));
                 LauncherPegActivity.this.finish();
 
             }
@@ -86,7 +85,6 @@ public class LauncherPegActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LauncherPegActivity.this, GameChooserActivity.class));
                 LauncherPegActivity.this.finish();
             }
         });

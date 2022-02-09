@@ -1,6 +1,7 @@
 package com.example.areslauncher;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,7 @@ public class Launcher2048Activity extends Activity {
     private TextView score;
     private String oldScore = "0";
     private boolean canUndo=false;
+    private MediaPlayer swipe, sum, music;
 
     //ONCREATE
     @Override
@@ -49,15 +51,45 @@ public class Launcher2048Activity extends Activity {
         gameOverSplash = findViewById(R.id.GameOver2048);
         fadeIn = (Animation) AnimationUtils.loadAnimation(this, R.anim.fade_in);
         score = findViewById(R.id.score);
+        swipe = MediaPlayer.create(Launcher2048Activity.this, R.raw.swipe2048_2);
+        sum = MediaPlayer.create(Launcher2048Activity.this, R.raw.suma);
+        swipe.setVolume(100,100);
+        sum.setVolume(1000,1000);
+
         fadeIn.setDuration(2500);
         setListeners();
 
         //Set up game
         setUpNewButtons();
         setNewNumber();
+        setNewNumber();
+
         setUpOldButtons();
         setColors();
+        playMusic();
+        music.setVolume(100,100);
 
+
+    }
+
+    private void playMusic() {
+        int rand = (int)Math.round(Math.random()*2);
+        Log.d("aaa", "" + rand);
+
+        switch (rand){
+            case 1:
+                music = MediaPlayer.create(Launcher2048Activity.this, R.raw.game2048_moonshine);
+                music.start();
+                break;
+            case 2:
+                music = MediaPlayer.create(Launcher2048Activity.this, R.raw.game2048_soul);
+                music.start();
+                break;
+            default:
+                music = MediaPlayer.create(Launcher2048Activity.this, R.raw.game2048_poem);
+                music.start();
+                break;
+        }
 
     }
 
@@ -73,7 +105,6 @@ public class Launcher2048Activity extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
 
-                startActivity(new Intent(Launcher2048Activity.this, GameChooserActivity.class));
                 Launcher2048Activity.this.finish();
 
             }
@@ -87,6 +118,7 @@ public class Launcher2048Activity extends Activity {
         constraintLayout.setOnTouchListener(new SwipeListener(this){
             //Swipe top
             public void onSwipeTop() {
+
                 updateOldButtons();
                 swipeTopNumberSum();
                 swipeTopArrangeNumbers();
@@ -126,7 +158,6 @@ public class Launcher2048Activity extends Activity {
         backButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Launcher2048Activity.this, GameChooserActivity.class));
                 Launcher2048Activity.this.finish();
             }
         });
@@ -135,7 +166,9 @@ public class Launcher2048Activity extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Launcher2048Activity.this, Launcher2048Activity.class));
+                music.stop();
                 Launcher2048Activity.this.finish();
+
             }
         });
 
@@ -167,6 +200,8 @@ public class Launcher2048Activity extends Activity {
                     while(k < 4){
                         //When a button with number is found
                         if (!buttons.get(k).get(j).getText().equals("")) {
+                            swipe.start();
+
                             //Switch values
                             buttons.get(i).get(j).setText(buttons.get(k).get(j).getText());
                             buttons.get(k).get(j).setText("");
@@ -198,6 +233,7 @@ public class Launcher2048Activity extends Activity {
                                 //Set the number multiplied by 2
                                 int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
+                                sum.start();
                                 buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
                                 //Change score
@@ -227,6 +263,7 @@ public class Launcher2048Activity extends Activity {
                         //When a button with number is found
                         if (!buttons.get(k).get(j).getText().equals("")) {
                             //Switch values
+                            swipe.start();
                             buttons.get(i).get(j).setText(buttons.get(k).get(j).getText());
                             buttons.get(k).get(j).setText("");
                             break;
@@ -257,6 +294,7 @@ public class Launcher2048Activity extends Activity {
                                 //Set the number multiplied by 2
                                 int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
+                                sum.start();
                                 buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
                                 //Change score
@@ -286,6 +324,7 @@ public class Launcher2048Activity extends Activity {
                         //When a button with number is found
                         if (!buttons.get(i).get(k).getText().equals("")) {
                             //Switch values
+                            swipe.start();
                             buttons.get(i).get(j).setText(buttons.get(i).get(k).getText());
                             buttons.get(i).get(k).setText("");
                             break;
@@ -316,6 +355,7 @@ public class Launcher2048Activity extends Activity {
                                 //Set the number multiplied by 2
                                 int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
+                                sum.start();
                                 buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
                                 //Change score
@@ -345,6 +385,7 @@ public class Launcher2048Activity extends Activity {
                         //When a button with number is found
                         if (!buttons.get(i).get(k).getText().equals("")) {
                             //Switch values
+                            swipe.start();
                             buttons.get(i).get(j).setText(buttons.get(i).get(k).getText());
                             buttons.get(i).get(k).setText("");
                             break;
@@ -375,6 +416,7 @@ public class Launcher2048Activity extends Activity {
                                 //Set the number multiplied by 2
                                 int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
+                                sum.start();
                                 buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
                                 //Change score
@@ -391,12 +433,28 @@ public class Launcher2048Activity extends Activity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        music.stop();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+
+        resumeGame();
+        super.onResume();
+    }
+
 
     public void resumeGame() {
         if(!isFull()) {
             setNewNumber();
         }
 
+        if(!music.isPlaying()){
+            playMusic();
+        }
         setColors();
 
         serch2024();

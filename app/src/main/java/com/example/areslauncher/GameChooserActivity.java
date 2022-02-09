@@ -35,7 +35,6 @@ public class GameChooserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GameChooserActivity.this, Launcher2048Activity.class));
-                GameChooserActivity.this.finish();
 
             }
         });
@@ -45,7 +44,6 @@ public class GameChooserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(GameChooserActivity.this, LauncherPegActivity.class));
 
-                GameChooserActivity.this.finish();
             }
         });
 
