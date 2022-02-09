@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class LauncherPegActivity extends AppCompatActivity {
     //Declare variables
-    private ArrayList<ArrayList<ImageButton>> pegs = new ArrayList<ArrayList<ImageButton>>();
-    private ArrayList<ArrayList<Drawable.ConstantState>> oldPegs = new ArrayList<ArrayList<Drawable.ConstantState>>();
+    private final ArrayList<ArrayList<ImageButton>> pegs = new ArrayList<ArrayList<ImageButton>>();
+    private final ArrayList<ArrayList<Drawable.ConstantState>> oldPegs = new ArrayList<ArrayList<Drawable.ConstantState>>();
 
     private GridLayout gridLayout;
     private TextView pegsAmount, possibleMoves;
@@ -48,7 +48,7 @@ public class LauncherPegActivity extends AppCompatActivity {
         possibleMoves = findViewById(R.id.possibleMoves);
         victorySplash = findViewById(R.id.pegVictory);
         gameOverSplash = findViewById(R.id.pegGameOver);
-        fadeIn = (Animation) AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         fadeIn.setDuration(2500);
         setListeners();
         //Start the game

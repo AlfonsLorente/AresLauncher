@@ -21,20 +21,21 @@ import java.util.Random;
 
 public class Launcher2048Activity extends Activity {
     //VARIABLES
-    private ArrayList<ArrayList<Button>> buttons = new ArrayList<ArrayList<Button>>();
-    private ArrayList<ArrayList<String>>  oldButtonsText = new ArrayList<ArrayList<String>>();
+    private final ArrayList<ArrayList<Button>> buttons = new ArrayList<ArrayList<Button>>();
+    private final ArrayList<ArrayList<String>>  oldButtonsText = new ArrayList<ArrayList<String>>();
     private GridLayout gridLayoutGame;
     private ImageView victorySplash, gameOverSplash;
     private ImageButton backButton, restartButton, undoButton;
     private Animation fadeIn;
-    private Random random = new Random();
+    private final Random random = new Random();
     private ConstraintLayout constraintLayout;
     private boolean win = false;
     private boolean isOver = false;
     private TextView score;
     private String oldScore = "0";
     private boolean canUndo=false;
-    private MediaPlayer swipe, sum, music;
+    private MediaPlayer swipe, sum;
+    private MusicPlayer music;
 
     //ONCREATE
     @Override
@@ -42,56 +43,36 @@ public class Launcher2048Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher2048);
         //Inicialitze variables
-        gridLayoutGame = (GridLayout) findViewById(R.id.gridLayout_game);
+        gridLayoutGame = findViewById(R.id.gridLayout_game);
         constraintLayout = findViewById(R.id.constraintLayout);
         backButton = findViewById(R.id.back_button_2048);
         restartButton = findViewById(R.id.restart_button_2048);
         undoButton = findViewById(R.id.undo_button_2048);
         victorySplash = findViewById(R.id.Victory2048);
         gameOverSplash = findViewById(R.id.GameOver2048);
-        fadeIn = (Animation) AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         score = findViewById(R.id.score);
         swipe = MediaPlayer.create(Launcher2048Activity.this, R.raw.swipe2048_2);
         sum = MediaPlayer.create(Launcher2048Activity.this, R.raw.suma);
         swipe.setVolume(100,100);
         sum.setVolume(1000,1000);
 
+        music = new MusicPlayer(this);
         fadeIn.setDuration(2500);
         setListeners();
 
         //Set up game
         setUpNewButtons();
         setNewNumber();
-        setNewNumber();
 
         setUpOldButtons();
         setColors();
-        playMusic();
-        music.setVolume(100,100);
+        music.playMusic(MusicPlayer.Style.BEAT);
+        music.setVolume(100);
 
 
     }
 
-    private void playMusic() {
-        int rand = (int)Math.round(Math.random()*2);
-        Log.d("aaa", "" + rand);
-
-        switch (rand){
-            case 1:
-                music = MediaPlayer.create(Launcher2048Activity.this, R.raw.game2048_moonshine);
-                music.start();
-                break;
-            case 2:
-                music = MediaPlayer.create(Launcher2048Activity.this, R.raw.game2048_soul);
-                music.start();
-                break;
-            default:
-                music = MediaPlayer.create(Launcher2048Activity.this, R.raw.game2048_poem);
-                music.start();
-                break;
-        }
-
-    }
 
     private void setListeners() {
 
@@ -453,7 +434,8 @@ public class Launcher2048Activity extends Activity {
         }
 
         if(!music.isPlaying()){
-            playMusic();
+            music.playMusic(MusicPlayer.Style.BEAT);
+
         }
         setColors();
 
@@ -645,11 +627,7 @@ public class Launcher2048Activity extends Activity {
     private void serch2024() {
         for(int i = 0; i < buttons.size(); i++){
             for(int j = 0; j < buttons.size(); j++) {
-                if (buttons.get(i).get(j).getText().equals("2048")){
-                    win = true;
-                }else{
-                    win = false;
-                }
+                win = buttons.get(i).get(j).getText().equals("2048");
             }
         }
     }

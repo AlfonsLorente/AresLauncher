@@ -20,11 +20,11 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        topLetters = (TextView) findViewById(R.id.splashTopTitle);
-        bottomLetters = (TextView)findViewById(R.id.splashBottomTitle);
+        topLetters = findViewById(R.id.splashTopTitle);
+        bottomLetters = findViewById(R.id.splashBottomTitle);
         logo = findViewById(R.id.splashImage);
-        lettersAnimation = (Animation) AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        logoAnimation = (Animation) AnimationUtils.loadAnimation(this, R.anim.custom_anim_logo);
+        lettersAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        logoAnimation = AnimationUtils.loadAnimation(this, R.anim.custom_anim_logo);
         waitAnimation = AnimationUtils.loadAnimation(this, R.anim.wait);
         topLetters.startAnimation(lettersAnimation);
         bottomLetters.startAnimation(lettersAnimation);

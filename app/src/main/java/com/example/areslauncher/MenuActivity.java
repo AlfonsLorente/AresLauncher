@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,9 +23,16 @@ public class MenuActivity extends AppCompatActivity {
     public static final String PREFS_KEY = "preferences";
     public static final String PREF_UNAME = "username";
     public static final String EXTRAS = "extras";
+    public static final String MUSIC = "music";
+
     private String username;
     private RelativeLayout relativeLayout;
     private ListView menuList;
+    private MediaPlayer swipe, sum;
+    private int time;
+    public static MusicPlayer music;
+    public static String actualSong;
+
 
 
     public static boolean esTablet(Context context) {
@@ -38,8 +46,9 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         relativeLayout = findViewById(R.id.menu_relative_layout);
-        menuList = (ListView) findViewById(R.id.ListView_Menu);
+        menuList = findViewById(R.id.ListView_Menu);
         setItemsToLV();
+        music = new MusicPlayer(this);
 
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View itemClicked,
@@ -49,7 +58,8 @@ public class MenuActivity extends AppCompatActivity {
 
                 if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_play))) {
                     // Launch the Game Activity
-                    startActivity(new Intent(MenuActivity.this, GameChooserActivity.class));
+                    startActivity(new Intent(MenuActivity.this, GameChooserActivity.class).putExtra(MUSIC, time));
+
                    // MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_help))) {
                     // Launch the Help Activity
@@ -68,8 +78,35 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         setBackGround();
+        music.playMusic(MusicPlayer.Style.EPIC);
 
     }
+
+
+    @Override
+    protected void onDestroy() {
+        music.stop();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        music.stop();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        music.playMusic(MusicPlayer.Style.EPIC);
+
+        super.onResume();
+    }
+
+
+
+
+
+
 
     private void setItemsToLV() {
         String[] items = {getResources().getString(R.string.menu_item_play),

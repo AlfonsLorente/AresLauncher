@@ -25,17 +25,20 @@ public class GameChooserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //MenuActivity.music.();
         setContentView(R.layout.activity_game_chooser);
+
         button2048 = findViewById(R.id.button2048);
         buttonPeg = findViewById(R.id.button_peg);
         backButton = findViewById(R.id.back_button_gc);
         relativeLayout = findViewById(R.id.chooser_relative_layout);
         setBackGround();
+        //playMusic();
         button2048.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GameChooserActivity.this, Launcher2048Activity.class));
-
+                MenuActivity.music.stop();
             }
         });
 
@@ -43,7 +46,7 @@ public class GameChooserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GameChooserActivity.this, LauncherPegActivity.class));
-
+                MenuActivity.music.stop();
             }
         });
 
