@@ -5,87 +5,47 @@ import android.media.MediaPlayer;
 
 import java.io.IOException;
 
-public class MusicPlayer {
-    enum Style {
-        EPIC,
-        BEAT,
-        ACUSTIC
-    }
+public class MusicPlayer implements Runnable {
 
-    private Style style;
+
     private MediaPlayer music;
-    private final Context context;
-    private int position = 0;
+    private boolean playing = true;
+    int[] songs = new int[9];
+
+    private Context context;
+    private int oldRand = -1;
 
     public MusicPlayer(Context context) {
+        fillSongs();
         this.context = context;
+        setUpRandomSong();
     }
 
-    public void playMusic(Style style) {
-        this.style = style;
-        switch (style) {
-            case EPIC:
-                playEpicMusic();
-                break;
-            case BEAT:
-                playBeatMusic();
-                break;
-            case ACUSTIC:
-                playAcusticMusic();
-                break;
-        }
+    private void fillSongs() {
+        songs[0] = R.raw.adventureiscalling;
+        songs[1] = R.raw.falling;
+        songs[2] = R.raw.moonshine;
+        songs[3] = R.raw.poem;
+        songs[4] = R.raw.soul;
+        songs[5] = R.raw.gently;
+        songs[6] = R.raw.herostime;
+        songs[7] = R.raw.hometown;
+        songs[8] = R.raw.homeward;
 
-    }
-
-    private void playAcusticMusic() {
-    }
-
-    private void playBeatMusic() {
-        int rand = (int) Math.round(Math.random() * 2);
-
-        switch (rand) {
-            case 1:
-                music = MediaPlayer.create(context, R.raw.game2048_moonshine);
-                break;
-            case 2:
-                music = MediaPlayer.create(context, R.raw.game2048_poem);
-                break;
-            default:
-                music = MediaPlayer.create(context, R.raw.game2048_soul);
-                break;
-        }
-        start();
 
     }
 
-    private void playEpicMusic() {
-
-        int rand = (int) Math.round(Math.random() * 2);
-
-        switch (rand) {
-            case 1:
-                music = MediaPlayer.create(context, R.raw.menu_adventureiscalling);
-                break;
-            case 2:
-                music = MediaPlayer.create(context, R.raw.menu_falling);
-                break;
-            default:
-                music = MediaPlayer.create(context, R.raw.menu_herostime);
-                break;
-        }
-        start();
-
-    }
 
     public void start() {
-
-        music.start();
+        playing = true;
 
     }
 
     public void stop() {
+        playing = false;
         music.stop();
     }
+
 
     public void reset() {
         music.reset();
@@ -100,12 +60,43 @@ public class MusicPlayer {
     }
 
 
-    //TODO: PAUSE
-    public void pause(){
-        music.setVolume(0,0);
-        position = music.getCurrentPosition();
+
+
+    @Override
+    public void run() {
+        while (true) {
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            while (playing) {
+
+
+                if (!this.isPlaying()) {
+                    music.reset();
+                    setUpRandomSong();
+                }
+
+
+            }
+        }
 
     }
 
+    private void setUpRandomSong() {
+        int rand = (int) Math.round(Math.random()*8);
+        if(rand != oldRand){
+            music = MediaPlayer.create(context, songs[rand]);
+            music.start();
+            oldRand = rand;
+        }else{
+            setUpRandomSong();
+        }
 
+
+
+    }
 }

@@ -57,11 +57,7 @@ public class LogInActivity extends AppCompatActivity {
 
         // Edit and commit
         username = usernameText.getText().toString();
-        if(settings.getString(MenuActivity.PREF_UNAME, username).equals(username)){
-            Log.d("aa", "pene");
-        }else{
-            Log.d("bb", settings.getString(MenuActivity.PREF_UNAME, username));
-        }
+
         editor.putString(MenuActivity.PREF_UNAME, username);
         editor.commit();
 

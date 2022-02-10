@@ -35,7 +35,6 @@ public class Launcher2048Activity extends Activity {
     private String oldScore = "0";
     private boolean canUndo=false;
     private MediaPlayer swipe, sum;
-    private MusicPlayer music;
 
     //ONCREATE
     @Override
@@ -57,7 +56,6 @@ public class Launcher2048Activity extends Activity {
         swipe.setVolume(100,100);
         sum.setVolume(1000,1000);
 
-        music = new MusicPlayer(this);
         fadeIn.setDuration(2500);
         setListeners();
 
@@ -67,8 +65,6 @@ public class Launcher2048Activity extends Activity {
 
         setUpOldButtons();
         setColors();
-        music.playMusic(MusicPlayer.Style.BEAT);
-        music.setVolume(100);
 
 
     }
@@ -85,7 +81,6 @@ public class Launcher2048Activity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
                 Launcher2048Activity.this.finish();
 
             }
@@ -147,7 +142,6 @@ public class Launcher2048Activity extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Launcher2048Activity.this, Launcher2048Activity.class));
-                music.stop();
                 Launcher2048Activity.this.finish();
 
             }
@@ -416,7 +410,6 @@ public class Launcher2048Activity extends Activity {
 
     @Override
     protected void onPause() {
-        music.stop();
         super.onPause();
     }
 
@@ -433,10 +426,6 @@ public class Launcher2048Activity extends Activity {
             setNewNumber();
         }
 
-        if(!music.isPlaying()){
-            music.playMusic(MusicPlayer.Style.BEAT);
-
-        }
         setColors();
 
         serch2024();

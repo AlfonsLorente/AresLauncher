@@ -17,43 +17,43 @@ import android.widget.RelativeLayout;
 public class GameChooserActivity extends AppCompatActivity {
     private ImageButton button2048, buttonPeg, backButton;
     private RelativeLayout relativeLayout;
+
     public static boolean esTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //MenuActivity.music.();
         setContentView(R.layout.activity_game_chooser);
 
         button2048 = findViewById(R.id.button2048);
         buttonPeg = findViewById(R.id.button_peg);
         backButton = findViewById(R.id.back_button_gc);
         relativeLayout = findViewById(R.id.chooser_relative_layout);
+        MenuActivity.isActivity = false;
         setBackGround();
         //playMusic();
         button2048.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GameChooserActivity.this, Launcher2048Activity.class));
-                MenuActivity.music.stop();
             }
         });
 
-        buttonPeg.setOnClickListener(new View.OnClickListener(){
+        buttonPeg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GameChooserActivity.this, LauncherPegActivity.class));
-                MenuActivity.music.stop();
+
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener(){
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GameChooserActivity.this, MenuActivity.class));
                 GameChooserActivity.this.finish();
             }
         });
@@ -80,4 +80,26 @@ public class GameChooserActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        MenuActivity.music.stop();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        if (!MenuActivity.isActivity) {
+            MenuActivity.music.stop();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if (!MenuActivity.isActivity) {
+            MenuActivity.music.start();
+        }
+
+        super.onResume();
+    }
 }
