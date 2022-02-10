@@ -34,7 +34,10 @@ public class Launcher2048Activity extends Activity {
     private TextView score;
     private String oldScore = "0";
     private boolean canUndo=false;
-    private MediaPlayer swipe, sum;
+    private MediaPlayer swipe, sum, buttonEffect;
+    private boolean activityPressed = false;
+
+
 
     //ONCREATE
     @Override
@@ -53,8 +56,9 @@ public class Launcher2048Activity extends Activity {
         score = findViewById(R.id.score);
         swipe = MediaPlayer.create(Launcher2048Activity.this, R.raw.swipe2048_2);
         sum = MediaPlayer.create(Launcher2048Activity.this, R.raw.suma);
+        buttonEffect =  MediaPlayer.create(Launcher2048Activity.this, R.raw.menu_pick);
         swipe.setVolume(100,100);
-        sum.setVolume(1000,1000);
+        sum.setVolume(100,100);
 
         fadeIn.setDuration(2500);
         setListeners();
@@ -62,13 +66,30 @@ public class Launcher2048Activity extends Activity {
         //Set up game
         setUpNewButtons();
         setNewNumber();
+        setNewNumber();
 
         setUpOldButtons();
         setColors();
 
 
     }
+    @Override
+    protected void onPause() {
+        if (!activityPressed){
 
+            MenuActivity.music.pause();
+        }
+        activityPressed = false;
+
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        MenuActivity.music.resume();
+
+        super.onResume();
+    }
 
     private void setListeners() {
 
@@ -81,6 +102,7 @@ public class Launcher2048Activity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                activityPressed = true;
                 Launcher2048Activity.this.finish();
 
             }
@@ -134,6 +156,8 @@ public class Launcher2048Activity extends Activity {
         backButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                buttonEffect.start();
+                activityPressed = true;
                 Launcher2048Activity.this.finish();
             }
         });
@@ -141,6 +165,8 @@ public class Launcher2048Activity extends Activity {
         restartButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                buttonEffect.start();
+                activityPressed = true;
                 startActivity(new Intent(Launcher2048Activity.this, Launcher2048Activity.class));
                 Launcher2048Activity.this.finish();
 
@@ -150,6 +176,7 @@ public class Launcher2048Activity extends Activity {
         undoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                buttonEffect.start();
                 if (canUndo) {
                     updateNewButtons();
                     setColors();
@@ -408,17 +435,6 @@ public class Launcher2048Activity extends Activity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-
-        resumeGame();
-        super.onResume();
-    }
 
 
     public void resumeGame() {

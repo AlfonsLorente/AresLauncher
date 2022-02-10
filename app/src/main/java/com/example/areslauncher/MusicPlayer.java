@@ -2,10 +2,13 @@ package com.example.areslauncher;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.util.Log;
 
+import java.io.File;
 import java.io.IOException;
 
-public class MusicPlayer implements Runnable {
+public class MusicPlayer {
 
 
     private MediaPlayer music;
@@ -15,11 +18,15 @@ public class MusicPlayer implements Runnable {
     private Context context;
     private int oldRand = -1;
 
+
     public MusicPlayer(Context context) {
         fillSongs();
         this.context = context;
+
         setUpRandomSong();
+
     }
+
 
     private void fillSongs() {
         songs[0] = R.raw.adventureiscalling;
@@ -36,14 +43,20 @@ public class MusicPlayer implements Runnable {
     }
 
 
+    public void resume(){
+        music.start();
+    }
+
     public void start() {
-        playing = true;
+        setUpRandomSong();
+
 
     }
 
-    public void stop() {
+    public void pause() {
         playing = false;
-        music.stop();
+        music.pause();
+
     }
 
 
@@ -55,47 +68,36 @@ public class MusicPlayer implements Runnable {
         music.setVolume(volume, volume);
     }
 
-    public boolean isPlaying(){
+    public boolean isPlaying() {
         return music.isPlaying();
     }
 
 
 
-
-    @Override
-    public void run() {
-        while (true) {
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    private void setUpRandomSong() {
+        int rand = (int) Math.round(Math.random() * 8);
+        if (rand != oldRand) {
+            Log.d("Random", "" + rand);
+            if (music != null) {
+                music.release();
             }
-
-            while (playing) {
-
-
-                if (!this.isPlaying()) {
-                    music.reset();
+            music = MediaPlayer.create(context, songs[rand]);
+            music.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    music.start();
+                }
+            });
+            music.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
                     setUpRandomSong();
                 }
-
-
-            }
-        }
-
-    }
-
-    private void setUpRandomSong() {
-        int rand = (int) Math.round(Math.random()*8);
-        if(rand != oldRand){
-            music = MediaPlayer.create(context, songs[rand]);
-            music.start();
+            });
             oldRand = rand;
-        }else{
+        } else {
             setUpRandomSong();
         }
-
 
 
     }

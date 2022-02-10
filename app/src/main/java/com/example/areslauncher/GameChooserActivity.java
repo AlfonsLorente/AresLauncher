@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.widget.RelativeLayout;
 public class GameChooserActivity extends AppCompatActivity {
     private ImageButton button2048, buttonPeg, backButton;
     private RelativeLayout relativeLayout;
+    private MediaPlayer buttonEffect;
+    private boolean activityPressed = false;
 
     public static boolean esTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout
@@ -33,12 +36,17 @@ public class GameChooserActivity extends AppCompatActivity {
         buttonPeg = findViewById(R.id.button_peg);
         backButton = findViewById(R.id.back_button_gc);
         relativeLayout = findViewById(R.id.chooser_relative_layout);
-        MenuActivity.isActivity = false;
         setBackGround();
-        //playMusic();
+
+        buttonEffect = MediaPlayer.create(this, R.raw.menu_pick);
+
+
         button2048.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                activityPressed = true;
+                buttonEffect.start();
+
                 startActivity(new Intent(GameChooserActivity.this, Launcher2048Activity.class));
             }
         });
@@ -46,6 +54,8 @@ public class GameChooserActivity extends AppCompatActivity {
         buttonPeg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                activityPressed = true;
+                buttonEffect.start();
                 startActivity(new Intent(GameChooserActivity.this, LauncherPegActivity.class));
 
             }
@@ -54,6 +64,8 @@ public class GameChooserActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                activityPressed = true;
+                buttonEffect.start();
                 GameChooserActivity.this.finish();
             }
         });
@@ -80,25 +92,22 @@ public class GameChooserActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        MenuActivity.music.stop();
-        super.onDestroy();
-    }
 
     @Override
     protected void onPause() {
-        if (!MenuActivity.isActivity) {
-            MenuActivity.music.stop();
+        if (!activityPressed){
+
+            MenuActivity.music.pause();
         }
+        activityPressed = false;
+
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-        if (!MenuActivity.isActivity) {
-            MenuActivity.music.start();
-        }
+            MenuActivity.music.resume();
+
 
         super.onResume();
     }

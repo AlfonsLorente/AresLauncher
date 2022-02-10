@@ -24,13 +24,14 @@ public class MenuActivity extends AppCompatActivity {
     public static final String PREFS_KEY = "preferences";
     public static final String PREF_UNAME = "username";
     public static final String EXTRAS = "extras";
-    public static final String MUSIC = "music";
     public static Thread musicThread;
     private String username;
     private RelativeLayout relativeLayout;
     private ListView menuList;
+    private MediaPlayer buttonEffect;
+
     public static MusicPlayer music;
-    public static boolean isActivity = false;
+    private boolean activityPressed = false;
 
 
     public static boolean esTablet(Context context) {
@@ -46,7 +47,11 @@ public class MenuActivity extends AppCompatActivity {
         relativeLayout = findViewById(R.id.menu_relative_layout);
         menuList = findViewById(R.id.ListView_Menu);
         setItemsToLV();
-        isActivity = false;
+        setBackGround();
+
+        music = new MusicPlayer(this);
+
+        buttonEffect = MediaPlayer.create(this, R.raw.menu_pick);
 
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View itemClicked,
@@ -56,54 +61,60 @@ public class MenuActivity extends AppCompatActivity {
 
                 if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_play))) {
                     // Launch the Game Activity
-                    isActivity = true;
+                    activityPressed = true;
+                    buttonEffect.start();
                     startActivity(new Intent(MenuActivity.this, GameChooserActivity.class));
 
                    // MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_help))) {
                     // Launch the Help Activity
+                    activityPressed = true;
+                    buttonEffect.start();
                     startActivity(new Intent(MenuActivity.this, HelpActivity.class));
                   //  MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_settings))) {
                     // Launch the Settings Activity
+                    activityPressed = true;
+                    buttonEffect.start();
                     startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
                  //   MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_scores))) {
                     // Launch the Scores Activity
+                    activityPressed = true;
+                    buttonEffect.start();
                     startActivity(new Intent(MenuActivity.this, ScoresActivity.class));
                   //  MenuActivity.this.finish();
                 }
             }
         });
 
-        setBackGround();
-        music = new MusicPlayer(this);
-        musicThread = new Thread(music);
-        musicThread.start();
 
     }
 
 
+    public void onPrepared(MediaPlayer player) {
+        player.start();
+    }
+
     @Override
     protected void onDestroy() {
-        music.stop();
+        music.reset();
         super.onDestroy();
     }
 
     @Override
     protected void onPause() {
-        if(!isActivity) {
-            music.stop();
+        if (!activityPressed){
+            music.pause();
+
         }
+        activityPressed = false;
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-        if(!isActivity) {
-            music.start();
-        }
-        isActivity = false;
+            music.resume();
 
 
         super.onResume();
