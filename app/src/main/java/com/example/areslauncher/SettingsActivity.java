@@ -16,7 +16,8 @@ public class SettingsActivity extends AppCompatActivity {
     private AppCompatSeekBar seekBarEffects;
     private ImageButton backButton;
     private boolean activityPressed;
-
+    int musicVolume;
+    int effectVolume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,8 @@ public class SettingsActivity extends AppCompatActivity {
         seekBarEffects = findViewById(R.id.EffetsVolume);
         backButton = findViewById(R.id.back_button_settings);
 
-        int musicVolume = (int) Math.round(MenuActivity.music.getVolumeMusic() * 100);
-        int effectVolume = (int) Math.round(MenuActivity.effects.getVolumeEffects() * 100);
+        musicVolume = (int) Math.round(MenuActivity.music.getVolumeMusic() * 100);
+        effectVolume = (int) Math.round(MenuActivity.effects.getVolumeEffects() * 100);
 
         if (musicVolume == effectVolume) {
             seekBarMaster.setProgress(musicVolume);
@@ -50,6 +51,8 @@ public class SettingsActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 MenuActivity.music.setMusicVolume(progress);
                 MenuActivity.effects.setEffectsVolume(progress);
+                musicVolume = progress;
+                effectVolume = progress;
                 seekBarMaster.getThumb().setTint(getResources().getColor(R.color.activeThumb, null));
                 seekBarEffects.getThumb().setTint(getResources().getColor(R.color.inactiveThumb, null));
                 seekBarMusic.getThumb().setTint(getResources().getColor(R.color.inactiveThumb, null));
@@ -71,6 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 MenuActivity.music.setMusicVolume(progress);
                 MenuActivity.effects.setEffectsVolume(effectVolume);
+                musicVolume = progress;
                 seekBarMaster.getThumb().setTint(getResources().getColor(R.color.inactiveThumb, null));
                 seekBarEffects.getThumb().setTint(getResources().getColor(R.color.activeThumb, null));
                 seekBarMusic.getThumb().setTint(getResources().getColor(R.color.activeThumb, null));
@@ -92,6 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 MenuActivity.music.setMusicVolume(musicVolume);
                 MenuActivity.effects.setEffectsVolume(progress);
+                effectVolume = progress;
                 seekBarMaster.getThumb().setTint(getResources().getColor(R.color.inactiveThumb, null));
                 seekBarEffects.getThumb().setTint(getResources().getColor(R.color.activeThumb, null));
                 seekBarMusic.getThumb().setTint(getResources().getColor(R.color.activeThumb, null));
