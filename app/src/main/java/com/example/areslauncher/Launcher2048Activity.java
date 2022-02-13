@@ -2,6 +2,7 @@ package com.example.areslauncher;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.effect.Effect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,7 @@ public class Launcher2048Activity extends Activity {
     private final ArrayList<ArrayList<String>>  oldButtonsText = new ArrayList<ArrayList<String>>();
     private GridLayout gridLayoutGame;
     private ImageView victorySplash, gameOverSplash;
-    private ImageButton backButton, restartButton, undoButton;
+    private ImageButton backButton, restartButton, undoButton, settingsButton;
     private Animation fadeIn;
     private final Random random = new Random();
     private ConstraintLayout constraintLayout;
@@ -34,7 +35,6 @@ public class Launcher2048Activity extends Activity {
     private TextView score;
     private String oldScore = "0";
     private boolean canUndo=false;
-    private MediaPlayer swipe, sum, buttonEffect;
     private boolean activityPressed = false;
 
 
@@ -50,15 +50,15 @@ public class Launcher2048Activity extends Activity {
         backButton = findViewById(R.id.back_button_2048);
         restartButton = findViewById(R.id.restart_button_2048);
         undoButton = findViewById(R.id.undo_button_2048);
+        settingsButton = findViewById(R.id.settings_button_2048);
         victorySplash = findViewById(R.id.Victory2048);
         gameOverSplash = findViewById(R.id.GameOver2048);
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         score = findViewById(R.id.score);
-        swipe = MediaPlayer.create(Launcher2048Activity.this, R.raw.swipe2048_2);
-        sum = MediaPlayer.create(Launcher2048Activity.this, R.raw.suma);
-        buttonEffect =  MediaPlayer.create(Launcher2048Activity.this, R.raw.menu_pick);
-        swipe.setVolume(100,100);
-        sum.setVolume(100,100);
+        MenuActivity.effects.addEffect(R.raw.swipe2048_2);
+        MenuActivity.effects.addEffect(R.raw.suma);
+
+
 
         fadeIn.setDuration(2500);
         setListeners();
@@ -73,6 +73,14 @@ public class Launcher2048Activity extends Activity {
 
 
     }
+
+    @Override
+    protected void onDestroy() {
+        MenuActivity.effects.removeEffect(R.raw.swipe2048_2);
+        MenuActivity.effects.removeEffect(R.raw.suma);
+        super.onDestroy();
+    }
+
     @Override
     protected void onPause() {
         if (!activityPressed){
@@ -156,7 +164,7 @@ public class Launcher2048Activity extends Activity {
         backButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                buttonEffect.start();
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
                 activityPressed = true;
                 Launcher2048Activity.this.finish();
             }
@@ -165,7 +173,8 @@ public class Launcher2048Activity extends Activity {
         restartButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                buttonEffect.start();
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
+
                 activityPressed = true;
                 startActivity(new Intent(Launcher2048Activity.this, Launcher2048Activity.class));
                 Launcher2048Activity.this.finish();
@@ -176,13 +185,23 @@ public class Launcher2048Activity extends Activity {
         undoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                buttonEffect.start();
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
+
                 if (canUndo) {
                     updateNewButtons();
                     setColors();
                 }else{
                     Toast.makeText(Launcher2048Activity.this, "Can't undo", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityPressed = true;
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
+                startActivity(new Intent(Launcher2048Activity.this, SettingsActivity.class));
             }
         });
 
@@ -202,7 +221,8 @@ public class Launcher2048Activity extends Activity {
                     while(k < 4){
                         //When a button with number is found
                         if (!buttons.get(k).get(j).getText().equals("")) {
-                            swipe.start();
+                            MenuActivity.effects.playEffect(R.raw.swipe2048_2);
+
 
                             //Switch values
                             buttons.get(i).get(j).setText(buttons.get(k).get(j).getText());
@@ -235,7 +255,7 @@ public class Launcher2048Activity extends Activity {
                                 //Set the number multiplied by 2
                                 int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
-                                sum.start();
+                                MenuActivity.effects.playEffect(R.raw.suma);
                                 buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
                                 //Change score
@@ -265,7 +285,7 @@ public class Launcher2048Activity extends Activity {
                         //When a button with number is found
                         if (!buttons.get(k).get(j).getText().equals("")) {
                             //Switch values
-                            swipe.start();
+                            MenuActivity.effects.playEffect(R.raw.swipe2048_2);
                             buttons.get(i).get(j).setText(buttons.get(k).get(j).getText());
                             buttons.get(k).get(j).setText("");
                             break;
@@ -296,7 +316,7 @@ public class Launcher2048Activity extends Activity {
                                 //Set the number multiplied by 2
                                 int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
-                                sum.start();
+                                MenuActivity.effects.playEffect(R.raw.suma);
                                 buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
                                 //Change score
@@ -326,7 +346,7 @@ public class Launcher2048Activity extends Activity {
                         //When a button with number is found
                         if (!buttons.get(i).get(k).getText().equals("")) {
                             //Switch values
-                            swipe.start();
+                            MenuActivity.effects.playEffect(R.raw.swipe2048_2);
                             buttons.get(i).get(j).setText(buttons.get(i).get(k).getText());
                             buttons.get(i).get(k).setText("");
                             break;
@@ -357,7 +377,7 @@ public class Launcher2048Activity extends Activity {
                                 //Set the number multiplied by 2
                                 int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
-                                sum.start();
+                                MenuActivity.effects.playEffect(R.raw.suma);
                                 buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
                                 //Change score
@@ -387,7 +407,7 @@ public class Launcher2048Activity extends Activity {
                         //When a button with number is found
                         if (!buttons.get(i).get(k).getText().equals("")) {
                             //Switch values
-                            swipe.start();
+                            MenuActivity.effects.playEffect(R.raw.swipe2048_2);
                             buttons.get(i).get(j).setText(buttons.get(i).get(k).getText());
                             buttons.get(i).get(k).setText("");
                             break;
@@ -418,7 +438,7 @@ public class Launcher2048Activity extends Activity {
                                 //Set the number multiplied by 2
                                 int num = Integer.parseInt(buttons.get(i).get(j).getText().toString())*2;
                                 //make the changes
-                                sum.start();
+                                MenuActivity.effects.playEffect(R.raw.suma);
                                 buttons.get(i).get(j).setText("" + (num));
                                 buttons.get(k).get(j).setText("");
                                 //Change score

@@ -31,11 +31,11 @@ public class LauncherPegActivity extends AppCompatActivity {
     private ImageView victorySplash, gameOverSplash;
     private ImageButton backButton, restartButton, undoButton;
     private boolean canUndo = false;
-    private MediaPlayer pegPick, pegDrop, buttonEffect;
 
     private int oldi, oldj;
     private Animation fadeIn;
     private boolean activityPressed = false;
+    private ImageButton settingsButton;
 
     //ON CREATE
     @Override
@@ -49,16 +49,17 @@ public class LauncherPegActivity extends AppCompatActivity {
         backButton = findViewById(R.id.back_button_peg);
         restartButton = findViewById(R.id.restart_button_peg);
         undoButton = findViewById(R.id.undo_button_peg);
+        settingsButton = findViewById(R.id.settings_button_peg);
+
         possibleMoves = findViewById(R.id.possibleMoves);
         victorySplash = findViewById(R.id.pegVictory);
         gameOverSplash = findViewById(R.id.pegGameOver);
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         fadeIn.setDuration(2500);
 
-        pegPick = MediaPlayer.create(this, R.raw.peg_pick);
-        pegDrop = MediaPlayer.create(this, R.raw.peg_drop);
-        buttonEffect = MediaPlayer.create(this, R.raw.menu_pick);
 
+        MenuActivity.effects.addEffect(R.raw.peg_pick);
+        MenuActivity.effects.addEffect(R.raw.peg_drop);
 
 
         setListeners();
@@ -72,8 +73,15 @@ public class LauncherPegActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        MenuActivity.effects.removeEffect(R.raw.peg_pick);
+        MenuActivity.effects.removeEffect(R.raw.peg_drop);
+        super.onDestroy();
+    }
+
+    @Override
     protected void onPause() {
-        if (!activityPressed){
+        if (!activityPressed) {
 
             MenuActivity.music.pause();
         }
@@ -116,7 +124,7 @@ public class LauncherPegActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 activityPressed = true;
-                buttonEffect.start();
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
                 LauncherPegActivity.this.finish();
             }
         });
@@ -125,7 +133,8 @@ public class LauncherPegActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 activityPressed = true;
-                buttonEffect.start();
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
+
                 startActivity(new Intent(LauncherPegActivity.this, LauncherPegActivity.class));
                 LauncherPegActivity.this.finish();
             }
@@ -134,12 +143,23 @@ public class LauncherPegActivity extends AppCompatActivity {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonEffect.start();
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
+
                 if (canUndo) {
                     updateNewPegs();
-                }else {
+                } else {
                     Toast.makeText(LauncherPegActivity.this, "Can't undo", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityPressed = true;
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
+                startActivity(new Intent(LauncherPegActivity.this, SettingsActivity.class));
             }
         });
 
@@ -258,7 +278,8 @@ public class LauncherPegActivity extends AppCompatActivity {
                 calculateMovement(view);
             } else {
                 if (!view.getBackground().getConstantState().equals(getDrawable(R.drawable.pegempty).getConstantState())) {
-                    pegPick.start();
+                    MenuActivity.effects.playEffect(R.raw.peg_pick);
+
                     view.setBackground(getDrawable(R.drawable.pegpressed));
                 }
             }
@@ -285,7 +306,8 @@ public class LauncherPegActivity extends AppCompatActivity {
                         if (oldi - 2 == i && oldj == j) {
                             if (pegs.get(i + 1).get(j).getBackground().getConstantState().equals(getDrawable(R.drawable.pegunpressed).getConstantState())) {
                                 //move the pegs
-                                pegDrop.start();
+                                MenuActivity.effects.playEffect(R.raw.peg_drop);
+
                                 pegs.get(i).get(j).setBackground(getDrawable(R.drawable.pegunpressed));
                                 pegs.get(i + 1).get(j).setBackground(getDrawable(R.drawable.pegempty));
                                 pegs.get(i + 2).get(j).setBackground(getDrawable(R.drawable.pegempty));
@@ -295,7 +317,8 @@ public class LauncherPegActivity extends AppCompatActivity {
                         } else if (oldi + 2 == i && oldj == j) {
                             if (pegs.get(i - 1).get(j).getBackground().getConstantState().equals(getDrawable(R.drawable.pegunpressed).getConstantState())) {
                                 //move the pegs
-                                pegDrop.start();
+                                MenuActivity.effects.playEffect(R.raw.peg_drop);
+
                                 pegs.get(i).get(j).setBackground(getDrawable(R.drawable.pegunpressed));
                                 pegs.get(i - 1).get(j).setBackground(getDrawable(R.drawable.pegempty));
                                 pegs.get(i - 2).get(j).setBackground(getDrawable(R.drawable.pegempty));
@@ -304,7 +327,8 @@ public class LauncherPegActivity extends AppCompatActivity {
                         } else if (oldi == i && oldj - 2 == j) {
                             if (pegs.get(i).get(j + 1).getBackground().getConstantState().equals(getDrawable(R.drawable.pegunpressed).getConstantState())) {
                                 //move the pegs
-                                pegDrop.start();
+                                MenuActivity.effects.playEffect(R.raw.peg_drop);
+
                                 pegs.get(i).get(j).setBackground(getDrawable(R.drawable.pegunpressed));
                                 pegs.get(i).get(j + 1).setBackground(getDrawable(R.drawable.pegempty));
                                 pegs.get(i).get(j + 2).setBackground(getDrawable(R.drawable.pegempty));
@@ -313,7 +337,8 @@ public class LauncherPegActivity extends AppCompatActivity {
                         } else if (oldi == i && oldj + 2 == j) {
                             if (pegs.get(i).get(j - 1).getBackground().getConstantState().equals(getDrawable(R.drawable.pegunpressed).getConstantState())) {
                                 //move the pegs
-                                pegDrop.start();
+                                MenuActivity.effects.playEffect(R.raw.peg_drop);
+
                                 pegs.get(i).get(j).setBackground(getDrawable(R.drawable.pegunpressed));
                                 pegs.get(i).get(j - 1).setBackground(getDrawable(R.drawable.pegempty));
                                 pegs.get(i).get(j - 2).setBackground(getDrawable(R.drawable.pegempty));
@@ -321,7 +346,8 @@ public class LauncherPegActivity extends AppCompatActivity {
                         }
 
                     } else {
-                        pegPick.start();
+                        MenuActivity.effects.playEffect(R.raw.peg_pick);
+
                         pegs.get(i).get(j).setBackground(getDrawable(R.drawable.pegpressed));
                         pegs.get(oldi).get(oldj).setBackground(getDrawable(R.drawable.pegunpressed));
 

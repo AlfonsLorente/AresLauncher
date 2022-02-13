@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/chooser_relative_layout"
     android:background="@drawable/menubackground1080"
-    tools:context=".MenuActivity">
+    tools:context=".GameChooserActivity">
 
     <ImageView
         style="@style/MenuSwordL"
@@ -37,7 +37,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/back" />
+            android:background="@drawable/back"
+            android:soundEffectsEnabled="false"/>/>
     </RelativeLayout>
 
 
@@ -65,20 +66,30 @@
             android:columnCount="2"
             android:orientation="horizontal"
             android:useDefaultMargins="true">
+            <androidx.cardview.widget.CardView
+               style="@style/CardViewStyle"
+                >
 
-            <ImageButton
-                android:id="@+id/button2048"
-                android:background="@drawable/button_start_2048_png"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                />
+                <ImageButton
+                    android:id="@+id/button2048"
+                    android:background="@drawable/button_start_2048_png"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:soundEffectsEnabled="false"/>
+                    />
+            </androidx.cardview.widget.CardView>
 
-            <ImageButton
-                android:id="@+id/button_peg"
-                android:background="@drawable/button_start_peg_png"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                />
+            <androidx.cardview.widget.CardView
+                style="@style/CardViewStyle">
+
+                <ImageButton
+                    android:id="@+id/button_peg"
+                    android:background="@drawable/button_start_peg_png"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:soundEffectsEnabled="false"/>
+                    />
+            </androidx.cardview.widget.CardView>
         </GridLayout>
     </LinearLayout>
 

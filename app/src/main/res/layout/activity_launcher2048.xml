@@ -41,6 +41,23 @@
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037"
+        android:soundEffectsEnabled="false"/>
+
+
+    <ImageButton
+        android:id="@+id/settings_button_2048"
+
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:background="@drawable/ic_settings"
+        android:soundEffectsEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.037" />
 
     <ImageButton
@@ -55,7 +72,8 @@
         app:layout_constraintHorizontal_bias="0.783"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintVertical_bias="0.307"
+        android:soundEffectsEnabled="false"/>/>
 
     <ImageButton
         android:id="@+id/undo_button_2048"
@@ -69,7 +87,8 @@
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintVertical_bias="0.307"
+        android:soundEffectsEnabled="false"/>/>
 
     <TextView
         android:id="@+id/txtv1"

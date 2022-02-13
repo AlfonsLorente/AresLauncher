@@ -26,6 +26,7 @@ public class LogInActivity extends AppCompatActivity {
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,18 +39,19 @@ public class LogInActivity extends AppCompatActivity {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                savePreferences();
-                startActivity(new Intent(LogInActivity.this, MenuActivity.class).putExtra(MenuActivity.EXTRAS, username));
+                //savePreferences();
+                startActivity(new Intent(LogInActivity.this, MenuActivity.class));
                 LogInActivity.this.finish();
             }
         });
 
     }
+
     @Override
     public void onPause() {
         super.onPause();
     }
-
+/*
     private void savePreferences() {
         SharedPreferences settings = getSharedPreferences(MenuActivity.PREFS_KEY,
                 Context.MODE_PRIVATE);
@@ -61,7 +63,7 @@ public class LogInActivity extends AppCompatActivity {
         editor.putString(MenuActivity.PREF_UNAME, username);
         editor.commit();
 
-    }
+    }*/
 
 
     private void setBackGround() {

@@ -7,6 +7,8 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MusicPlayer {
 
@@ -14,17 +16,49 @@ public class MusicPlayer {
     private MediaPlayer music;
     private boolean playing = true;
     int[] songs = new int[9];
-
+    HashMap<Integer, MediaPlayer> effects = new HashMap<>();
     private Context context;
     private int oldRand = -1;
+    float volumeEffects = 1;
+    float volumeMusic = 1;
 
 
-    public MusicPlayer(Context context) {
-        fillSongs();
-        this.context = context;
+    public MusicPlayer(Context context, int i) {
+        if(i == 0) {
+            fillSongs();
+            this.context = context;
 
-        setUpRandomSong();
+            setUpRandomSong();
+        }else{
+            this.context = context;
+        }
 
+    }
+
+    public float getVolumeEffects() {
+        return volumeEffects;
+    }
+
+
+
+    public float getVolumeMusic() {
+        return volumeMusic;
+    }
+
+
+    public void addEffect(int effect){
+        effects.put(effect, MediaPlayer.create(context, effect));
+    }
+
+    public void playEffect(int effect){
+        effects.get(effect).setVolume(volumeEffects, volumeEffects);
+        effects.get(effect).start();
+
+
+    }
+
+    public void removeEffect(int effect){
+        effects.remove(effect);
     }
 
 
@@ -59,13 +93,27 @@ public class MusicPlayer {
 
     }
 
+    public void play(){
+        music.start();
+    }
+
 
     public void reset() {
         music.reset();
     }
 
-    public void setVolume(float volume) {
-        music.setVolume(volume, volume);
+    public void setMusicVolume(int volume) {
+        float volFloat = (float) volume / 100;
+        volumeMusic = volFloat;
+        music.setVolume(volFloat, volFloat);
+    }
+
+    public void setEffectsVolume(int volume) {
+        float volFloat = (float) volume / 100;
+        volumeEffects = volFloat;
+        for (MediaPlayer effect: effects.values()){
+            effect.setVolume(volFloat, volFloat);
+        }
     }
 
     public boolean isPlaying() {
@@ -85,6 +133,7 @@ public class MusicPlayer {
             music.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
+                    music.setVolume(volumeMusic, volumeMusic);
                     music.start();
                 }
             });

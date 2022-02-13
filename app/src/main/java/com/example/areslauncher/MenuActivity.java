@@ -20,25 +20,24 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.slider.Slider;
+
 public class MenuActivity extends AppCompatActivity {
-    public static final String PREFS_KEY = "preferences";
-    public static final String PREF_UNAME = "username";
-    public static final String EXTRAS = "extras";
-    public static Thread musicThread;
-    private String username;
     private RelativeLayout relativeLayout;
     private ListView menuList;
-    private MediaPlayer buttonEffect;
+    public static MusicPlayer effects;
 
     public static MusicPlayer music;
     private boolean activityPressed = false;
 
 
-    public static boolean esTablet(Context context) {
+    /*public static boolean esTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
+    }*/
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +45,14 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         relativeLayout = findViewById(R.id.menu_relative_layout);
         menuList = findViewById(R.id.ListView_Menu);
+        menuList.setSoundEffectsEnabled(false);
         setItemsToLV();
-        setBackGround();
+        //setBackGround();
 
-        music = new MusicPlayer(this);
+        music = new MusicPlayer(this, 0);
 
-        buttonEffect = MediaPlayer.create(this, R.raw.menu_pick);
+        effects = new MusicPlayer(this, 1);
+        effects.addEffect(R.raw.menu_pick);
 
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View itemClicked,
@@ -62,31 +63,36 @@ public class MenuActivity extends AppCompatActivity {
                 if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_play))) {
                     // Launch the Game Activity
                     activityPressed = true;
-                    buttonEffect.start();
+                    effects.playEffect(R.raw.menu_pick);
                     startActivity(new Intent(MenuActivity.this, GameChooserActivity.class));
 
                    // MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_help))) {
                     // Launch the Help Activity
                     activityPressed = true;
-                    buttonEffect.start();
+                    effects.playEffect(R.raw.menu_pick);
+
                     startActivity(new Intent(MenuActivity.this, HelpActivity.class));
                   //  MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_settings))) {
                     // Launch the Settings Activity
                     activityPressed = true;
-                    buttonEffect.start();
+                    effects.playEffect(R.raw.menu_pick);
                     startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
                  //   MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_scores))) {
                     // Launch the Scores Activity
                     activityPressed = true;
-                    buttonEffect.start();
+                    effects.playEffect(R.raw.menu_pick);
                     startActivity(new Intent(MenuActivity.this, ScoresActivity.class));
                   //  MenuActivity.this.finish();
                 }
             }
+
         });
+
+
+
 
 
     }
@@ -137,7 +143,7 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    private void setBackGround() {
+   /* private void setBackGround() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
@@ -155,6 +161,6 @@ public class MenuActivity extends AppCompatActivity {
             relativeLayout.setBackground(getDrawable(R.drawable.menubackground1080));
         }
 
-    }
+    }*/
 
 }

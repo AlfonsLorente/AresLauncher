@@ -13,5 +13,7 @@
     <color name="title_glow">#F00</color>
     <color name="menu_color">#f0f0f0</color>
     <color name="menu_glow">#F00</color>
+    <color name="activeThumb">#B58B00</color>
+    <color name="inactiveThumb">#7B1818</color>
 
 </resources>

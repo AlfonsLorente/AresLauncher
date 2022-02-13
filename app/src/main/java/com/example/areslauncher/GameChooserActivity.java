@@ -18,14 +18,13 @@ import android.widget.RelativeLayout;
 public class GameChooserActivity extends AppCompatActivity {
     private ImageButton button2048, buttonPeg, backButton;
     private RelativeLayout relativeLayout;
-    private MediaPlayer buttonEffect;
     private boolean activityPressed = false;
 
-    public static boolean esTablet(Context context) {
+    /*public static boolean esTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +35,13 @@ public class GameChooserActivity extends AppCompatActivity {
         buttonPeg = findViewById(R.id.button_peg);
         backButton = findViewById(R.id.back_button_gc);
         relativeLayout = findViewById(R.id.chooser_relative_layout);
-        setBackGround();
-
-        buttonEffect = MediaPlayer.create(this, R.raw.menu_pick);
-
+        //setBackGround();
 
         button2048.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 activityPressed = true;
-                buttonEffect.start();
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
 
                 startActivity(new Intent(GameChooserActivity.this, Launcher2048Activity.class));
             }
@@ -55,7 +51,8 @@ public class GameChooserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 activityPressed = true;
-                buttonEffect.start();
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
+
                 startActivity(new Intent(GameChooserActivity.this, LauncherPegActivity.class));
 
             }
@@ -65,14 +62,15 @@ public class GameChooserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 activityPressed = true;
-                buttonEffect.start();
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
+
                 GameChooserActivity.this.finish();
             }
         });
 
     }
 
-    private void setBackGround() {
+    /*private void setBackGround() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
@@ -90,12 +88,12 @@ public class GameChooserActivity extends AppCompatActivity {
             relativeLayout.setBackground(getDrawable(R.drawable.menubackground1080));
         }
 
-    }
+    }*/
 
 
     @Override
     protected void onPause() {
-        if (!activityPressed){
+        if (!activityPressed) {
 
             MenuActivity.music.pause();
         }
@@ -106,9 +104,7 @@ public class GameChooserActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-            MenuActivity.music.resume();
-
-
+        MenuActivity.music.resume();
         super.onResume();
     }
 }
