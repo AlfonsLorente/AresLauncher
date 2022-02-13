@@ -44,6 +44,7 @@ public class Launcher2048Activity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher2048);
+
         //Inicialitze variables
         gridLayoutGame = findViewById(R.id.gridLayout_game);
         constraintLayout = findViewById(R.id.constraintLayout);
@@ -76,8 +77,8 @@ public class Launcher2048Activity extends Activity {
 
     @Override
     protected void onDestroy() {
-        MenuActivity.effects.removeEffect(R.raw.swipe2048_2);
-        MenuActivity.effects.removeEffect(R.raw.suma);
+        //MenuActivity.effects.removeEffect(R.raw.swipe2048_2);
+        //MenuActivity.effects.removeEffect(R.raw.suma);
         super.onDestroy();
     }
 
@@ -176,8 +177,9 @@ public class Launcher2048Activity extends Activity {
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
 
                 activityPressed = true;
-                startActivity(new Intent(Launcher2048Activity.this, Launcher2048Activity.class));
                 Launcher2048Activity.this.finish();
+
+                startActivity(new Intent(Launcher2048Activity.this, Launcher2048Activity.class));
 
             }
         });
@@ -222,7 +224,6 @@ public class Launcher2048Activity extends Activity {
                         //When a button with number is found
                         if (!buttons.get(k).get(j).getText().equals("")) {
                             MenuActivity.effects.playEffect(R.raw.swipe2048_2);
-
 
                             //Switch values
                             buttons.get(i).get(j).setText(buttons.get(k).get(j).getText());
@@ -393,6 +394,8 @@ public class Launcher2048Activity extends Activity {
             }
         }
     }
+
+
 
     //SWIPE RIGHT ARRANGE NUMBERS
     private void swipeRightArrangeNumbers() {

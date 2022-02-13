@@ -74,8 +74,8 @@ public class LauncherPegActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        MenuActivity.effects.removeEffect(R.raw.peg_pick);
-        MenuActivity.effects.removeEffect(R.raw.peg_drop);
+        //MenuActivity.effects.removeEffect(R.raw.peg_pick);
+        //MenuActivity.effects.removeEffect(R.raw.peg_drop);
         super.onDestroy();
     }
 
@@ -134,9 +134,9 @@ public class LauncherPegActivity extends AppCompatActivity {
             public void onClick(View view) {
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
+                LauncherPegActivity.this.finish();
 
                 startActivity(new Intent(LauncherPegActivity.this, LauncherPegActivity.class));
-                LauncherPegActivity.this.finish();
             }
         });
 
@@ -166,9 +166,10 @@ public class LauncherPegActivity extends AppCompatActivity {
     }
 
 
+
     private void resumeGame() {
         updatePuntuation();
-        if (pegsAmount.getText() == "1") {
+        if (pegsAmount.getText().toString().equals("1") ){
             victorySplash.startAnimation(fadeIn);
             victorySplash.setVisibility(View.VISIBLE);
         } else {

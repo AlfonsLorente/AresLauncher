@@ -125,7 +125,6 @@ public class MusicPlayer {
     private void setUpRandomSong() {
         int rand = (int) Math.round(Math.random() * 8);
         if (rand != oldRand) {
-            Log.d("Random", "" + rand);
             if (music != null) {
                 music.release();
             }
