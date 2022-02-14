@@ -337,8 +337,8 @@ public class Launcher2048Activity extends Activity {
     //SWIPE LEFT ARRANGE NUMBERS
     private void swipeLeftArrangeNumbers() {
         //Loop all the buttons
-        for (int i = 0; i < buttons.size(); i++) {
-            for (int j = 0; j < buttons.get(i).size(); j++) {
+        for (int j = 0; j <  buttons.size(); j++)  {
+            for (int i = 0; i < buttons.size(); i++){
                 //When a button has no number
                 if(buttons.get(i).get(j).getText().equals("")){
                     //Loop on the buttons after the found one
@@ -380,7 +380,7 @@ public class Launcher2048Activity extends Activity {
                                 //make the changes
                                 MenuActivity.effects.playEffect(R.raw.suma);
                                 buttons.get(i).get(j).setText("" + (num));
-                                buttons.get(k).get(j).setText("");
+                                buttons.get(i).get(k).setText("");
                                 //Change score
                                 int score = Integer.parseInt(this.score.getText().toString());
                                 score += num;
@@ -443,7 +443,7 @@ public class Launcher2048Activity extends Activity {
                                 //make the changes
                                 MenuActivity.effects.playEffect(R.raw.suma);
                                 buttons.get(i).get(j).setText("" + (num));
-                                buttons.get(k).get(j).setText("");
+                                buttons.get(i).get(k).setText("");
                                 //Change score
                                 int score = Integer.parseInt(this.score.getText().toString());
                                 score += num;
