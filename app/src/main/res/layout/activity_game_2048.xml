@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Launcher2048Activity"
+    tools:context=".Game2048"
     android:background="@drawable/stone2048bg"
     >
 

@@ -2,17 +2,10 @@ package com.example.areslauncher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public class GameChooserActivity extends AppCompatActivity {
@@ -43,7 +36,7 @@ public class GameChooserActivity extends AppCompatActivity {
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
 
-                startActivity(new Intent(GameChooserActivity.this, Launcher2048Activity.class));
+                startActivity(new Intent(GameChooserActivity.this, Game2048.class));
             }
         });
 
@@ -53,7 +46,7 @@ public class GameChooserActivity extends AppCompatActivity {
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
 
-                startActivity(new Intent(GameChooserActivity.this, LauncherPegActivity.class));
+                startActivity(new Intent(GameChooserActivity.this, GamePeg.class));
 
             }
         });

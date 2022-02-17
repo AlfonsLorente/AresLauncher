@@ -14,11 +14,11 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".LauncherPegActivity"
+            android:name=".GamePeg"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Launcher2048Activity"
+            android:name=".Game2048"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

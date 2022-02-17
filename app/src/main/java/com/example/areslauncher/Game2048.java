@@ -1,10 +1,7 @@
 package com.example.areslauncher;
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.effect.Effect;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -20,7 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Launcher2048Activity extends Activity {
+public class Game2048 extends Activity {
     //VARIABLES
     private final ArrayList<ArrayList<Button>> buttons = new ArrayList<ArrayList<Button>>();
     private final ArrayList<ArrayList<String>>  oldButtonsText = new ArrayList<ArrayList<String>>();
@@ -43,7 +40,7 @@ public class Launcher2048Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launcher2048);
+        setContentView(R.layout.activity_game_2048);
 
         //Inicialitze variables
         gridLayoutGame = findViewById(R.id.gridLayout_game);
@@ -112,7 +109,7 @@ public class Launcher2048Activity extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 activityPressed = true;
-                Launcher2048Activity.this.finish();
+                Game2048.this.finish();
 
             }
 
@@ -167,7 +164,7 @@ public class Launcher2048Activity extends Activity {
             public void onClick(View view) {
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
                 activityPressed = true;
-                Launcher2048Activity.this.finish();
+                Game2048.this.finish();
             }
         });
 
@@ -177,9 +174,9 @@ public class Launcher2048Activity extends Activity {
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
 
                 activityPressed = true;
-                Launcher2048Activity.this.finish();
+                Game2048.this.finish();
 
-                startActivity(new Intent(Launcher2048Activity.this, Launcher2048Activity.class));
+                startActivity(new Intent(Game2048.this, Game2048.class));
 
             }
         });
@@ -193,7 +190,7 @@ public class Launcher2048Activity extends Activity {
                     updateNewButtons();
                     setColors();
                 }else{
-                    Toast.makeText(Launcher2048Activity.this, "Can't undo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Game2048.this, "Can't undo", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -203,7 +200,7 @@ public class Launcher2048Activity extends Activity {
             public void onClick(View v) {
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
-                startActivity(new Intent(Launcher2048Activity.this, SettingsActivity.class));
+                startActivity(new Intent(Game2048.this, SettingsActivity.class));
             }
         });
 

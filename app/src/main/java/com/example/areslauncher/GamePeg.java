@@ -2,26 +2,22 @@ package com.example.areslauncher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.LauncherActivity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import java.util.ArrayList;
 
-public class LauncherPegActivity extends AppCompatActivity {
+public class GamePeg extends AppCompatActivity {
     //Declare variables
     private final ArrayList<ArrayList<ImageButton>> pegs = new ArrayList<ArrayList<ImageButton>>();
     private final ArrayList<ArrayList<Drawable.ConstantState>> oldPegs = new ArrayList<ArrayList<Drawable.ConstantState>>();
@@ -41,7 +37,7 @@ public class LauncherPegActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_laucher_peg);
+        setContentView(R.layout.activity_game_peg);
 
         //initialize variables
         gridLayout = findViewById(R.id.grid_peg);
@@ -109,7 +105,7 @@ public class LauncherPegActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 activityPressed = true;
-                LauncherPegActivity.this.finish();
+                GamePeg.this.finish();
 
             }
 
@@ -125,7 +121,7 @@ public class LauncherPegActivity extends AppCompatActivity {
             public void onClick(View view) {
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
-                LauncherPegActivity.this.finish();
+                GamePeg.this.finish();
             }
         });
 
@@ -134,9 +130,9 @@ public class LauncherPegActivity extends AppCompatActivity {
             public void onClick(View view) {
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
-                LauncherPegActivity.this.finish();
+                GamePeg.this.finish();
 
-                startActivity(new Intent(LauncherPegActivity.this, LauncherPegActivity.class));
+                startActivity(new Intent(GamePeg.this, GamePeg.class));
             }
         });
 
@@ -148,7 +144,7 @@ public class LauncherPegActivity extends AppCompatActivity {
                 if (canUndo) {
                     updateNewPegs();
                 } else {
-                    Toast.makeText(LauncherPegActivity.this, "Can't undo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GamePeg.this, "Can't undo", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -159,7 +155,7 @@ public class LauncherPegActivity extends AppCompatActivity {
             public void onClick(View v) {
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
-                startActivity(new Intent(LauncherPegActivity.this, SettingsActivity.class));
+                startActivity(new Intent(GamePeg.this, SettingsActivity.class));
             }
         });
 
