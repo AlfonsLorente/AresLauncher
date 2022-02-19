@@ -33,7 +33,7 @@ public class Game2048 extends Activity {
     private String oldScore = "0";
     private boolean canUndo=false;
     private boolean activityPressed = false;
-
+    private boolean ableAddNum = false;
 
 
     //ONCREATE
@@ -225,6 +225,8 @@ public class Game2048 extends Activity {
                             //Switch values
                             buttons.get(i).get(j).setText(buttons.get(k).get(j).getText());
                             buttons.get(k).get(j).setText("");
+                            ableAddNum = true;
+
                             break;
                         }
                         k++;
@@ -260,8 +262,10 @@ public class Game2048 extends Activity {
                                 int score = Integer.parseInt(this.score.getText().toString());
                                 score += num;
                                 this.score.setText("" + score);
+                                ableAddNum = true;
                             }
                             break;
+
                         }
                         k++;
                     }
@@ -286,6 +290,7 @@ public class Game2048 extends Activity {
                             MenuActivity.effects.playEffect(R.raw.swipe2048_2);
                             buttons.get(i).get(j).setText(buttons.get(k).get(j).getText());
                             buttons.get(k).get(j).setText("");
+                            ableAddNum = true;
                             break;
                         }
                         k--;
@@ -321,8 +326,11 @@ public class Game2048 extends Activity {
                                 int score = Integer.parseInt(this.score.getText().toString());
                                 score += num;
                                 this.score.setText("" + score);
+                                ableAddNum = true;
+
                             }
                             break;
+
                         }
                         k--;
                     }
@@ -347,6 +355,7 @@ public class Game2048 extends Activity {
                             MenuActivity.effects.playEffect(R.raw.swipe2048_2);
                             buttons.get(i).get(j).setText(buttons.get(i).get(k).getText());
                             buttons.get(i).get(k).setText("");
+                            ableAddNum = true;
                             break;
                         }
                         k++;
@@ -382,8 +391,11 @@ public class Game2048 extends Activity {
                                 int score = Integer.parseInt(this.score.getText().toString());
                                 score += num;
                                 this.score.setText("" + score);
+                                ableAddNum = true;
+
                             }
                             break;
+
                         }
                         k++;
                     }
@@ -410,6 +422,7 @@ public class Game2048 extends Activity {
                             MenuActivity.effects.playEffect(R.raw.swipe2048_2);
                             buttons.get(i).get(j).setText(buttons.get(i).get(k).getText());
                             buttons.get(i).get(k).setText("");
+                            ableAddNum = true;
                             break;
                         }
                         k--;
@@ -445,8 +458,11 @@ public class Game2048 extends Activity {
                                 int score = Integer.parseInt(this.score.getText().toString());
                                 score += num;
                                 this.score.setText("" + score);
+                                ableAddNum = true;
+
                             }
                             break;
+
                         }
                         k--;
                     }
@@ -458,10 +474,12 @@ public class Game2048 extends Activity {
 
 
     public void resumeGame() {
-        if(!isFull()) {
+        if(ableAddNum) {
             setNewNumber();
+        }else{
+            Toast.makeText(getApplicationContext(), "Illegal move", Toast.LENGTH_SHORT).show();
         }
-
+        ableAddNum = false;
         setColors();
 
         serch2024();
@@ -536,17 +554,6 @@ public class Game2048 extends Activity {
     }
 
 
-    private boolean isFull() {
-        for(int i = 0; i < buttons.size(); i++) {
-            for(int j = 0; j < buttons.size(); j++) {
-                if(buttons.get(i).get(j).getText().toString().equals("")){
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
 
     private void checkGameOver() {
         isOver = false;
