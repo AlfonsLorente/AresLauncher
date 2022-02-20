@@ -9,6 +9,7 @@
     android:shadowColor="@color/menu_glow"
     android:shadowDx="1"
     android:shadowDy="1"
+    android:fontFamily="@font/greek"
     android:shadowRadius="15"
     android:textColor="@color/menu_color"
     android:textSize="@dimen/menu_item_size"

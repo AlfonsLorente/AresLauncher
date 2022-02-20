@@ -2,10 +2,13 @@ package com.example.areslauncher;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,6 +37,7 @@ public class Game2048 extends Activity {
     private boolean canUndo=false;
     private boolean activityPressed = false;
     private boolean ableAddNum = false;
+    private Chronometer chronometer;
 
 
     //ONCREATE
@@ -53,10 +57,12 @@ public class Game2048 extends Activity {
         gameOverSplash = findViewById(R.id.GameOver2048);
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         score = findViewById(R.id.score);
+        chronometer = findViewById(R.id.chrono_2048);
         MenuActivity.effects.addEffect(R.raw.swipe2048_2);
         MenuActivity.effects.addEffect(R.raw.suma);
 
-
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
 
         fadeIn.setDuration(2500);
         setListeners();
@@ -484,11 +490,15 @@ public class Game2048 extends Activity {
 
         serch2024();
         if(win == true){
+            chronometer.stop();
+            Log.d("chrono", chronometer.getText().toString());
             victorySplash.startAnimation(fadeIn);
             victorySplash.setVisibility(View.VISIBLE);
         }
         checkGameOver();
         if(isOver == true){
+            chronometer.stop();
+            Log.d("chrono", chronometer.getText().toString());
             gameOverSplash.startAnimation(fadeIn);
             gameOverSplash.setVisibility(View.VISIBLE);
         }

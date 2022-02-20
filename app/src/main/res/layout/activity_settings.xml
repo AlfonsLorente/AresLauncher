@@ -41,18 +41,18 @@
     </RelativeLayout>
 
 
-
     <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/MasterVolume"
+        style="@style/SeekBarUse"
         android:layout_width="308dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="53dp"
         android:layout_marginTop="169dp"
-        style="@style/SeekBarUse"
-        />
+        android:layout_marginBottom="544dp" />
 
     <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/MusicVolume"
@@ -61,20 +61,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="260dp" />
+        android:layout_marginTop="260dp"
+        android:layout_marginBottom="453dp" />
 
     <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/EffetsVolume"
+        style="@style/SeekBarNoUse"
         android:layout_width="308dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="52dp"
         android:layout_marginTop="309dp"
-        style="@style/SeekBarNoUse"/>
+        android:layout_marginBottom="404dp" />
 
 
     <TextView
@@ -82,10 +86,12 @@
         android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="141dp"
         android:layout_marginRight="156dp"
+        android:layout_marginBottom="560dp"
         android:gravity="center"
         android:shadowColor="@color/menu_glow"
         android:shadowDx="1"
@@ -96,14 +102,16 @@
         android:textSize="20dp"></TextView>
 
     <TextView
-        android:layout_width="99dp"
-        android:layout_height="30dp"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="278dp"
-        android:layout_marginRight="155dp"
+        android:layout_marginRight="158dp"
+        android:layout_marginBottom="423dp"
         android:gravity="center"
         android:shadowColor="@color/menu_glow"
         android:shadowDx="1"

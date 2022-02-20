@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Chronometer;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,6 +30,7 @@ public class GamePeg extends AppCompatActivity {
     private ImageView victorySplash, gameOverSplash;
     private ImageButton backButton, restartButton, undoButton;
     private boolean canUndo = false;
+    private Chronometer chronometer;
 
     private int oldi, oldj;
     private Animation fadeIn;
@@ -47,12 +51,15 @@ public class GamePeg extends AppCompatActivity {
         undoButton = findViewById(R.id.undo_button_peg);
         settingsButton = findViewById(R.id.settings_button_peg);
 
+        chronometer = findViewById(R.id.chrono_peg);
         possibleMoves = findViewById(R.id.possibleMoves);
         victorySplash = findViewById(R.id.pegVictory);
         gameOverSplash = findViewById(R.id.pegGameOver);
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         fadeIn.setDuration(2500);
 
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
 
         MenuActivity.effects.addEffect(R.raw.peg_pick);
         MenuActivity.effects.addEffect(R.raw.peg_drop);
@@ -166,6 +173,8 @@ public class GamePeg extends AppCompatActivity {
     private void resumeGame() {
         updatePuntuation();
         if (pegsAmount.getText().toString().equals("1") ){
+            chronometer.stop();
+            Log.d("chrono", chronometer.getText().toString());
             victorySplash.startAnimation(fadeIn);
             victorySplash.setVisibility(View.VISIBLE);
         } else {
@@ -241,6 +250,9 @@ public class GamePeg extends AppCompatActivity {
         }
         possibleMoves.setText("" + moves);
         if (moves == 0) {
+
+            chronometer.stop();
+            Log.d("chrono", chronometer.getText().toString());
             gameOverSplash.startAnimation(fadeIn);
             gameOverSplash.setVisibility(View.VISIBLE);
         }
