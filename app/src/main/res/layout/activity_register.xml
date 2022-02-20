@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/register_rl"
     android:background="@drawable/menubackground1080"
-    tools:context=".LogInActivity">
+    tools:context=".RegisterActivity">
     <ImageView
         style="@style/MenuSwordL"
         ></ImageView>
@@ -23,12 +23,37 @@
 
         <TextView
             android:id="@+id/menu_title_text"
+            style="@style/MenuTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            style="@style/MenuTitle"/>
+            android:layout_marginBottom="15dp" />
     </RelativeLayout>
+
+    <EditText
+        android:id="@+id/password_repeat_register"
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="266dp"
+        android:layout_marginEnd="99dp"
+
+        android:layout_marginBottom="425dp"
+        android:ems="10"
+        android:fontFamily="@font/greek"
+        android:hint="REPEAT PASSWORD"
+        android:inputType="textPassword"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowRadius="1"
+        android:text=""
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/password_register"
@@ -36,14 +61,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="231dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="221dp"
+        android:layout_marginBottom="470dp"
         android:ems="10"
         android:fontFamily="@font/greek"
-        android:gravity="center"
-
-        android:hint="PASSWORD"
+        android:hint="NEW PASSWORD"
         android:inputType="textPassword"
         android:shadowColor="@color/black"
         android:shadowDx="1"
@@ -58,12 +83,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="173dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginBottom="543dp"
         android:ems="10"
         android:fontFamily="@font/greek"
-        android:gravity="center"
-        android:hint="USERNAME"
+        android:hint="NEW USERNAME"
         android:inputType="textPersonName"
         android:shadowColor="@color/black"
         android:shadowDx="1"
@@ -74,37 +102,39 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_login"
-        android:layout_width="wrap_content"
+        android:layout_width="114dp"
         android:layout_height="58dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="316dp"
-        android:layout_marginEnd="55dp"
-        android:background="@drawable/button_login"
-        android:fontFamily="@font/greek"
-        android:soundEffectsEnabled="false"
-        android:text="ENTER"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_register_login"
-        android:layout_width="114dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="316dp"
-        android:layout_marginEnd="230dp"
-        android:layout_marginBottom="356dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="356dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="317dp"
         android:background="@drawable/button_login"
         android:fontFamily="@font/greek"
         android:soundEffectsEnabled="false"
         android:text="REGISTER"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_login_register"
+        android:layout_width="114dp"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="352dp"
+        android:layout_marginEnd="255dp"
+        android:layout_marginBottom="321dp"
+        android:background="@drawable/button_login"
+        android:fontFamily="@font/greek"
+        android:soundEffectsEnabled="false"
+        android:text="LOGIN"
         android:textSize="25dp"
         android:textStyle="bold" />
 

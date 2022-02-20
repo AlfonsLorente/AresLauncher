@@ -1,15 +1,12 @@
 package com.example.areslauncher;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,10 +28,10 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        relativeLayout = findViewById(R.id.login_rl);
+        relativeLayout = findViewById(R.id.register_rl);
         setBackGround();
-        usernameText = findViewById(R.id.username_login);
-        enterButton = findViewById(R.id.login_button);
+        usernameText = findViewById(R.id.username_register);
+        enterButton = findViewById(R.id.button_login);
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,19 +48,7 @@ public class LogInActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
     }
-/*
-    private void savePreferences() {
-        SharedPreferences settings = getSharedPreferences(MenuActivity.PREFS_KEY,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
 
-        // Edit and commit
-        username = usernameText.getText().toString();
-
-        editor.putString(MenuActivity.PREF_UNAME, username);
-        editor.commit();
-
-    }*/
 
 
     private void setBackGround() {

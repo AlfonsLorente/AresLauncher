@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -74,11 +75,60 @@ public class DBHepler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(USER_TABLE_CREATE);
+        db.execSQL(GAME2048_TABLE_CREATE);
+        db.execSQL(GAMEPEG_TABLE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        Log.w(DBHepler.class.getName(),
+                "Upgrading database from version " + oldVersion + " to "
+                        + newVersion + ", which will destroy all old data");
+        db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + GAME2048_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + GAMEPEG_TABLE);
+        onCreate(db);
     }
+
+    public long insertUser(String name, String password){
+        long newId = 0;
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME_USERS, name);
+        values.put(KEY_PASSWORD_USERS, password);
+        try {
+            if (mWritableDB == null) {
+                mWritableDB = getWritableDatabase();
+            }
+            newId = mWritableDB.insert(USERS_TABLE, null, values);
+        } catch (Exception e) {
+            Log.d(TAG, "INSERT EXCEPTION! " + e.getMessage());
+        }
+        return newId;
+    }
+
+    public boolean isUser(String user, String password) {
+        boolean userFound = false;
+        String[] columns = new String[]{KEY_NAME_USERS, KEY_PASSWORD_USERS};
+        String whereClause = KEY_NAME_USERS + " = ? AND " + KEY_PASSWORD_USERS  + " = ?";
+        String[] whereArgs = new String[] {
+                user,
+                password
+        };
+        Cursor cursor = null;
+
+        try {
+            if (mReadableDB == null) mReadableDB = getReadableDatabase();
+            cursor = mReadableDB.query(USERS_TABLE, columns, whereClause, whereArgs,
+                    null, null, null);
+            if (cursor.getCount() == 1) userFound = true;
+        } catch (Exception e) {
+            Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
+
+        } finally {
+            cursor.close();
+            return userFound;
+        }
+    }
+
 }
