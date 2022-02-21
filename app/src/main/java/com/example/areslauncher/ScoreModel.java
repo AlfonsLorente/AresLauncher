@@ -5,7 +5,7 @@ public class ScoreModel {
     private String user;
     private int highScore;
     private String time;
-    private String game;
+
 
     public int getID() {
         return ID;
@@ -39,11 +39,4 @@ public class ScoreModel {
         this.time = time;
     }
 
-    public String getGame() {
-        return game;
-    }
-
-    public void setGame(String game) {
-        this.game = game;
-    }
 }

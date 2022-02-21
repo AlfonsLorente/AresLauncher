@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class DBHepler extends SQLiteOpenHelper {
+
     private static final String TAG = DBHepler.class.getSimpleName();
 
     //Database basic
@@ -24,9 +25,9 @@ public class DBHepler extends SQLiteOpenHelper {
 
     //Database user table
     private static final String USERS_TABLE = "USERS";
-    public static final String KEY_NAME_USERS = "User";
-    public static final String KEY_PASSWORD_USERS = "Password";
-        private static final String[] COLUMNS_USERS = { KEY_ID_COMMON, KEY_NAME_USERS, KEY_PASSWORD_USERS };
+    private static final String KEY_NAME_USERS = "User";
+    private static final String KEY_PASSWORD_USERS = "Password";
+    private static final String[] COLUMNS_USERS = { KEY_ID_COMMON, KEY_NAME_USERS, KEY_PASSWORD_USERS };
     private static final String USER_TABLE_CREATE =
             "CREATE TABLE " + USERS_TABLE + " (" +
                     KEY_ID_COMMON + " INTEGER PRIMARY KEY, " + // id will auto-increment if no value passed
@@ -36,10 +37,10 @@ public class DBHepler extends SQLiteOpenHelper {
 
 
     //Database game2048 table
-    private static final String GAME2048_TABLE = "GAME_2048";
-    public static final String KEY_NAME_GAME2048 = "User";
-    public static final String KEY_HIGHSCORE_GAME2048 = "Highscore";
-    public static final String KEY_GAME_TIME_GAME2048 = "Game_Time";
+    public static final String GAME2048_TABLE = "GAME_2048";
+    private static final String KEY_NAME_GAME2048 = "User";
+    private static final String KEY_HIGHSCORE_GAME2048 = "Highscore";
+    private static final String KEY_GAME_TIME_GAME2048 = "Game_Time";
     private static final String[] COLUMNS_GAME2048 = {KEY_ID_COMMON, KEY_NAME_GAME2048, KEY_HIGHSCORE_GAME2048, KEY_GAME_TIME_GAME2048 };
     private static final String GAME2048_TABLE_CREATE =
             "CREATE TABLE " + GAME2048_TABLE + " (" +
@@ -50,10 +51,10 @@ public class DBHepler extends SQLiteOpenHelper {
 
 
     //Database gamePeg table
-    private static final String GAMEPEG_TABLE = "GAME_PEG";
-    public static final String KEY_NAME_GAMEPEG = "User";
-    public static final String KEY_HIGHSCORE_GAMEPEG = "Highscore";
-    public static final String KEY_GAME_TIME_GAMEPEG = "Game_Time";
+    public static final String GAMEPEG_TABLE = "GAME_PEG";
+    private static final String KEY_NAME_GAMEPEG = "User";
+    private static final String KEY_HIGHSCORE_GAMEPEG = "Highscore";
+    private static final String KEY_GAME_TIME_GAMEPEG = "Game_Time";
     private static final String[] COLUMNS_GAMEPEG = {KEY_ID_COMMON, KEY_NAME_GAMEPEG, KEY_HIGHSCORE_GAMEPEG, KEY_GAME_TIME_GAMEPEG};
     private static final String GAMEPEG_TABLE_CREATE =
             "CREATE TABLE " + GAMEPEG_TABLE + " (" +
@@ -130,5 +131,60 @@ public class DBHepler extends SQLiteOpenHelper {
             return userFound;
         }
     }
+
+    public long insertScorePeg(ScoreModel scoreModel){
+        long newId = 0;
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME_GAMEPEG, scoreModel.getUser());
+        values.put(KEY_HIGHSCORE_GAMEPEG, scoreModel.getHighScore());
+        values.put(KEY_GAME_TIME_GAMEPEG, scoreModel.getTime());
+        try {
+            if (mWritableDB == null) {
+                mWritableDB = getWritableDatabase();
+            }
+            newId = mWritableDB.insert(GAMEPEG_TABLE, null, values);
+        } catch (Exception e) {
+            Log.d(TAG, "INSERT EXCEPTION! " + e.getMessage());
+        }
+        return newId;
+
+    }
+
+
+    public ScoreModel selectUserPeg(String user){
+        ScoreModel scoreModel = new ScoreModel();
+        String[] columns = new String[]{KEY_NAME_GAMEPEG, KEY_HIGHSCORE_GAMEPEG, KEY_GAME_TIME_GAMEPEG};
+        String whereClause = KEY_NAME_USERS + " = ?";
+        String[] whereArgs = new String[] {
+                user
+        };
+        Cursor cursor = null;
+
+        try {
+            if (mReadableDB == null) mReadableDB = getReadableDatabase();
+            cursor = mReadableDB.query(USERS_TABLE, columns, whereClause, whereArgs,
+                    null, null, null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                scoreModel.setUser(cursor.getString(0));
+                scoreModel.setHighScore(Integer.parseInt(cursor.getString(1)));
+                scoreModel.setTime(cursor.getString(2));
+            }else{
+                scoreModel.setHighScore(-99);
+
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
+
+        } finally {
+            cursor.close();
+            return scoreModel;
+        }
+    }
+
+
+
+
+
 
 }

@@ -476,4 +476,10 @@ public class GamePeg extends AppCompatActivity {
             }
         }
     }
+
+
+    private void insertResults(ScoreModel scoreModel){
+
+    }
+
 }
