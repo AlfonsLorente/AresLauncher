@@ -33,29 +33,53 @@
             android:layout_marginBottom="15dp" />
     </RelativeLayout>
 
-    <Spinner
-        android:id="@+id/Spinner_Score"
-        android:layout_width="160dp"
+    <TextView
+        android:id="@+id/choose_game_textview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_title_score"
-        android:layout_marginLeft="30dp" />
+        android:layout_below="@+id/rl_title_score"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/greek"
+        android:gravity="start"
+        android:shadowColor="@color/black"
+        android:shadowRadius="5"
+        android:text="Choose game:"
+        android:textStyle="italic"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+
+    <Spinner
+        android:id="@+id/spinner_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/choose_game_textview"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center" />
 
     <ScrollView
-        android:id="@+id/ScrollView_Score"
+        android:id="@+id/scrollview_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Spinner_Score"
+        android:layout_below="@id/spinner_score"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="0dp"
         android:clickable="false">
 
         <ListView
-            android:id="@+id/ListView_Score"
+            android:id="@+id/listview_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="20dp"
             android:clickable="false"
             android:divider="@drawable/list_divider"></ListView>
     </ScrollView>

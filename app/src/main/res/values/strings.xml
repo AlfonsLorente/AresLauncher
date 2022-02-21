@@ -17,4 +17,10 @@
 
     <string name="starting_score_2048">0</string>
 
+
+    <string-array name="games">
+        <item>2048</item>
+        <item>PEG</item>
+    </string-array>
+
 </resources>
