@@ -1,9 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScoresActivity">
+    android:id="@+id/score_relative_layout"
+    android:background="@drawable/menubackground1080"
+    tools:context=".ScoresActivity"
+    android:layout_gravity="center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        style="@style/MenuSwordL"
+        ></ImageView>
+
+    <ImageView style="@style/MenuSwordR"></ImageView>
+    <ImageView
+        style="@style/MenuHelmet"
+        ></ImageView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/rl_title_score">
+
+        <TextView
+            android:id="@+id/score_title"
+            style="@style/MenuTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp" />
+    </RelativeLayout>
+
+    <Spinner
+        android:id="@+id/Spinner_Score"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_title_score"
+        android:layout_marginLeft="30dp" />
+
+    <ScrollView
+        android:id="@+id/ScrollView_Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Spinner_Score"
+        android:clickable="false">
+
+        <ListView
+            android:id="@+id/ListView_Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:clickable="false"
+            android:divider="@drawable/list_divider"></ListView>
+    </ScrollView>
+</RelativeLayout>
