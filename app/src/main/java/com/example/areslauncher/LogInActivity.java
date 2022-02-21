@@ -11,12 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class LogInActivity extends AppCompatActivity {
-    private String username;
     private RelativeLayout relativeLayout;
-    private EditText usernameText;
-    private Button enterButton;
+    private EditText userName, password;
+    private Button enterButton, registerButton;
+    private DBHepler dbHepler;
+
 
     public static boolean esTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout
@@ -28,16 +30,32 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        relativeLayout = findViewById(R.id.register_rl);
+        relativeLayout = findViewById(R.id.login_rl);
         setBackGround();
-        usernameText = findViewById(R.id.username_register);
+        userName = findViewById(R.id.username_login);
+        password = findViewById(R.id.password_login);
         enterButton = findViewById(R.id.button_login);
+        registerButton = findViewById(R.id.button_register_login);
+        dbHepler = new DBHepler(this);
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //savePreferences();
-                startActivity(new Intent(LogInActivity.this, MenuActivity.class));
+                String user = userName.getText().toString();
+                String pass = password.getText().toString();
+                if (dbHepler.isUser(user, pass)) {
+                    startActivity(new Intent(LogInActivity.this, MenuActivity.class).putExtra(MenuActivity.USERNAME_TAG, user));
+                    LogInActivity.this.finish();
+                }else{
+                    Toast.makeText(LogInActivity.this, "INCORRECT USER OR PASSWORD", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LogInActivity.this, RegisterActivity.class));
                 LogInActivity.this.finish();
             }
         });

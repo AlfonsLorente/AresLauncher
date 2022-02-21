@@ -162,7 +162,7 @@ public class GamePeg extends AppCompatActivity {
             public void onClick(View v) {
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
-                startActivity(new Intent(GamePeg.this, SettingsActivity.class));
+                startActivity(new Intent(GamePeg.this, MusicActivity.class));
             }
         });
 

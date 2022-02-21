@@ -37,13 +37,16 @@
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/drawable/ic_launcher_background.xml" value="0.24581939799331104" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/drawable/item_selector.xml" value="0.15878378378378377" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/drawable/list_divider.xml" value="0.2141891891891892" />
+        <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_game_2048.xml" value="0.20540540540540542" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_game_chooser.xml" value="0.17" />
+        <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_game_peg.xml" value="0.20540540540540542" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_games.xml" value="0.23783783783783785" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_help.xml" value="0.23783783783783785" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_laucher_peg.xml" value="0.2" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_launcher2048.xml" value="0.2271174863387978" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_log_in.xml" value="0.33" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_menu.xml" value="0.18" />
+        <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_scores.xml" value="0.23783783783783785" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_settings.xml" value="0.20371621621621622" />
         <entry key="..\:/Users/alfon/OneDrive/Escritorio/Programming/AndroidStudio/AresLauncher/app/src/main/res/layout/activity_splash.xml" value="0.2653985507246377" />

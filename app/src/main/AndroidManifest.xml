@@ -31,7 +31,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".MusicActivity"
             android:exported="true"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
@@ -41,7 +41,7 @@
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HelpActivity"
+            android:name=".SettingsActivity"
             android:exported="false"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />

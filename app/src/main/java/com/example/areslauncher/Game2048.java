@@ -206,7 +206,7 @@ public class Game2048 extends Activity {
             public void onClick(View v) {
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
-                startActivity(new Intent(Game2048.this, SettingsActivity.class));
+                startActivity(new Intent(Game2048.this, MusicActivity.class));
             }
         });
 

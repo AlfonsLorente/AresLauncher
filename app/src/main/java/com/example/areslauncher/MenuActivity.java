@@ -1,34 +1,26 @@
 package com.example.areslauncher;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.Printer;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.google.android.material.slider.Slider;
+import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity {
+    private static final String TAG = MenuActivity.class.getSimpleName();
     private RelativeLayout relativeLayout;
     private ListView menuList;
     public static MusicPlayer effects;
-
+    private String actualUser;
     public static MusicPlayer music;
     private boolean activityPressed = false;
+    public static final String USERNAME_TAG = "com.example.areslauncher.USER";
 
 
     /*public static boolean esTablet(Context context) {
@@ -43,6 +35,15 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        if (getIntent().getExtras() != null){
+            actualUser = getIntent().getExtras().getString(USERNAME_TAG, "_NO_USER_FOUND_ERR");
+
+        }else {
+            Toast.makeText(this, "AN ERROR OCCURRED", Toast.LENGTH_SHORT).show();
+            this.finish();
+        }
+
         relativeLayout = findViewById(R.id.menu_relative_layout);
         menuList = findViewById(R.id.ListView_Menu);
         menuList.setSoundEffectsEnabled(false);
@@ -72,13 +73,13 @@ public class MenuActivity extends AppCompatActivity {
                     activityPressed = true;
                     effects.playEffect(R.raw.menu_pick);
 
-                    startActivity(new Intent(MenuActivity.this, HelpActivity.class));
+                    startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
                   //  MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_settings))) {
                     // Launch the Settings Activity
                     activityPressed = true;
                     effects.playEffect(R.raw.menu_pick);
-                    startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
+                    startActivity(new Intent(MenuActivity.this, MusicActivity.class));
                  //   MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_scores))) {
                     // Launch the Scores Activity
@@ -98,9 +99,6 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    public void onPrepared(MediaPlayer player) {
-        player.start();
-    }
 
     @Override
     protected void onDestroy() {
@@ -127,9 +125,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    public String getActualUser() {
+        return actualUser;
+    }
 
 
     private void setItemsToLV() {

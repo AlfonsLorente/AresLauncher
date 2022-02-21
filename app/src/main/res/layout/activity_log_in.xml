@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/register_rl"
+    android:id="@+id/login_rl"
     android:background="@drawable/menubackground1080"
     tools:context=".LogInActivity">
     <ImageView
@@ -31,7 +31,7 @@
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/password_register"
+        android:id="@+id/password_login"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -53,13 +53,15 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/username_register"
+        android:id="@+id/username_login"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="93dp"
         android:layout_marginTop="173dp"
+        android:layout_marginEnd="103dp"
         android:ems="10"
         android:fontFamily="@font/greek"
         android:gravity="center"
@@ -74,15 +76,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_login"
-        android:layout_width="wrap_content"
+        android:layout_width="117dp"
         android:layout_height="58dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="316dp"
-        android:layout_marginEnd="55dp"
+        android:layout_marginTop="334dp"
+        android:layout_marginEnd="42dp"
         android:background="@drawable/button_login"
         android:fontFamily="@font/greek"
         android:soundEffectsEnabled="false"
@@ -92,15 +91,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_register_login"
-        android:layout_width="114dp"
-        android:layout_height="wrap_content"
+        android:layout_width="117dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="316dp"
-        android:layout_marginEnd="230dp"
-        android:layout_marginBottom="356dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="332dp"
         android:background="@drawable/button_login"
         android:fontFamily="@font/greek"
         android:soundEffectsEnabled="false"
