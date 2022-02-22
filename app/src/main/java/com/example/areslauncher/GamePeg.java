@@ -80,8 +80,7 @@ public class GamePeg extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        //MenuActivity.effects.removeEffect(R.raw.peg_pick);
-        //MenuActivity.effects.removeEffect(R.raw.peg_drop);
+
         super.onDestroy();
     }
 
@@ -482,38 +481,16 @@ public class GamePeg extends AppCompatActivity {
 
 
     private void insertResults(){
-        DBHepler dbHepler = new DBHepler(this);
         ScoreModel actualScore = new ScoreModel();
         actualScore.setUser(MenuActivity.username);
         actualScore.setHighScore(Integer.parseInt(pegsAmount.getText().toString()));
         actualScore.setTime(chronometer.getText().toString());
-        ScoreModel oldScore = dbHepler.selectUserPeg(actualScore.getUser());
-        //If there is no old score
-        if(oldScore == null){
-            //if the actual score is higher
-            if (actualScore.getHighScore() < oldScore.getHighScore()){
-                dbHepler.insertScorePeg(actualScore);
-            }//If the actual score is equals to the old one
-            else if(actualScore.getHighScore() == oldScore.getHighScore()){
-                SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss");
-                Date newDate = null;
-                Date oldDate = null;
-                try {
-                    newDate = dateFormat.parse(actualScore.getTime());
-                    oldDate = dateFormat.parse(oldScore.getTime());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                //if the new time is lower than the old one
-                if (newDate.compareTo(oldDate) < 0){
-                    dbHepler.insertScorePeg(actualScore);
-                }
-            }
-        }else{
-            dbHepler.insertScorePeg(actualScore);
-        }
+        Utils utils = new Utils();
+        utils.insertResultsPeg(getApplicationContext(), actualScore);
 
 
     }
+
+
 
 }

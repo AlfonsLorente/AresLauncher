@@ -491,14 +491,14 @@ public class Game2048 extends Activity {
         serch2024();
         if(win == true){
             chronometer.stop();
-            Log.d("chrono", chronometer.getText().toString());
+            insertResults();
             victorySplash.startAnimation(fadeIn);
             victorySplash.setVisibility(View.VISIBLE);
         }
         checkGameOver();
         if(isOver == true){
             chronometer.stop();
-            Log.d("chrono", chronometer.getText().toString());
+            insertResults();
             gameOverSplash.startAnimation(fadeIn);
             gameOverSplash.setVisibility(View.VISIBLE);
         }
@@ -773,6 +773,18 @@ public class Game2048 extends Activity {
 
             }
         }
+    }
+
+
+    private void insertResults(){
+        ScoreModel actualScore = new ScoreModel();
+        actualScore.setUser(MenuActivity.username);
+        actualScore.setHighScore(Integer.parseInt(score.getText().toString()));
+        actualScore.setTime(chronometer.getText().toString());
+        Utils utils = new Utils();
+        utils.insertResults2048(getApplicationContext(), actualScore);
+
+
     }
 
 

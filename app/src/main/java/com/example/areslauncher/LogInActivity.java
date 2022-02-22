@@ -17,7 +17,7 @@ public class LogInActivity extends AppCompatActivity {
     private RelativeLayout relativeLayout;
     private EditText userName, password;
     private Button enterButton, registerButton;
-    private DBHepler dbHepler;
+    private DBHelper dbHelper;
 
 
     public static boolean esTablet(Context context) {
@@ -36,15 +36,16 @@ public class LogInActivity extends AppCompatActivity {
         password = findViewById(R.id.password_login);
         enterButton = findViewById(R.id.button_login);
         registerButton = findViewById(R.id.button_register_login);
-        dbHepler = new DBHepler(this);
+        dbHelper = new DBHelper(this);
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String user = userName.getText().toString();
                 String pass = password.getText().toString();
-                if (dbHepler.isUser(user, pass)) {
-                    startActivity(new Intent(LogInActivity.this, MenuActivity.class).putExtra(MenuActivity.USERNAME_TAG, user).putExtra(MenuActivity.USERNAME_TAG, user));
+                if (dbHelper.isUser(user, pass)) {
+                    startActivity(new Intent(LogInActivity.this, MenuActivity.class).putExtra(MenuActivity.USERNAME_TAG, user));
+                    dbHelper.close();
                     LogInActivity.this.finish();
                 }else{
                     Toast.makeText(LogInActivity.this, "INCORRECT USER OR PASSWORD", Toast.LENGTH_SHORT).show();
@@ -56,6 +57,7 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LogInActivity.this, RegisterActivity.class));
+                dbHelper.close();
                 LogInActivity.this.finish();
             }
         });

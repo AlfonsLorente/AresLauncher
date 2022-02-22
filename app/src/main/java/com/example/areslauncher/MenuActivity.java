@@ -39,9 +39,6 @@ public class MenuActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null){
             username = getIntent().getExtras().getString(USERNAME_TAG, "_NO_USER_FOUND_ERR");
 
-        }else {
-            Toast.makeText(this, "AN ERROR OCCURRED", Toast.LENGTH_SHORT).show();
-            this.finish();
         }
 
         relativeLayout = findViewById(R.id.menu_relative_layout);
@@ -67,26 +64,22 @@ public class MenuActivity extends AppCompatActivity {
                     effects.playEffect(R.raw.menu_pick);
                     startActivity(new Intent(MenuActivity.this, GameChooserActivity.class));
 
-                   // MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_help))) {
                     // Launch the Help Activity
                     activityPressed = true;
                     effects.playEffect(R.raw.menu_pick);
 
                     startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
-                  //  MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_settings))) {
                     // Launch the Settings Activity
                     activityPressed = true;
                     effects.playEffect(R.raw.menu_pick);
                     startActivity(new Intent(MenuActivity.this, MusicActivity.class));
-                 //   MenuActivity.this.finish();
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_scores))) {
                     // Launch the Scores Activity
                     activityPressed = true;
                     effects.playEffect(R.raw.menu_pick);
                     startActivity(new Intent(MenuActivity.this, ScoresActivity.class));
-                  //  MenuActivity.this.finish();
                 }
             }
 

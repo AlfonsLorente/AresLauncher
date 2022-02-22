@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:id="@+id/rltitle">
+        android:id="@+id/rltitle_register">
 
         <TextView
             android:id="@+id/menu_title_text"
@@ -29,37 +29,21 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp" />
     </RelativeLayout>
-
-    <EditText
-        android:id="@+id/password_register"
-        android:layout_width="215dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="221dp"
-        android:ems="10"
-        android:fontFamily="@font/greek"
-        android:hint="NEW PASSWORD"
-        android:inputType="textPassword"
-        android:shadowColor="@color/black"
-        android:shadowDx="1"
-        android:shadowRadius="1"
-        android:text=""
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@+id/rltitle_register"
+        android:id="@+id/linear1_register">
+
+
 
     <EditText
         android:id="@+id/username_register"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="99dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:fontFamily="@font/greek"
         android:hint="NEW USERNAME"
@@ -68,17 +52,58 @@
         android:shadowDx="1"
         android:shadowRadius="1"
         android:text=""
+        android:textAlignment="center"
         android:textSize="25dp"
         android:textStyle="bold" />
+        <EditText
+            android:id="@+id/password_register"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/greek"
+            android:hint="NEW PASSWORD"
+            android:inputType="textPassword"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowRadius="1"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
 
+
+        <EditText
+            android:id="@+id/password_repeat_register"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+
+            android:ems="10"
+            android:fontFamily="@font/greek"
+            android:hint="REPEAT PASSWORD"
+            android:inputType="textPassword"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowRadius="1"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@+id/linear1_register"
+        android:layout_marginTop="30dp">
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_login_register"
-        android:layout_width="114dp"
-        android:layout_height="58dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="383dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
         android:background="@drawable/button_login"
         android:fontFamily="@font/greek"
         android:soundEffectsEnabled="false"
@@ -88,41 +113,15 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_register"
-        android:layout_width="114dp"
-        android:layout_height="58dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="383dp"
-        android:layout_marginEnd="42dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:background="@drawable/button_login"
         android:fontFamily="@font/greek"
         android:soundEffectsEnabled="false"
         android:text="REGISTER"
         android:textSize="25dp"
         android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/password_repeat_register"
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="283dp"
-        android:layout_marginEnd="99dp"
-
-        android:ems="10"
-        android:fontFamily="@font/greek"
-        android:hint="REPEAT PASSWORD"
-        android:inputType="textPassword"
-        android:shadowColor="@color/black"
-        android:shadowDx="1"
-        android:shadowRadius="1"
-        android:text=""
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
+    </LinearLayout>
 
 </RelativeLayout>

@@ -15,7 +15,7 @@
     <ImageView style="@style/MenuHelmet"></ImageView>
 
     <RelativeLayout
-        android:id="@+id/rltitle"
+        android:id="@+id/rltitle_music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
@@ -37,96 +37,92 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/back"
-            android:soundEffectsEnabled="false" />/>
+            android:soundEffectsEnabled="false" />
     </RelativeLayout>
 
 
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/MasterVolume"
-        style="@style/SeekBarUse"
-        android:layout_width="308dp"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linear1_music"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="169dp" />
-
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/MusicVolume"
-        style="@style/SeekBarNoUse"
-        android:layout_width="308dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="260dp" />
-
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/EffetsVolume"
-        style="@style/SeekBarNoUse"
-        android:layout_width="308dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="309dp" />
-
-
-    <TextView
-        android:layout_width="99dp"
-        android:layout_height="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="141dp"
-        android:layout_marginRight="156dp"
+        android:layout_below="@+id/rltitle_music"
         android:gravity="center"
-        android:shadowColor="@color/menu_glow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="15"
-        android:text="Master"
-        android:textColor="@color/menu_color"
-        android:textSize="20dp"></TextView>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="96dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:shadowColor="@color/menu_glow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="15"
+            android:text="Master"
+            android:textColor="@color/menu_color"
+            android:textSize="20dp"></TextView>
+
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/MasterVolume"
+            style="@style/SeekBarUse"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linear2_music"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="278dp"
-        android:layout_marginRight="158dp"
+        android:layout_below="@+id/linear1_music"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:shadowColor="@color/menu_glow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="15"
-        android:text="Effects"
-        android:textColor="@color/menu_color"
-        android:textSize="20dp"></TextView>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="99dp"
-        android:layout_height="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="231dp"
-        android:layout_marginRight="156dp"
-        android:gravity="center"
-        android:shadowColor="@color/menu_glow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="15"
-        android:text="Music"
-        android:textColor="@color/menu_color"
-        android:textSize="20dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:shadowColor="@color/menu_glow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="15"
+            android:text="Music"
+            android:textColor="@color/menu_color"
+            android:textSize="20dp"></TextView>
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+
+            android:id="@+id/MusicVolume"
+            style="@style/SeekBarNoUse"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:shadowColor="@color/menu_glow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="15"
+            android:text="Effects"
+            android:textColor="@color/menu_color"
+            android:textSize="20dp"></TextView>
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/EffetsVolume"
+            style="@style/SeekBarNoUse"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </RelativeLayout>

@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class RegisterActivity extends AppCompatActivity {
     private EditText userName, password, passwordRepeat;
     private Button login, register;
-    private DBHepler dbHepler;
+    private DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,12 +23,13 @@ public class RegisterActivity extends AppCompatActivity {
         passwordRepeat = findViewById(R.id.password_repeat_register);
         login = findViewById(R.id.button_login_register);
         register = findViewById(R.id.button_register);
-        dbHepler = new DBHepler(this);
+        dbHelper = new DBHelper(this);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(RegisterActivity.this, LogInActivity.class));
+                dbHelper.close();
                 RegisterActivity.this.finish();
 
             }
@@ -41,10 +42,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String pass = password.getText().toString();
                 String passRepeat = passwordRepeat.getText().toString();
                 if(pass.equals(passRepeat)){
-                    if (!dbHepler.isUser(user, pass)){
-                        dbHepler.insertUser(user, pass);
+                    if (!dbHelper.isUser(user, pass)){
+                        dbHelper.insertUser(user, pass);
                         Toast.makeText(RegisterActivity.this, "USER CREATED", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(RegisterActivity.this, MenuActivity.class).putExtra(MenuActivity.USERNAME_TAG, user));
+                        dbHelper.close();
                         RegisterActivity.this.finish();
 
                     }else {
