@@ -137,6 +137,7 @@ public class GamePeg extends AppCompatActivity {
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                insertResults();
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
                 GamePeg.this.finish();
@@ -175,7 +176,6 @@ public class GamePeg extends AppCompatActivity {
     private void resumeGame() {
         updatePuntuation();
         if (pegsAmount.getText().toString().equals("1") ){
-            chronometer.stop();
             insertResults();
             victorySplash.startAnimation(fadeIn);
             victorySplash.setVisibility(View.VISIBLE);
@@ -253,7 +253,6 @@ public class GamePeg extends AppCompatActivity {
         possibleMoves.setText("" + moves);
         if (moves == 0) {
 
-            chronometer.stop();
             insertResults();
             gameOverSplash.startAnimation(fadeIn);
             gameOverSplash.setVisibility(View.VISIBLE);
@@ -481,6 +480,7 @@ public class GamePeg extends AppCompatActivity {
 
 
     private void insertResults(){
+        chronometer.stop();
         ScoreModel actualScore = new ScoreModel();
         actualScore.setUser(MenuActivity.username);
         actualScore.setHighScore(Integer.parseInt(pegsAmount.getText().toString()));

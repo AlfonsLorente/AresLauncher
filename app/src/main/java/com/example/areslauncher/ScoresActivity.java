@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -18,6 +19,8 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
     private Spinner spinner;
     private DBHelper dbHelper;
     private DBHelper.OrderBy orderBy;
+    private boolean activityPressed = false;
+    private ImageButton button;
 
 
     @Override
@@ -32,9 +35,19 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
         arrayAdapter.setDropDownViewResource(R.layout.score_spinner_item);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(this);
+        button = findViewById(R.id.back_button_score);
 
         listView = findViewById(R.id.listview_score);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activityPressed = true;
+                MenuActivity.effects.playEffect(R.raw.menu_pick);
+
+                ScoresActivity.this.finish();
+            }
+        });
 
     }
 
@@ -70,4 +83,22 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
         scoreModels.clear();
         scoreModels = dbHelper.selectAllUsers2048(orderBy);
     }
+
+    @Override
+    protected void onPause() {
+        if (!activityPressed) {
+
+            MenuActivity.music.pause();
+        }
+        activityPressed = false;
+
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        MenuActivity.music.resume();
+        super.onResume();
+    }
+
 }

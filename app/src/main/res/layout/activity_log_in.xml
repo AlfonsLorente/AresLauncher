@@ -86,28 +86,29 @@
         android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/button_login"
-            android:fontFamily="@font/greek"
-            android:soundEffectsEnabled="false"
-            android:text="ENTER"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-
-        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_register_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+
             android:background="@drawable/button_login"
             android:fontFamily="@font/greek"
             android:soundEffectsEnabled="false"
             android:text="REGISTER"
             android:textSize="25dp"
             android:textStyle="bold" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_login"
+            android:fontFamily="@font/greek"
+            android:soundEffectsEnabled="false"
+            android:layout_marginLeft="20dp"
+            android:text="ENTER"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 

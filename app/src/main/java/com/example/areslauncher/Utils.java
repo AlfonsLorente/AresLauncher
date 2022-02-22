@@ -1,6 +1,7 @@
 package com.example.areslauncher;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,12 +17,13 @@ public class Utils {
 
         if(oldScore != null){
             //if the actual score is higher
-
             if (actualScore.getHighScore() < oldScore.getHighScore()){
+
                 dbHelper.deleteOldScorePeg(oldScore);
                 dbHelper.insertScorePeg(actualScore);
             }//If the actual score is equals to the old one
             else if(actualScore.getHighScore() == oldScore.getHighScore()){
+
                 SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss");
                 Date newDate = null;
                 Date oldDate = null;
@@ -33,6 +35,7 @@ public class Utils {
                 }
                 //if the new time is lower than the old one
                 if (oldDate.compareTo(newDate) > 0){
+
                     dbHelper.deleteOldScorePeg(oldScore);
                     dbHelper.insertScorePeg(actualScore);
                 }
@@ -51,13 +54,16 @@ public class Utils {
         //If there is no old score
 
         if(oldScore != null){
+
             //if the actual score is higher
 
             if (actualScore.getHighScore() > oldScore.getHighScore()){
+
                 dbHelper.deleteOldScore2048(oldScore);
                 dbHelper.insertScore2048(actualScore);
             }//If the actual score is equals to the old one
             else if(actualScore.getHighScore() == oldScore.getHighScore()){
+
                 SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss");
                 Date newDate = null;
                 Date oldDate = null;

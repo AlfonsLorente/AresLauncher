@@ -168,6 +168,7 @@ public class Game2048 extends Activity {
         backButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
                 activityPressed = true;
                 Game2048.this.finish();
@@ -177,6 +178,8 @@ public class Game2048 extends Activity {
         restartButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                insertResults();
+
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
 
                 activityPressed = true;
@@ -490,14 +493,12 @@ public class Game2048 extends Activity {
 
         serch2024();
         if(win == true){
-            chronometer.stop();
             insertResults();
             victorySplash.startAnimation(fadeIn);
             victorySplash.setVisibility(View.VISIBLE);
         }
         checkGameOver();
         if(isOver == true){
-            chronometer.stop();
             insertResults();
             gameOverSplash.startAnimation(fadeIn);
             gameOverSplash.setVisibility(View.VISIBLE);
@@ -777,6 +778,7 @@ public class Game2048 extends Activity {
 
 
     private void insertResults(){
+        chronometer.stop();
         ScoreModel actualScore = new ScoreModel();
         actualScore.setUser(MenuActivity.username);
         actualScore.setHighScore(Integer.parseInt(score.getText().toString()));

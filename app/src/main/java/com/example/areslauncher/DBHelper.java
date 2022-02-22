@@ -140,7 +140,7 @@ public class DBHelper extends SQLiteOpenHelper {
         long newId = 0;
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_GAMEPEG, scoreModel.getUser());
-        values.put(KEY_HIGHSCORE_GAMEPEG, scoreModel.getHighScore());
+        values.put(KEY_HIGHSCORE_GAMEPEG, String.valueOf(scoreModel.getHighScore()));
         values.put(KEY_GAME_TIME_GAMEPEG, scoreModel.getTime());
 
         try {
@@ -170,13 +170,15 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor = mReadableDB.query(GAMEPEG_TABLE, columns, whereClause, whereArgs,
                     null, null, null);
 
-            Log.d("aa", "" + cursor.getCount());
             if(cursor!=null){
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     scoreModel.setUser(cursor.getString(0));
                     scoreModel.setHighScore(Integer.parseInt(cursor.getString(1)));
                     scoreModel.setTime(cursor.getString(2));
+                }else{
+                    scoreModel = null;
+
                 }
             }else{
                 scoreModel = null;
@@ -321,13 +323,15 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor = mReadableDB.query(GAME2048_TABLE, columns, whereClause, whereArgs,
                     null, null, null);
 
-            Log.d("aa", "" + cursor.getCount());
             if(cursor!=null){
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     scoreModel.setUser(cursor.getString(0));
                     scoreModel.setHighScore(Integer.parseInt(cursor.getString(1)));
                     scoreModel.setTime(cursor.getString(2));
+                }else{
+                    scoreModel = null;
+
                 }
             }else{
                 scoreModel = null;

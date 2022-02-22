@@ -38,7 +38,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/back"
-            android:soundEffectsEnabled="false"/>/>
+            android:soundEffectsEnabled="false" />/>
     </RelativeLayout>
 
 
