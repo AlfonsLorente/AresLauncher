@@ -17,10 +17,10 @@ public class MenuActivity extends AppCompatActivity {
     private RelativeLayout relativeLayout;
     private ListView menuList;
     public static MusicPlayer effects;
-    private String actualUser;
     public static MusicPlayer music;
     private boolean activityPressed = false;
     public static final String USERNAME_TAG = "com.example.areslauncher.USER";
+    public static String username = "";
 
 
     /*public static boolean esTablet(Context context) {
@@ -37,7 +37,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         if (getIntent().getExtras() != null){
-            actualUser = getIntent().getExtras().getString(USERNAME_TAG, "_NO_USER_FOUND_ERR");
+            username = getIntent().getExtras().getString(USERNAME_TAG, "_NO_USER_FOUND_ERR");
 
         }else {
             Toast.makeText(this, "AN ERROR OCCURRED", Toast.LENGTH_SHORT).show();
@@ -125,9 +125,6 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    public String getActualUser() {
-        return actualUser;
-    }
 
 
     private void setItemsToLV() {
@@ -135,6 +132,7 @@ public class MenuActivity extends AppCompatActivity {
                 getResources().getString(R.string.menu_item_scores),
                 getResources().getString(R.string.menu_item_settings),
                 getResources().getString(R.string.menu_item_help)};
+        UserModel[] s = null;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.menu_item, items);
         menuList.setAdapter(adapter);

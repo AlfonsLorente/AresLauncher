@@ -44,7 +44,7 @@ public class LogInActivity extends AppCompatActivity {
                 String user = userName.getText().toString();
                 String pass = password.getText().toString();
                 if (dbHepler.isUser(user, pass)) {
-                    startActivity(new Intent(LogInActivity.this, MenuActivity.class).putExtra(MenuActivity.USERNAME_TAG, user));
+                    startActivity(new Intent(LogInActivity.this, MenuActivity.class).putExtra(MenuActivity.USERNAME_TAG, user).putExtra(MenuActivity.USERNAME_TAG, user));
                     LogInActivity.this.finish();
                 }else{
                     Toast.makeText(LogInActivity.this, "INCORRECT USER OR PASSWORD", Toast.LENGTH_SHORT).show();

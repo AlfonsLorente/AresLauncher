@@ -15,8 +15,8 @@ public class MusicActivity extends AppCompatActivity {
     private AppCompatSeekBar seekBarEffects;
     private ImageButton backButton;
     private boolean activityPressed;
-    int musicVolume;
-    int effectVolume;
+    private int musicVolume;
+    private int effectVolume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

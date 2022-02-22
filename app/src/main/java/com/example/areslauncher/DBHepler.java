@@ -127,7 +127,9 @@ public class DBHepler extends SQLiteOpenHelper {
             Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
 
         } finally {
-            cursor.close();
+            if (cursor!= null) {
+                cursor.close();
+            }
             return userFound;
         }
     }
@@ -170,20 +172,78 @@ public class DBHepler extends SQLiteOpenHelper {
                 scoreModel.setHighScore(Integer.parseInt(cursor.getString(1)));
                 scoreModel.setTime(cursor.getString(2));
             }else{
-                scoreModel.setHighScore(-99);
+                scoreModel = null;
 
             }
         } catch (Exception e) {
             Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
 
         } finally {
-            cursor.close();
+            if (cursor!= null) {
+                cursor.close();
+            }
             return scoreModel;
         }
     }
 
 
 
+    public ArrayList<ScoreModel> selectAllUsersPeg(DBHepler.OrderBy orderBy){
+        ArrayList<ScoreModel> scoreModels = new ArrayList<>();
+        String[] columns = new String[]{KEY_NAME_GAMEPEG, KEY_HIGHSCORE_GAMEPEG, KEY_GAME_TIME_GAMEPEG};
+        //String whereClause = KEY_NAME_USERS + " = ?";
+//        String[] whereArgs = new String[] {
+//                user
+//        };
+        Cursor cursor = null;
+
+        String orderByParam;
+        switch (orderBy){
+            case USER:
+                orderByParam = KEY_NAME_GAMEPEG;
+                break;
+            case HIGHSCORE:
+                orderByParam = KEY_HIGHSCORE_GAMEPEG;
+
+                break;
+            case TIME:
+                orderByParam = KEY_GAME_TIME_GAMEPEG;
+                break;
+            default:
+                orderByParam = null;
+                break;
+        }
+
+
+        try {
+            if (mReadableDB == null) mReadableDB = getReadableDatabase();
+            cursor = mReadableDB.query(USERS_TABLE, columns, null, null,
+                    null, null, orderByParam);
+            while (cursor.moveToNext()) {
+                ScoreModel scoreModel = new ScoreModel();
+                scoreModel.setUser(cursor.getString(0));
+                scoreModel.setHighScore(Integer.parseInt(cursor.getString(1)));
+                scoreModel.setTime(cursor.getString(2));
+                scoreModels.add(scoreModel);
+            }
+
+        } catch (Exception e) {
+            Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
+
+        } finally {
+            if (cursor!= null) {
+                cursor.close();
+            }
+            return scoreModels;
+        }
+
+    }
+
+     enum OrderBy{
+        USER,
+        HIGHSCORE,
+        TIME
+    }
 
 
 
