@@ -790,5 +790,15 @@ public class Game2048 extends Activity {
     }
 
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            Utils utils = new Utils();
+            View decorView = getWindow().getDecorView();
+            utils.hideSystemUI(decorView);
+        }
+    }
+
 
 }

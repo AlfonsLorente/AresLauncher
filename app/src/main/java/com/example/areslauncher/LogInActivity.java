@@ -20,18 +20,18 @@ public class LogInActivity extends AppCompatActivity {
     private DBHelper dbHelper;
 
 
-    public static boolean esTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
+//    public static boolean esTablet(Context context) {
+//        return (context.getResources().getConfiguration().screenLayout
+//                & Configuration.SCREENLAYOUT_SIZE_MASK)
+//                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
         relativeLayout = findViewById(R.id.login_rl);
-        setBackGround();
+        //setBackGround();
         userName = findViewById(R.id.username_login);
         password = findViewById(R.id.password_login);
         enterButton = findViewById(R.id.button_login);
@@ -71,24 +71,24 @@ public class LogInActivity extends AppCompatActivity {
 
 
 
-    private void setBackGround() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-        if (esTablet(this)) {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubgtablet));
+//    private void setBackGround() {
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        int height = displayMetrics.heightPixels;
+//        int width = displayMetrics.widthPixels;
+//        if (esTablet(this)) {
+//            relativeLayout.setBackground(getDrawable(R.drawable.menubgtablet));
+//
+//
+//        } else if (height > 2100 && width == 1080) {
+//            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
+//        } else if (height > 2850 && width == 1440) {
+//            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
+//
+//        } else {
+//            relativeLayout.setBackground(getDrawable(R.drawable.menubackground1080));
+//        }
 
-
-        } else if (height > 2100 && width == 1080) {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
-        } else if (height > 2850 && width == 1440) {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
-
-        } else {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubackground1080));
-        }
-
-    }
+    //}
 
 }
