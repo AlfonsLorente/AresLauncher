@@ -3,9 +3,11 @@ package com.example.areslauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -18,9 +20,9 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
     private String[] games;
     private Spinner spinner;
     private DBHelper dbHelper;
-    private DBHelper.OrderBy orderBy;
     private boolean activityPressed = false;
     private ImageButton button;
+    private int actualSpinnerPosition;
 
 
     @Override
@@ -28,7 +30,6 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
         dbHelper = new DBHelper(getApplicationContext());
-        orderBy = DBHelper.OrderBy.HIGHSCORE;
         games = getResources().getStringArray(R.array.games);
         spinner = findViewById(R.id.spinner_score);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.score_spinner_item, games);
@@ -54,16 +55,21 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        actualSpinnerPosition = position;
         if (games[position].equalsIgnoreCase("peg")){
-            fillPegScoreModels();
+            fillPegScoreModels(DBHelper.OrderBy.HIGHSCORE);
+
 
         }else if(games[position].equalsIgnoreCase("2048")){
-            fill2048ScoreModels();
+            fill2048ScoreModels(DBHelper.OrderBy.HIGHSCORE);
         }
+        setUpListViewAdapter();
+    }
+
+    private void setUpListViewAdapter() {
         ScoreAdapter scoreAdapter = new ScoreAdapter(this, scoreModels);
         listView.setAdapter(scoreAdapter);
     }
-
 
 
     @Override
@@ -72,14 +78,14 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
 
-    private void fillPegScoreModels() {
+    private void fillPegScoreModels(DBHelper.OrderBy orderBy) {
         scoreModels.clear();
         scoreModels = dbHelper.selectAllUsersPeg(orderBy);
 
 
     }
 
-    private void fill2048ScoreModels() {
+    private void fill2048ScoreModels(DBHelper.OrderBy orderBy) {
         scoreModels.clear();
         scoreModels = dbHelper.selectAllUsers2048(orderBy);
     }
@@ -101,4 +107,47 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
         super.onResume();
     }
 
+
+    //onClick
+    public void scoreButtonOrderBy(View view) {
+        Button button = (Button)view;
+        Log.d("position games", games[actualSpinnerPosition]);
+        Log.d("button", button.getText().toString());
+        if (button.getText().toString().equalsIgnoreCase(getString(R.string.score_user))) {
+            if (games[actualSpinnerPosition].equalsIgnoreCase("peg")) {
+                fillPegScoreModels(DBHelper.OrderBy.USER);
+                Log.d("peg_1", "user");
+
+            } else {
+                fill2048ScoreModels(DBHelper.OrderBy.USER);
+                Log.d("2048_1", "user");
+
+            }
+        }else if(button.getText().toString().equalsIgnoreCase(getString(R.string.score_highscore))){
+            if (games[actualSpinnerPosition].equalsIgnoreCase("peg")) {
+                fillPegScoreModels(DBHelper.OrderBy.HIGHSCORE);
+                Log.d("peg_2", "highscore");
+
+            } else {
+                fill2048ScoreModels(DBHelper.OrderBy.HIGHSCORE);
+                Log.d("2048_2", "highscore");
+
+
+            }
+
+        }else if(button.getText().toString().equalsIgnoreCase(getString(R.string.score_time))){
+            if (games[actualSpinnerPosition].equalsIgnoreCase("peg")) {
+                fillPegScoreModels(DBHelper.OrderBy.TIME);
+                Log.d("peg_3", "time");
+
+            } else {
+                fill2048ScoreModels(DBHelper.OrderBy.TIME);
+                Log.d("2048_3", "time");
+
+
+            }
+        }
+        setUpListViewAdapter();
+
+    }
 }

@@ -16,6 +16,9 @@
     <string name="menu_item_help">Settings</string>
 
     <string name="starting_score_2048">0</string>
+    <string name="score_user">User</string>
+    <string name="score_highscore">Highscore</string>
+    <string name="score_time">Time</string>
 
 
     <string-array name="games">

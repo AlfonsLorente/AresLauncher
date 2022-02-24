@@ -272,7 +272,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 orderByParam = KEY_NAME_GAME2048 + " ASC";
                 break;
             case HIGHSCORE:
-                orderByParam = KEY_HIGHSCORE_GAME2048 + " ASC";
+                orderByParam = KEY_HIGHSCORE_GAME2048 + " DESC";
+                Log.d("case highscore", orderByParam) ;
 
                 break;
             case TIME:
@@ -283,11 +284,13 @@ public class DBHelper extends SQLiteOpenHelper {
                 break;
         }
 
-
+        Log.d("after switch", orderByParam) ;
         try {
             if (mReadableDB == null) mReadableDB = getReadableDatabase();
             cursor = mReadableDB.query(GAME2048_TABLE, columns, null, null,
                     null, null, orderByParam);
+            Log.d("after cursor", cursor.getCount() + "") ;
+
             while (cursor.moveToNext()) {
                 ScoreModel scoreModel = new ScoreModel();
                 scoreModel.setUser(cursor.getString(0));
