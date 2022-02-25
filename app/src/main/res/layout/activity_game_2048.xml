@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Game2048"
+    android:background="@drawable/stone2048bg"
+    >
+
+    <Chronometer
+        android:id="@+id/chrono_2048"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/greek"
+        android:textColor="@color/white"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.315" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="163dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/greek"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="15"
+        android:text="2048"
+        android:textColor="#FFFFFF"
+        android:textSize="90dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08" />
+
+    <ImageButton
+        android:id="@+id/back_button_2048"
+
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:background="@drawable/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037"
+        android:soundEffectsEnabled="false"/>
+
+
+    <ImageButton
+        android:id="@+id/settings_button_2048"
+
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:background="@drawable/ic_settings"
+        android:soundEffectsEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
+
+    <ImageButton
+        android:id="@+id/restart_button_2048"
+
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+
+        android:background="@drawable/restart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.307"
+        android:soundEffectsEnabled="false"/>/>
+
+    <ImageButton
+        android:id="@+id/undo_button_2048"
+
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+
+        android:background="@drawable/undo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.307"
+        android:soundEffectsEnabled="false"/>/>
+
+    <TextView
+        android:id="@+id/txtv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/greek"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="15"
+        android:text="Score"
+        android:textColor="#FFFFFF"
+        android:textSize="50dp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.196" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/greek"
+        android:gravity="center"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="15"
+        android:text="@string/starting_score_2048"
+        android:textColor="#FFFFFF"
+        android:textSize="70dp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.292" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.819">
+
+        <GridLayout
+            android:id="@+id/gridLayout_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:columnCount="4"
+            android:orientation="horizontal"
+            android:useDefaultMargins="true">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+                android:textSize="25dp"
+
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+
+                android:clickable="false"
+                android:gravity="center"
+
+                android:text=""
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+
+                android:text=""
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+                android:textSize="25dp"
+
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+
+                android:gravity="center"
+                android:text=""
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+
+                android:text=""
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_height="78dp"
+                android:layout_width="78dp"
+                android:background="@drawable/button"
+                android:clickable="false"
+                android:gravity="center"
+                android:text=""
+                android:textSize="25dp"
+                android:textStyle="bold" />
+        </GridLayout>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/Victory2048"
+        android:layout_width="413dp"
+        android:layout_height="231dp"
+        android:background="@drawable/victory"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        android:clickable="false"></ImageView>
+    <ImageView
+        android:id="@+id/GameOver2048"
+        android:layout_width="405dp"
+        android:layout_height="231dp"
+        android:background="@drawable/game_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        android:clickable="false"
+        ></ImageView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    android:id="@+id/settings_relative_layout"
+    android:background="@drawable/menubackground1080"
+    tools:context=".SettingsActivity"
+    android:layout_gravity="center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/back_button_settings"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/back"
+        android:soundEffectsEnabled="false" />
+
+    <ImageView
+        style="@style/MenuSwordL"
+        ></ImageView>
+
+    <ImageView style="@style/MenuSwordR"></ImageView>
+    <ImageView
+        style="@style/MenuHelmet"
+        ></ImageView>
+
+    <RelativeLayout
+        android:id="@+id/rl_title_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/setting_title"
+            style="@style/MenuTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/title_username_settings"
+        style="@style/CustomText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title_settings"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:gravity="start"
+        android:text="USERNAME: "
+        android:textSize="30dp"
+        android:textStyle="italic" />
+
+    <LinearLayout
+
+        android:id="@+id/ll_actual_user_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_username_settings"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/settings_username"
+            style="@style/CustomText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#88bbbb00"
+            android:padding="3dp"
+            android:text="USER"
+            android:textSize="45dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/settings_choose_option"
+        style="@style/CustomText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_actual_user_settings"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="start"
+        android:text="ACTION:"
+        android:textSize="30dp"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settings_choose_option"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomCardView"
+            android:layout_marginTop="10dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_log_out"
+                style="@style/CustomButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="LOG OUT"
+                android:soundEffectsEnabled="false"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomCardView"
+            android:layout_marginTop="30dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_change_username"
+                style="@style/CustomButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="CHANGE USERNAME" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomCardView"
+            android:layout_marginTop="10dp"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_change_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CHANGE PASSWORD"
+                style="@style/CustomButton"
+                android:padding="10dp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomCardView"
+            android:layout_marginTop="30dp"
+            app:cardBackgroundColor="#44aaaa22"
+
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_delete_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DELETE USER"
+                style="@style/CustomButton"
+                android:background="#99ff0000"
+                android:padding="10dp"/>
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

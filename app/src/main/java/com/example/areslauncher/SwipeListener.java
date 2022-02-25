@@ -7,7 +7,7 @@ import android.view.View;
 
 public class SwipeListener implements View.OnTouchListener {
 
-    private GestureDetector gestureDetector;
+    private final GestureDetector gestureDetector;
 
     public SwipeListener(Context context) {
         gestureDetector = new GestureDetector(context, new GestureListener());

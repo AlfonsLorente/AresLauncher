@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -20,11 +21,11 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        topLetters = (TextView) findViewById(R.id.splashTopTitle);
-        bottomLetters = (TextView)findViewById(R.id.splashBottomTitle);
+        topLetters = findViewById(R.id.splashTopTitle);
+        bottomLetters = findViewById(R.id.splashBottomTitle);
         logo = findViewById(R.id.splashImage);
-        lettersAnimation = (Animation) AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        logoAnimation = (Animation) AnimationUtils.loadAnimation(this, R.anim.custom_anim_logo);
+        lettersAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        logoAnimation = AnimationUtils.loadAnimation(this, R.anim.custom_anim_logo);
         waitAnimation = AnimationUtils.loadAnimation(this, R.anim.wait);
         topLetters.startAnimation(lettersAnimation);
         bottomLetters.startAnimation(lettersAnimation);
@@ -56,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashActivity.this, MenuActivity.class));
+                startActivity(new Intent(SplashActivity.this, LogInActivity.class));
                 SplashActivity.this.finish();
             }
 
@@ -78,4 +79,19 @@ public class SplashActivity extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            Utils utils = new Utils();
+            View decorView = getWindow().getDecorView();
+            utils.hideSystemUI(decorView);
+        }
+    }
+
+
+
+
 }
