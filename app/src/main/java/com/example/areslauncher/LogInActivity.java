@@ -18,6 +18,7 @@ public class LogInActivity extends AppCompatActivity {
     private EditText userName, password;
     private Button enterButton, registerButton;
     private DBHelper dbHelper;
+    private MusicPlayer effects;
 
 
 //    public static boolean esTablet(Context context) {
@@ -38,9 +39,14 @@ public class LogInActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.button_register_login);
         dbHelper = new DBHelper(this);
 
+        effects = new MusicPlayer(this, 1);
+        effects.addEffect(R.raw.menu_pick);
+
+
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                effects.playEffect(R.raw.menu_pick);
                 String user = userName.getText().toString();
                 String pass = password.getText().toString();
                 if (dbHelper.isUser(user, pass)) {
@@ -56,6 +62,8 @@ public class LogInActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                effects.playEffect(R.raw.menu_pick);
+
                 startActivity(new Intent(LogInActivity.this, RegisterActivity.class));
                 dbHelper.close();
                 LogInActivity.this.finish();

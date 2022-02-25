@@ -52,11 +52,11 @@
         android:layout_below="@+id/rl_title_settings"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="20dp"
         android:gravity="start"
         android:text="USERNAME: "
         android:textSize="30dp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 
     <LinearLayout
 
@@ -64,24 +64,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_username_settings"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="vertical">
 
 
         <TextView
+            android:id="@+id/settings_username"
             style="@style/CustomText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:background="#88bbbb00"
+            android:padding="3dp"
             android:text="USER"
             android:textSize="45dp" />
 
     </LinearLayout>
 
     <TextView
-        style="@style/CustomText"
         android:id="@+id/settings_choose_option"
+        style="@style/CustomText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_actual_user_settings"
@@ -100,6 +102,23 @@
         android:layout_below="@id/settings_choose_option"
         android:gravity="center"
         android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomCardView"
+            android:layout_marginTop="10dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_log_out"
+                style="@style/CustomButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="LOG OUT"
+                android:soundEffectsEnabled="false"/>
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"

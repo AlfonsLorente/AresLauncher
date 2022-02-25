@@ -3,12 +3,16 @@ package com.example.areslauncher;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Utils {
+
+    String[] banedChars = new String[] {".", ",", "\"",";" , "'", "-", "@", "#", "~", "€", "¬", "/", "(", ")", "$", "·", "!", "º", "ª", "=", "+", "\t", "{", "}", "\\", " "};
+
 
     public void insertResultsPeg(Context context, ScoreModel actualScore){
 
@@ -101,6 +105,62 @@ public class Utils {
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+
+
+    public boolean usernameTest(Context context, String username){
+        boolean isValid = true;
+        if (username == null){
+            isValid = false;
+            Toast.makeText(context, "Username is null", Toast.LENGTH_SHORT).show();
+        }
+        else if(username.equals("")){
+            isValid = false;
+            Toast.makeText(context, "Username is required", Toast.LENGTH_SHORT).show();
+
+        }
+        else if(username.length() > 14){
+            isValid = false;
+            Toast.makeText(context, "Username is too long", Toast.LENGTH_SHORT).show();
+
+        } else{
+            isValid = banedCharsCompare(context, username);
+        }
+
+        return isValid;
+    }
+
+    public boolean passwordTest(Context context, String password){
+        boolean isValid = true;
+        if(password == null){
+            isValid = false;
+            Toast.makeText(context, "Password is null", Toast.LENGTH_SHORT).show();
+        }
+        else if(password.equals("")){
+            isValid = false;
+            Toast.makeText(context, "Password is required", Toast.LENGTH_SHORT).show();
+
+        }else if(password.length() < 8){
+            isValid = false;
+            Toast.makeText(context, "Password is too short", Toast.LENGTH_SHORT).show();
+
+        }else {
+            isValid = banedCharsCompare(context, password);
+        }
+
+        return isValid;
+    }
+
+    private boolean banedCharsCompare(Context context, String txt) {
+        for (int i = 0; i < banedChars.length; i++) {
+            if (txt.contains(banedChars[i])) {
+                Toast.makeText(context, "Forbidden characters found", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        }
+        return true;
     }
 
 

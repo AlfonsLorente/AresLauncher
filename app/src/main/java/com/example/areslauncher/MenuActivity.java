@@ -2,8 +2,10 @@ package com.example.areslauncher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +23,8 @@ public class MenuActivity extends AppCompatActivity {
     private boolean activityPressed = false;
     public static final String USERNAME_TAG = "com.example.areslauncher.USER";
     public static String username = "";
+    private int LAUNCH_SETTINGS_ACTIVITY = 1;
+
 
 
     /*public static boolean esTablet(Context context) {
@@ -64,22 +68,24 @@ public class MenuActivity extends AppCompatActivity {
                     effects.playEffect(R.raw.menu_pick);
                     startActivity(new Intent(MenuActivity.this, GameChooserActivity.class));
 
-                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_help))) {
+                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_scores))) {
                     // Launch the Help Activity
                     activityPressed = true;
                     effects.playEffect(R.raw.menu_pick);
+                    startActivity(new Intent(MenuActivity.this, ScoresActivity.class));
 
-                    startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
-                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_settings))) {
+                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_music))) {
                     // Launch the Settings Activity
                     activityPressed = true;
                     effects.playEffect(R.raw.menu_pick);
                     startActivity(new Intent(MenuActivity.this, MusicActivity.class));
-                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_scores))) {
+                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_settings))) {
                     // Launch the Scores Activity
                     activityPressed = true;
                     effects.playEffect(R.raw.menu_pick);
-                    startActivity(new Intent(MenuActivity.this, ScoresActivity.class));
+                    Intent intent = new Intent(MenuActivity.this, SettingsActivity.class);
+                    startActivityForResult(intent, LAUNCH_SETTINGS_ACTIVITY);
+
                 }
             }
 
@@ -91,6 +97,18 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    //onActivityResult
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_SETTINGS_ACTIVITY) {
+            if(resultCode == Activity.RESULT_OK){
+                startActivity(new Intent(MenuActivity.this, LogInActivity.class) );
+                this.finish();
+            }
+        }
+    }
 
 
     @Override
@@ -123,8 +141,8 @@ public class MenuActivity extends AppCompatActivity {
     private void setItemsToLV() {
         String[] items = {getResources().getString(R.string.menu_item_play),
                 getResources().getString(R.string.menu_item_scores),
-                getResources().getString(R.string.menu_item_settings),
-                getResources().getString(R.string.menu_item_help)};
+                getResources().getString(R.string.menu_item_music),
+                getResources().getString(R.string.menu_item_settings)};
         UserModel[] s = null;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.menu_item, items);
