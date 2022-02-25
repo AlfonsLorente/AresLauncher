@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -30,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String[] COLUMNS_USERS = { KEY_ID_COMMON, KEY_NAME_USERS, KEY_PASSWORD_USERS };
     private static final String USER_TABLE_CREATE =
             "CREATE TABLE " + USERS_TABLE + " (" +
-                    KEY_ID_COMMON + " INTEGER PRIMARY KEY, " + // id will auto-increment if no value passed
+                    KEY_ID_COMMON + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // id will auto-increment if no value passed
                     KEY_NAME_USERS + " TEXT, " +
                     KEY_PASSWORD_USERS + " TEXT );";
 
@@ -44,10 +45,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String[] COLUMNS_GAME2048 = {KEY_ID_COMMON, KEY_NAME_GAME2048, KEY_HIGHSCORE_GAME2048, KEY_GAME_TIME_GAME2048 };
     private static final String GAME2048_TABLE_CREATE =
             "CREATE TABLE " + GAME2048_TABLE + " (" +
-                    KEY_ID_COMMON + " INTEGER PRIMARY KEY, " + // id will auto-increment if no value passed
+                    KEY_ID_COMMON + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // id will auto-increment if no value passed
                     KEY_NAME_GAME2048 + " TEXT, " +
                     KEY_HIGHSCORE_GAME2048 + " TEXT, " +
                     KEY_GAME_TIME_GAME2048 + " TEXT );";
+    ;
 
 
     //Database gamePeg table
@@ -90,6 +92,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + GAME2048_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + GAMEPEG_TABLE);
         onCreate(db);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys=ON");
     }
 
     public void insertUser(String name, String password){
@@ -244,7 +252,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
-    public void deleteOldScorePeg(ScoreModel oldScore) {
+    public long deleteScorePeg(ScoreModel oldScore) {
         long newId = 0;
         String[] whereArgs = new String[]{oldScore.getUser()};
         String whereClause = KEY_NAME_GAMEPEG + " =?";
@@ -253,13 +261,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 mWritableDB = getWritableDatabase();
             }
             newId = mWritableDB.delete(GAMEPEG_TABLE,whereClause,whereArgs);
-            if (newId == 0){
-                throw new Exception("Error, nothing deleted");
-            }
+
         } catch (Exception e) {
             Log.d(TAG, "INSERT EXCEPTION! " + e.getMessage());
         }
 
+        return newId;
     }
     public ArrayList<ScoreModel> selectAllUsers2048(OrderBy orderBy) {
         ArrayList<ScoreModel> scoreModels = new ArrayList<>();
@@ -348,7 +355,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteOldScore2048(ScoreModel oldScore) {
+    public long  deleteScore2048(ScoreModel oldScore) {
         long newId = 0;
         String[] whereArgs = new String[]{oldScore.getUser()};
         String whereClause = KEY_NAME_GAME2048 + " =?";
@@ -357,12 +364,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 mWritableDB = getWritableDatabase();
             }
             newId = mWritableDB.delete(GAME2048_TABLE,whereClause,whereArgs);
-            if (newId == 0){
-                throw new Exception();
-            }
+
         } catch (Exception e) {
             Log.d(TAG, "INSERT EXCEPTION! " + e.getMessage());
         }
+        return newId;
     }
 
     public void insertScore2048(ScoreModel scoreModel) {
@@ -385,6 +391,93 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
+    
+    
+    public int changePassword(String user, String password){
+        int newId=0;
+        ContentValues values = new ContentValues();
+        values.put(KEY_PASSWORD_USERS, password);
+
+        try {
+            if (mWritableDB == null) {
+                mWritableDB = getWritableDatabase();
+            }
+            newId = mWritableDB.update(USERS_TABLE, values, KEY_NAME_USERS + " =? ", new String[]{user});
+
+            if (newId == 0){
+                throw new Exception("Error, nothing inserted");
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "INSERT EXCEPTION! " + e.getMessage());
+        }
+
+
+        return newId;
+    }
+    
+    public int changeUsername(String username, String newUsername){
+        int newId=0;
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME_USERS, newUsername);
+
+        try {
+            if (mWritableDB == null) {
+                mWritableDB = getWritableDatabase();
+            }
+            newId = mWritableDB.update(USERS_TABLE, values, KEY_NAME_USERS + " =? ", new String[]{username});
+
+            if (newId == 0){
+                throw new Exception("Error, nothing inserted");
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "INSERT EXCEPTION! " + e.getMessage());
+        }
+
+
+        ScoreModel scoreModel2048 = selectUser2048(username);
+        if (scoreModel2048 != null){
+            deleteScore2048(scoreModel2048);
+            scoreModel2048.setUser(newUsername);
+            insertScore2048(scoreModel2048);
+        }
+
+
+        ScoreModel scoreModelPeg = selectUserPeg(username);
+        if (scoreModelPeg != null){
+            deleteScorePeg(scoreModelPeg);
+            scoreModelPeg.setUser(newUsername);
+            insertScorePeg(scoreModelPeg);
+        }
+
+        return newId;
+    }
+    
+    public long deleteUser(String user){
+        long newId = 0;
+        String[] whereArgs = new String[]{user};
+        String whereClause = KEY_NAME_USERS + " =?";
+        try {
+            if (mWritableDB == null) {
+                mWritableDB = getWritableDatabase();
+            }
+            newId = mWritableDB.delete(USERS_TABLE,whereClause,whereArgs);
+            if (newId == 0){
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "DELETE EXCEPTION! " + e.getMessage());
+        }
+
+        ScoreModel scoreModel = new ScoreModel();
+        scoreModel.setUser(user);
+        deleteScore2048(scoreModel);
+        deleteScorePeg(scoreModel);
+        return newId;
+    }
+
+    
+    
+    
 
     enum OrderBy{
         USER,

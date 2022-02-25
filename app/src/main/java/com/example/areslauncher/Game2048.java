@@ -178,7 +178,7 @@ public class Game2048 extends Activity {
         restartButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //insertResults();
+                insertResults();
 
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
 

@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Utils {
 
-    String[] banedChars = new String[] {".", ",", "\"",";" , "'", "-", "@", "#", "~", "€", "¬", "/", "(", ")", "$", "·", "!", "º", "ª", "=", "+", "\t", "{", "}", "\\", " "};
+    private String[] banedChars = new String[] {".", ",", "\"",";" , "'", "-", "@", "#", "~", "€", "¬", "/", "(", ")", "$", "·", "!", "º", "ª", "=", "+", "\t", "{", "}", "\\", " "};
 
 
     public void insertResultsPeg(Context context, ScoreModel actualScore){
@@ -24,7 +24,7 @@ public class Utils {
             //if the actual score is higher
             if (actualScore.getHighScore() < oldScore.getHighScore()){
 
-                dbHelper.deleteOldScorePeg(oldScore);
+                dbHelper.deleteScorePeg(oldScore);
                 dbHelper.insertScorePeg(actualScore);
             }//If the actual score is equals to the old one
             else if(actualScore.getHighScore() == oldScore.getHighScore()){
@@ -41,7 +41,7 @@ public class Utils {
                 //if the new time is lower than the old one
                 if (oldDate.compareTo(newDate) > 0){
 
-                    dbHelper.deleteOldScorePeg(oldScore);
+                    dbHelper.deleteScorePeg(oldScore);
                     dbHelper.insertScorePeg(actualScore);
                 }
             }
@@ -64,7 +64,7 @@ public class Utils {
 
             if (actualScore.getHighScore() > oldScore.getHighScore()){
 
-                dbHelper.deleteOldScore2048(oldScore);
+                dbHelper.deleteScore2048(oldScore);
                 dbHelper.insertScore2048(actualScore);
             }//If the actual score is equals to the old one
             else if(actualScore.getHighScore() == oldScore.getHighScore()){
@@ -80,7 +80,7 @@ public class Utils {
                 }
                 //if the new time is lower than the old one
                 if (oldDate.compareTo(newDate) > 0){
-                    dbHelper.deleteOldScore2048(oldScore);
+                    dbHelper.deleteScore2048(oldScore);
                     dbHelper.insertScore2048(actualScore);
                 }
             }
