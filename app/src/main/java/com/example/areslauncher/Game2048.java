@@ -491,7 +491,7 @@ public class Game2048 extends Activity {
         ableAddNum = false;
         setColors();
 
-        serch2024();
+        //serch2024();
         if(win == true){
             insertResults();
             victorySplash.startAnimation(fadeIn);
@@ -553,6 +553,7 @@ public class Game2048 extends Activity {
 
                     case "2048":
                         button.setBackground(getDrawable(R.drawable.button2048));
+                        win = true;
                         break;
 
                     default:
@@ -667,13 +668,13 @@ public class Game2048 extends Activity {
     }
 
 
-    private void serch2024() {
-        for(int i = 0; i < buttons.size(); i++){
-            for(int j = 0; j < buttons.size(); j++) {
-                win = buttons.get(i).get(j).getText().equals("2048");
-            }
-        }
-    }
+//    private void serch2024() {
+//        for(int i = 0; i < buttons.size(); i++){
+//            for(int j = 0; j < buttons.size(); j++) {
+//                win = buttons.get(i).get(j).getText().equals("2048");
+//            }
+//        }
+//    }
 
     public void setNewNumber() {
         boolean done = false;
