@@ -137,7 +137,7 @@ public class GamePeg extends AppCompatActivity {
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                insertResults();
+                //insertResults();
                 activityPressed = true;
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
                 GamePeg.this.finish();

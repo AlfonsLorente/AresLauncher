@@ -21,7 +21,7 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
     private Spinner spinner;
     private DBHelper dbHelper;
     private boolean activityPressed = false;
-    private ImageButton button;
+    private ImageButton back;
     private int actualSpinnerPosition;
 
 
@@ -36,11 +36,11 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
         arrayAdapter.setDropDownViewResource(R.layout.score_spinner_item);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(this);
-        button = findViewById(R.id.back_button_score);
+        back = findViewById(R.id.back_button_score);
 
         listView = findViewById(R.id.listview_score);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 activityPressed = true;
@@ -55,6 +55,8 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        MenuActivity.effects.playEffect(R.raw.menu_pick);
+
         actualSpinnerPosition = position;
         if (games[position].equalsIgnoreCase("peg")){
             fillPegScoreModels(DBHelper.OrderBy.HIGHSCORE);
@@ -110,27 +112,23 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
 
     //onClick
     public void scoreButtonOrderBy(View view) {
+        MenuActivity.effects.playEffect(R.raw.menu_pick);
+
         Button button = (Button)view;
-        Log.d("position games", games[actualSpinnerPosition]);
-        Log.d("button", button.getText().toString());
         if (button.getText().toString().equalsIgnoreCase(getString(R.string.score_user))) {
             if (games[actualSpinnerPosition].equalsIgnoreCase("peg")) {
                 fillPegScoreModels(DBHelper.OrderBy.USER);
-                Log.d("peg_1", "user");
 
             } else {
                 fill2048ScoreModels(DBHelper.OrderBy.USER);
-                Log.d("2048_1", "user");
 
             }
         }else if(button.getText().toString().equalsIgnoreCase(getString(R.string.score_highscore))){
             if (games[actualSpinnerPosition].equalsIgnoreCase("peg")) {
                 fillPegScoreModels(DBHelper.OrderBy.HIGHSCORE);
-                Log.d("peg_2", "highscore");
 
             } else {
                 fill2048ScoreModels(DBHelper.OrderBy.HIGHSCORE);
-                Log.d("2048_2", "highscore");
 
 
             }
@@ -138,11 +136,9 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
         }else if(button.getText().toString().equalsIgnoreCase(getString(R.string.score_time))){
             if (games[actualSpinnerPosition].equalsIgnoreCase("peg")) {
                 fillPegScoreModels(DBHelper.OrderBy.TIME);
-                Log.d("peg_3", "time");
 
             } else {
                 fill2048ScoreModels(DBHelper.OrderBy.TIME);
-                Log.d("2048_3", "time");
 
 
             }

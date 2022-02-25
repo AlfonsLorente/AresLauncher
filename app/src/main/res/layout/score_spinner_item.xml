@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:textSize="35dp"
     android:gravity="center"
+    android:soundEffectsEnabled="false"
     android:shadowColor="@color/black"
     android:shadowDx="1"
     android:shadowDy="1"

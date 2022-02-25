@@ -82,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
+            android:soundEffectsEnabled="false"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="10dp"
@@ -112,8 +113,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/score_user"
-                style="@style/ScoreTableTitle"
+                style="@style/CustomButton"
                 android:onClick="scoreButtonOrderBy"
+                android:soundEffectsEnabled="false"
                 />
         </androidx.cardview.widget.CardView>
 
@@ -127,11 +129,13 @@
             >
 
             <androidx.appcompat.widget.AppCompatButton
-                style="@style/ScoreTableTitle"
+                style="@style/CustomButton"
                 android:padding="3dp"
                 android:onClick="scoreButtonOrderBy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:soundEffectsEnabled="false"
+
                 android:text="@string/score_highscore" />
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
@@ -146,9 +150,10 @@
 
             <androidx.appcompat.widget.AppCompatButton
 
-                style="@style/ScoreTableTitle"
+                style="@style/CustomButton"
                 android:layout_width="wrap_content"
                 android:padding="3dp"
+                android:soundEffectsEnabled="false"
                 android:onClick="scoreButtonOrderBy"
                 android:layout_height="wrap_content"
                 android:text="@string/score_time" />
