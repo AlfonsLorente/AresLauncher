@@ -102,7 +102,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="35dp"
+            android:layout_marginRight="10dp"
             app:cardElevation="10dp"
             app:cardCornerRadius="10dp"
             app:cardBackgroundColor="#22aa0022"
@@ -141,7 +141,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="10dp"
             app:cardElevation="10dp"
             app:cardCornerRadius="10dp"
             app:contentPadding="3dp"
