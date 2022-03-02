@@ -646,7 +646,7 @@ public class Game2048 extends Activity {
 
     }
 
-
+//TODO: A PARTIR DE AQUI
     /**
      * Check for the game over
      */
