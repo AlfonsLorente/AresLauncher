@@ -12,7 +12,12 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * HELPS ON MANAGING THE DATABASE ON THE APPLICATION
+ */
 public class DBHelper extends SQLiteOpenHelper {
+
+    //VARIABLES
 
     private static final String TAG = DBHelper.class.getSimpleName();
 
@@ -72,43 +77,66 @@ public class DBHelper extends SQLiteOpenHelper {
     private SQLiteDatabase mWritableDB;
     private SQLiteDatabase mReadableDB;
 
+    //CONSTRUCTOR
+
+    /**
+     * Constructor that calls "super"
+     * @param context - Context
+     */
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
+    /**
+     * Override of onCreate
+     * Creates all the tables
+     * @param db - SQLiteDatabase
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //Create tables
         db.execSQL(USER_TABLE_CREATE);
         db.execSQL(GAME2048_TABLE_CREATE);
         db.execSQL(GAMEPEG_TABLE_CREATE);
     }
 
+    /**
+     * Override of onUpgrade
+     * Drops the old tables and calls onCreate
+     * @param db - SQLiteDatabase
+     * @param oldVersion - int
+     * @param newVersion - int
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(DBHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
+        //Drop tables
         db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + GAME2048_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + GAMEPEG_TABLE);
         onCreate(db);
     }
 
-    @Override
-    public void onOpen(SQLiteDatabase db){
-        super.onOpen(db);
-        db.execSQL("PRAGMA foreign_keys=ON");
-    }
 
+    /**
+     * Inserts a new user in Users
+     * @param name - String
+     * @param password - String
+     */
     public void insertUser(String name, String password){
         long newId = 0;
+        //Create the values
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_USERS, name);
         values.put(KEY_PASSWORD_USERS, password);
         try {
+            //get the database on writable mode
             if (mWritableDB == null) {
                 mWritableDB = getWritableDatabase();
             }
+            //insert query
             newId = mWritableDB.insert(USERS_TABLE, null, values);
             if (newId == 0){
                 throw new Exception("Error, nothing inserted");
@@ -118,8 +146,16 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    /**
+     * Looks up if a user exists
+     * @param user - String
+     * @param password - String
+     * @return boolean - user found
+     */
     public boolean isUser(String user, String password) {
         boolean userFound = false;
+        //Set query clauses up
         String[] columns = new String[]{KEY_NAME_USERS, KEY_PASSWORD_USERS};
         String whereClause = KEY_NAME_USERS + " = ? AND " + KEY_PASSWORD_USERS  + " = ?";
         String[] whereArgs = new String[] {
@@ -129,14 +165,18 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         try {
+            //get readable database
             if (mReadableDB == null) mReadableDB = getReadableDatabase();
+            //execute select query
             cursor = mReadableDB.query(USERS_TABLE, columns, whereClause, whereArgs,
                     null, null, null);
+            //See if user is found
             if (cursor.getCount() == 1) userFound = true;
         } catch (Exception e) {
             Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
 
         } finally {
+            //close resources
             if (cursor!= null) {
                 cursor.close();
             }
@@ -144,17 +184,26 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    /**
+     * Inserts a score in the peg table
+     * @param scoreModel - ScoreModel
+     * @return long
+     */
     public long insertScorePeg(ScoreModel scoreModel){
         long newId = 0;
+        //contents to insert
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_GAMEPEG, scoreModel.getUser());
         values.put(KEY_HIGHSCORE_GAMEPEG, String.valueOf(scoreModel.getHighScore()));
         values.put(KEY_GAME_TIME_GAMEPEG, scoreModel.getTime());
 
         try {
+            //get writable database
             if (mWritableDB == null) {
                 mWritableDB = getWritableDatabase();
             }
+            //insert query
             newId = mWritableDB.insert(GAMEPEG_TABLE, null, values);
         } catch (Exception e) {
             Log.d(TAG, "INSERT EXCEPTION! " + e.getMessage());
@@ -164,7 +213,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Selects a user from the peg table
+     * @param user - String
+     * @return ScoreModel
+     */
     public ScoreModel selectUserPeg(String user){
+        //set up query clauses
         ScoreModel scoreModel = new ScoreModel();
         String[] columns = new String[]{KEY_NAME_GAMEPEG, KEY_HIGHSCORE_GAMEPEG, KEY_GAME_TIME_GAMEPEG};
         String whereClause = KEY_NAME_GAMEPEG + " = ?";
@@ -174,10 +229,12 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         try {
+            //get readable database
             if (mReadableDB == null) mReadableDB = getReadableDatabase();
+            //execute select query
             cursor = mReadableDB.query(GAMEPEG_TABLE, columns, whereClause, whereArgs,
                     null, null, null);
-
+            //Fill up the ScoreModel with the query information
             if(cursor!=null){
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
@@ -196,6 +253,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
 
         } finally {
+            //close cursor
             if (cursor!= null) {
                 cursor.close();
             }
@@ -204,13 +262,16 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-
+    /**
+     * Gets all the users and its scores from the score peg table.
+     * @param orderBy - DBHelper.OrderBy
+     * @return ArrayList<ScoreModel>
+     */
     public ArrayList<ScoreModel> selectAllUsersPeg(DBHelper.OrderBy orderBy){
+        //Set up args
         ArrayList<ScoreModel> scoreModels = new ArrayList<>();
         String[] columns = new String[]{KEY_NAME_GAMEPEG, KEY_HIGHSCORE_GAMEPEG, KEY_GAME_TIME_GAMEPEG};
-
         Cursor cursor = null;
-
         String orderByParam;
         switch (orderBy){
             case USER:
@@ -230,9 +291,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         try {
+            //get readable database
             if (mReadableDB == null) mReadableDB = getReadableDatabase();
             cursor = mReadableDB.query(GAMEPEG_TABLE, columns, null, null,
                     null, null, orderByParam);
+            //fill the scoremodels up and insert them in the arraylist
             while (cursor.moveToNext()) {
                 ScoreModel scoreModel = new ScoreModel();
                 scoreModel.setUser(cursor.getString(0));
@@ -245,6 +308,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
 
         } finally {
+            //close cursor
             if (cursor!= null) {
                 cursor.close();
             }
@@ -252,6 +316,9 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
+
+
+    
     public long deleteScorePeg(ScoreModel oldScore) {
         long newId = 0;
         String[] whereArgs = new String[]{oldScore.getUser()};
