@@ -279,7 +279,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 orderByParam = KEY_NAME_GAME2048 + " ASC";
                 break;
             case HIGHSCORE:
-                orderByParam = KEY_HIGHSCORE_GAME2048 + " DESC";
+                orderByParam = KEY_HIGHSCORE_GAME2048 + " ASC";
 
                 break;
             case TIME:
