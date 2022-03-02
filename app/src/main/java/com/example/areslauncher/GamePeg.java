@@ -395,31 +395,7 @@ public class GamePeg extends AppCompatActivity {
             pegs.add(new ArrayList<ImageButton>());
             for (int j = 0; j < 7; j++) {
                 //fill with numbers
-                int num = j;
-                switch (i) {
-                    case 1:
-                        num += 7;
-                        break;
-                    case 2:
-                        num += 14;
-                        break;
-                    case 3:
-                        num += 21;
-                        break;
-                    case 4:
-                        num += 28;
-                        break;
-                    case 5:
-                        num += 35;
-                        break;
-                    case 6:
-                        num += 42;
-                        break;
-                    case 7:
-                        num += 49;
-                        break;
-
-                }
+                int num = (i*7)+j;
                 pegs.get(i).add((ImageButton) gridLayout.getChildAt(num));
 
 

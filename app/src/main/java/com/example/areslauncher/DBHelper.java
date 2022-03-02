@@ -87,6 +87,7 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
+    //OVERRIDES
     /**
      * Override of onCreate
      * Creates all the tables
@@ -119,6 +120,8 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+    //METHODS
 
     /**
      * Inserts a new user in Users
@@ -317,16 +320,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Deletes a user score from the peg table
+     * @param oldScore - ScoreModel
+     * @return long
+     */
 
-    
     public long deleteScorePeg(ScoreModel oldScore) {
         long newId = 0;
+        //query args
         String[] whereArgs = new String[]{oldScore.getUser()};
         String whereClause = KEY_NAME_GAMEPEG + " =?";
         try {
+            //get writable database
             if (mWritableDB == null) {
                 mWritableDB = getWritableDatabase();
             }
+            //Execute delete query
             newId = mWritableDB.delete(GAMEPEG_TABLE,whereClause,whereArgs);
 
         } catch (Exception e) {
@@ -335,7 +345,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return newId;
     }
+
+    /**
+     * Gets all the users and its scores from the score 2048 table.
+     * @param orderBy - OrderBy
+     * @return ArrayList of ScoreModel
+     */
     public ArrayList<ScoreModel> selectAllUsers2048(OrderBy orderBy) {
+        //create the clauses
         ArrayList<ScoreModel> scoreModels = new ArrayList<>();
         String[] columns = new String[]{KEY_NAME_GAME2048, KEY_HIGHSCORE_GAME2048, KEY_GAME_TIME_GAME2048};
         Cursor cursor = null;
@@ -358,10 +375,13 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         try {
+            //get readable database
             if (mReadableDB == null) mReadableDB = getReadableDatabase();
+            //make select query
             cursor = mReadableDB.query(GAME2048_TABLE, columns, null, null,
                     null, null, orderByParam);
 
+            //put the cursor information in the scoremodel and this in the list
             while (cursor.moveToNext()) {
                 ScoreModel scoreModel = new ScoreModel();
                 scoreModel.setUser(cursor.getString(0));
@@ -374,6 +394,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
 
         } finally {
+            //close cursor
             if (cursor!= null) {
                 cursor.close();
             }
@@ -382,8 +403,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-
+    /**
+     * Select a user from the 2048 table
+     * @param user - String
+     * @return ScoreModel
+     */
     public ScoreModel selectUser2048(String user) {
+        //create the clauses
         ScoreModel scoreModel = new ScoreModel();
         String[] columns = new String[]{KEY_NAME_GAME2048, KEY_HIGHSCORE_GAME2048, KEY_GAME_TIME_GAME2048};
         String whereClause = KEY_NAME_GAME2048 + " = ?";
@@ -393,10 +419,13 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         try {
+            //get the database in readable mode
             if (mReadableDB == null) mReadableDB = getReadableDatabase();
+            //make the select query
             cursor = mReadableDB.query(GAME2048_TABLE, columns, whereClause, whereArgs,
                     null, null, null);
 
+            //get the cursor information into scoremodel
             if(cursor!=null){
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
@@ -415,6 +444,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Log.d(TAG, "QUERY EXCEPTION: " + e.getMessage());
 
         } finally {
+            //close cursor
             if (cursor!= null) {
                 cursor.close();
             }
@@ -422,14 +452,23 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    /**
+     * delete a score from 2048 table
+     * @param oldScore - ScoreModel
+     * @return long
+     */
     public long  deleteScore2048(ScoreModel oldScore) {
         long newId = 0;
+        //prepare clauses
         String[] whereArgs = new String[]{oldScore.getUser()};
         String whereClause = KEY_NAME_GAME2048 + " =?";
         try {
+            //get database in writable mode
             if (mWritableDB == null) {
                 mWritableDB = getWritableDatabase();
             }
+            //make delete query
             newId = mWritableDB.delete(GAME2048_TABLE,whereClause,whereArgs);
 
         } catch (Exception e) {
@@ -438,17 +477,24 @@ public class DBHelper extends SQLiteOpenHelper {
         return newId;
     }
 
+    /**
+     * insert a score from 2048 table
+     * @param scoreModel
+     */
     public void insertScore2048(ScoreModel scoreModel) {
         long newId = 0;
+        //prepare values
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_GAME2048, scoreModel.getUser());
         values.put(KEY_HIGHSCORE_GAME2048, scoreModel.getHighScore());
         values.put(KEY_GAME_TIME_GAME2048, scoreModel.getTime());
 
         try {
+            //get the writable database
             if (mWritableDB == null) {
                 mWritableDB = getWritableDatabase();
             }
+            //execute the insert query
             newId = mWritableDB.insert(GAME2048_TABLE, null, values);
             if (newId == 0){
                 throw new Exception("Error, nothing inserted");
@@ -458,17 +504,25 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
-    
-    
+
+    /**
+     * Change the password of a user from the user table
+     * @param user - String
+     * @param password - String
+     * @return int
+     */
     public int changePassword(String user, String password){
         int newId=0;
+        //prepare values
         ContentValues values = new ContentValues();
         values.put(KEY_PASSWORD_USERS, password);
 
         try {
+            //get writable database
             if (mWritableDB == null) {
                 mWritableDB = getWritableDatabase();
             }
+            //update query
             newId = mWritableDB.update(USERS_TABLE, values, KEY_NAME_USERS + " =? ", new String[]{user});
 
             if (newId == 0){
@@ -481,16 +535,26 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return newId;
     }
-    
+
+
+    /**
+     * changes a username from the user table and so the other related tables.
+     * @param username - String
+     * @param newUsername - String
+     * @return int
+     */
     public int changeUsername(String username, String newUsername){
         int newId=0;
+        //prepare values
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_USERS, newUsername);
 
         try {
+            //get writable database
             if (mWritableDB == null) {
                 mWritableDB = getWritableDatabase();
             }
+            //execute update
             newId = mWritableDB.update(USERS_TABLE, values, KEY_NAME_USERS + " =? ", new String[]{username});
 
             if (newId == 0){
@@ -500,7 +564,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Log.d(TAG, "INSERT EXCEPTION! " + e.getMessage());
         }
 
-
+        //change the username on the 2048 table
         ScoreModel scoreModel2048 = selectUser2048(username);
         if (scoreModel2048 != null){
             deleteScore2048(scoreModel2048);
@@ -508,7 +572,7 @@ public class DBHelper extends SQLiteOpenHelper {
             insertScore2048(scoreModel2048);
         }
 
-
+        //change the username on the peg table
         ScoreModel scoreModelPeg = selectUserPeg(username);
         if (scoreModelPeg != null){
             deleteScorePeg(scoreModelPeg);
@@ -518,15 +582,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return newId;
     }
-    
+
+    /**
+     * Deletes a user form user tabeles and the related tables
+     * @param user
+     * @return
+     */
     public long deleteUser(String user){
+        //create args
         long newId = 0;
         String[] whereArgs = new String[]{user};
         String whereClause = KEY_NAME_USERS + " =?";
         try {
+            //get the database in writable mode
             if (mWritableDB == null) {
                 mWritableDB = getWritableDatabase();
             }
+            //execute delete
             newId = mWritableDB.delete(USERS_TABLE,whereClause,whereArgs);
             if (newId == 0){
                 throw new Exception();
@@ -535,6 +607,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Log.d(TAG, "DELETE EXCEPTION! " + e.getMessage());
         }
 
+        //delete it on the peg and 2048 tables too
         ScoreModel scoreModel = new ScoreModel();
         scoreModel.setUser(user);
         deleteScore2048(scoreModel);
@@ -542,10 +615,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return newId;
     }
 
-    
-    
-    
 
+    /**
+     * Control the type of orderby that will execute
+     */
     enum OrderBy{
         USER,
         HIGHSCORE,
