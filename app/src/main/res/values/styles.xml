@@ -81,7 +81,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/greek</item>
         <item name="android:textSize">25dp</item>
-        <item name="android:background">#11ff0000</item>
+        <item name="android:background">#22ff0000</item>
 
 
     </style>

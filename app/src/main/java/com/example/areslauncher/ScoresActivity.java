@@ -36,6 +36,7 @@ public class ScoresActivity extends AppCompatActivity implements AdapterView.OnI
         arrayAdapter.setDropDownViewResource(R.layout.score_spinner_item);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(this);
+
         back = findViewById(R.id.back_button_score);
 
         listView = findViewById(R.id.listview_score);
