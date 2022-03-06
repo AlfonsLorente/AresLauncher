@@ -58,9 +58,6 @@ public class MusicPlayer {
 
     }
 
-    public void removeEffect(int effect){
-        effects.remove(effect);
-    }
 
 
     private void fillSongs() {
@@ -82,11 +79,6 @@ public class MusicPlayer {
         music.start();
     }
 
-    public void start() {
-        setUpRandomSong();
-
-
-    }
 
     public void pause() {
         playing = false;
@@ -94,9 +86,6 @@ public class MusicPlayer {
 
     }
 
-    public void play(){
-        music.start();
-    }
 
 
     public void reset() {
@@ -117,9 +106,6 @@ public class MusicPlayer {
         }
     }
 
-    public boolean isPlaying() {
-        return music.isPlaying();
-    }
 
 
 

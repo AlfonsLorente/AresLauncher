@@ -23,8 +23,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Peg game
+ */
 public class GamePeg extends AppCompatActivity {
-    //Declare variables
+    //VARIABLES
     private final ArrayList<ArrayList<ImageButton>> pegs = new ArrayList<ArrayList<ImageButton>>();
     private final ArrayList<ArrayList<Drawable.ConstantState>> oldPegs = new ArrayList<ArrayList<Drawable.ConstantState>>();
 
@@ -38,9 +41,14 @@ public class GamePeg extends AppCompatActivity {
     private int oldi, oldj;
     private Animation fadeIn;
     private boolean activityPressed = false;
-    private ImageButton settingsButton;
+    private ImageButton musicButton;
 
-    //ON CREATE
+    //OVERRIDE METHODS
+
+    /**
+     * Initialitze variables, set listeners and set up game
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,42 +60,40 @@ public class GamePeg extends AppCompatActivity {
         backButton = findViewById(R.id.back_button_peg);
         restartButton = findViewById(R.id.restart_button_peg);
         undoButton = findViewById(R.id.undo_button_peg);
-        settingsButton = findViewById(R.id.settings_button_peg);
+        musicButton = findViewById(R.id.settings_button_peg);
 
         chronometer = findViewById(R.id.chrono_peg);
         possibleMoves = findViewById(R.id.possibleMoves);
         victorySplash = findViewById(R.id.pegVictory);
         gameOverSplash = findViewById(R.id.pegGameOver);
+        //animation
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         fadeIn.setDuration(2500);
 
+        //chrono
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
 
+        //sound effects
         MenuActivity.effects.addEffect(R.raw.peg_pick);
         MenuActivity.effects.addEffect(R.raw.peg_drop);
 
-
+        //set all the listeners
         setListeners();
         //Start the game
         setUpNewPegs();
         setUpOldPegs();
-
         resumeGame();
 
 
     }
 
-    @Override
-    protected void onDestroy() {
-
-        super.onDestroy();
-    }
-
+    /**
+     * Pauses the game and controls if the music has to pause
+     */
     @Override
     protected void onPause() {
         if (!activityPressed) {
-
             MenuActivity.music.pause();
         }
         activityPressed = false;
@@ -95,6 +101,9 @@ public class GamePeg extends AppCompatActivity {
         super.onPause();
     }
 
+    /**
+     * Resumes the app and the music
+     */
     @Override
     protected void onResume() {
         MenuActivity.music.resume();
@@ -103,7 +112,14 @@ public class GamePeg extends AppCompatActivity {
         super.onResume();
     }
 
+    //PRIVATE METHODS
+
+    /**
+     * Sets up all the listeners
+     */
     private void setListeners() {
+
+        //animation listener - on game over or victory will be triggered and end the activity
         fadeIn.setAnimationListener(new Animation.AnimationListener() {
 
             @Override
@@ -125,6 +141,7 @@ public class GamePeg extends AppCompatActivity {
         });
 
 
+        //closes this activity
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,6 +151,7 @@ public class GamePeg extends AppCompatActivity {
             }
         });
 
+        //restarts the activity
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,6 +164,7 @@ public class GamePeg extends AppCompatActivity {
             }
         });
 
+        //undo a movement
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,8 +178,8 @@ public class GamePeg extends AppCompatActivity {
             }
         });
 
-
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        //Opens de music menu
+        musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 activityPressed = true;
@@ -172,9 +191,12 @@ public class GamePeg extends AppCompatActivity {
     }
 
 
-
+    /**
+     * updates the score, and looks for victory/game over
+     */
     private void resumeGame() {
-        updatePuntuation();
+        updatePunctuation();
+        //game will end in victory if the score is 1
         if (pegsAmount.getText().toString().equals("1") ){
             insertResults();
             victorySplash.startAnimation(fadeIn);
@@ -186,11 +208,16 @@ public class GamePeg extends AppCompatActivity {
 
     }
 
+    /**
+     * looks for the game over
+     */
     private void scanGame() {
         int moves = 0;
+        //loops all the buttons
         for (int i = 0; i < pegs.size(); i++) {
             for (int j = 0; j < pegs.get(i).size(); j++) {
 
+                //tries all the possibilities
                 if (!pegs.get(i).get(j).getBackground().getConstantState().equals(getDrawable(R.drawable.peginvisible).getConstantState())) {
 
                     if ((pegs.get(i).get(j).getBackground().getConstantState().equals(getDrawable(R.drawable.pegunpressed).getConstantState()) ||
@@ -250,7 +277,9 @@ public class GamePeg extends AppCompatActivity {
                 }
             }
         }
+        //Sets the actual possible moves
         possibleMoves.setText("" + moves);
+        //if there is no moves game over
         if (moves == 0) {
 
             insertResults();
@@ -259,8 +288,10 @@ public class GamePeg extends AppCompatActivity {
         }
     }
 
-    //UPDATE PUNTUATION
-    private void updatePuntuation() {
+    /**
+     * updates the punctuation - the lowest the score is the best one
+     */
+    private void updatePunctuation() {
         //Loop all the pegs
         int amount = 0;
         for (int i = 0; i < pegs.size(); i++) {
@@ -277,7 +308,10 @@ public class GamePeg extends AppCompatActivity {
         pegsAmount.setText("" + amount);
     }
 
-    //BUTTON CLICKED
+    /**
+     * onClick called by the xml, it detects the type of background the button pressed has
+     * @param view View
+     */
     public void buttonClicked(View view) {
         //Ignore if its an invisible peg
         if (!view.getBackground().getConstantState().equals(getDrawable(R.drawable.peginvisible).getConstantState())) {
@@ -299,7 +333,10 @@ public class GamePeg extends AppCompatActivity {
     }
 
 
-    //CALCULATE MOVEMENT
+    /**
+     * calculates if the movement is possible
+     * @param view View
+     */
     private void calculateMovement(View view) {
         updateOldPegs();
         //loop all the pegs
@@ -368,7 +405,10 @@ public class GamePeg extends AppCompatActivity {
         }
     }
 
-    //SEARCH CLICKED BUTTON
+    /**
+     * Finds if there is some button pressed (with the pegpressed background) and save its value
+     * @return boolean
+     */
     private boolean searchClickedButton() {
         //Loop all the pegs
         for (int i = 0; i < pegs.size(); i++) {
@@ -387,7 +427,9 @@ public class GamePeg extends AppCompatActivity {
     }
 
 
-    //GET ALL PEGS
+    /**
+     * instantiate all the grid layout child buttons in the array
+     */
     private void setUpNewPegs() {
         //Fill list
         for (int i = 0; i < 7; i++) {
@@ -403,6 +445,9 @@ public class GamePeg extends AppCompatActivity {
         }
     }
 
+    /**
+     * instantiate all the old buttons of constantStates of the new buttons
+     */
     public void setUpOldPegs() {
         canUndo = false;
         //Fill list
@@ -420,6 +465,9 @@ public class GamePeg extends AppCompatActivity {
     }
 
 
+    /**
+     * Update the old buttons setting them the new one background state
+     */
     private void updateOldPegs() {
         canUndo = true;
         //Fill list
@@ -432,6 +480,9 @@ public class GamePeg extends AppCompatActivity {
         }
     }
 
+    /**
+     * set all the new pegs to its old state with the old buttons array
+     */
     private void updateNewPegs() {
         canUndo = false;
         //Fill list
@@ -455,12 +506,18 @@ public class GamePeg extends AppCompatActivity {
     }
 
 
+    /**
+     * insert the score into the database
+     */
     private void insertResults(){
+        //stop chronometer
         chronometer.stop();
+        //set up score model
         ScoreModel actualScore = new ScoreModel();
         actualScore.setUser(MenuActivity.username);
         actualScore.setHighScore(Integer.parseInt(pegsAmount.getText().toString()));
         actualScore.setTime(chronometer.getText().toString());
+        //save score
         Utils utils = new Utils();
         utils.insertResultsPeg(getApplicationContext(), actualScore);
 
@@ -468,6 +525,10 @@ public class GamePeg extends AppCompatActivity {
     }
 
 
+    /**
+     * Full window mode
+     * @param hasFocus boolean
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

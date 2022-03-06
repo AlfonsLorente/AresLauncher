@@ -8,54 +8,61 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+/**
+ * Lets the user pick a game
+ */
 public class GameChooserActivity extends AppCompatActivity {
+    //VARIABLES
     private ImageButton button2048, buttonPeg, backButton;
     private RelativeLayout relativeLayout;
     private boolean activityPressed = false;
 
-    /*public static boolean esTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }*/
+    //OVERRIDE METHODS
 
+    /**
+     * Set up variables and listeners
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_chooser);
 
+        //Variables
         button2048 = findViewById(R.id.button2048);
         buttonPeg = findViewById(R.id.button_peg);
         backButton = findViewById(R.id.back_button_gc);
         relativeLayout = findViewById(R.id.chooser_relative_layout);
-        //setBackGround();
 
+        //start game 2048
         button2048.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activityPressed = true;
-                MenuActivity.effects.playEffect(R.raw.menu_pick);
+                activityPressed = true;//the music will not stop
+                MenuActivity.effects.playEffect(R.raw.menu_pick);//button sounds effect
 
                 startActivity(new Intent(GameChooserActivity.this, Game2048.class));
             }
         });
 
+        //start game peg
         buttonPeg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activityPressed = true;
-                MenuActivity.effects.playEffect(R.raw.menu_pick);
+                activityPressed = true;//the music will not stop
+                MenuActivity.effects.playEffect(R.raw.menu_pick);//button sounds effect
 
                 startActivity(new Intent(GameChooserActivity.this, GamePeg.class));
 
             }
         });
 
+        //go back to menu
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activityPressed = true;
-                MenuActivity.effects.playEffect(R.raw.menu_pick);
+                activityPressed = true;//the music will not stop
+                MenuActivity.effects.playEffect(R.raw.menu_pick);//button sounds effect
 
                 GameChooserActivity.this.finish();
             }
@@ -63,29 +70,12 @@ public class GameChooserActivity extends AppCompatActivity {
 
     }
 
-    /*private void setBackGround() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-        if (esTablet(this)) {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubgtablet));
-
-
-        } else if (height > 2100 && width == 1080) {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
-        } else if (height > 2850 && width == 1440) {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
-
-        } else {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubackground1080));
-        }
-
-    }*/
-
-
+    /**
+     * Pause app and music
+     */
     @Override
     protected void onPause() {
+        //pause if is not starting an activity
         if (!activityPressed) {
 
             MenuActivity.music.pause();
@@ -95,6 +85,9 @@ public class GameChooserActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    /**
+     * resume app and music
+     */
     @Override
     protected void onResume() {
         MenuActivity.music.resume();

@@ -14,41 +14,42 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class LogInActivity extends AppCompatActivity {
-    private RelativeLayout relativeLayout;
+    //VARIABLES
     private EditText userName, password;
     private Button enterButton, registerButton;
     private DBHelper dbHelper;
     private MusicPlayer effects;
 
+    //OVERRIDE METHODS
 
-//    public static boolean esTablet(Context context) {
-//        return (context.getResources().getConfiguration().screenLayout
-//                & Configuration.SCREENLAYOUT_SIZE_MASK)
-//                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-//    }
-
+    /**
+     * Instantiate variables and listeners
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        relativeLayout = findViewById(R.id.login_rl);
-        //setBackGround();
+        //variables
         userName = findViewById(R.id.username_login);
         password = findViewById(R.id.password_login);
         enterButton = findViewById(R.id.button_login);
         registerButton = findViewById(R.id.button_register_login);
         dbHelper = new DBHelper(this);
 
+        //effects
         effects = new MusicPlayer(this, 1);
         effects.addEffect(R.raw.menu_pick);
 
-
+        //log in button listener - it tries to login with the user inserted
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 effects.playEffect(R.raw.menu_pick);
+                //user inputs
                 String user = userName.getText().toString();
                 String pass = password.getText().toString();
+                //see if the user with the password exists
                 if (dbHelper.isUser(user, pass)) {
                     startActivity(new Intent(LogInActivity.this, MenuActivity.class).putExtra(MenuActivity.USERNAME_TAG, user));
                     dbHelper.close();
@@ -59,6 +60,7 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
+        //opens the register activity
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,31 +74,6 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
-
-
-//    private void setBackGround() {
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        int height = displayMetrics.heightPixels;
-//        int width = displayMetrics.widthPixels;
-//        if (esTablet(this)) {
-//            relativeLayout.setBackground(getDrawable(R.drawable.menubgtablet));
-//
-//
-//        } else if (height > 2100 && width == 1080) {
-//            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
-//        } else if (height > 2850 && width == 1440) {
-//            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
-//
-//        } else {
-//            relativeLayout.setBackground(getDrawable(R.drawable.menubackground1080));
-//        }
-
-    //}
 
 }

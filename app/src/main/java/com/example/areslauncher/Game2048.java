@@ -46,7 +46,7 @@ public class Game2048 extends Activity {
     //OVERRIDES
 
     /**
-     * Prepares all the variables and sets up the app
+     * Prepares all the variables and sets up the activity
      * @param savedInstanceState - Bundle
      */
     @Override
@@ -646,14 +646,16 @@ public class Game2048 extends Activity {
 
     }
 
-//TODO: A PARTIR DE AQUI
+
     /**
      * Check for the game over
      */
     private void checkGameOver() {
+        //Variables
         isOver = false;
         boolean canSum = false;
 
+        //Loop all the buttons looking for a possible sum
         for(int i = 0; i < buttons.size(); i++) {
             for (int j = 0; j < buttons.size(); j++) {
                 String button = buttons.get(i).get(j).getText().toString();
@@ -661,6 +663,7 @@ public class Game2048 extends Activity {
                     canSum = true;
                     break;
                 }
+                //Try all possibilities
                 if (i == 0 || i == 3 || j == 0 || j == 3) {
                     if (i == 0 && j == 0){
                         if(button.equals(buttons.get(i+1).get(j).getText().toString())
@@ -744,6 +747,7 @@ public class Game2048 extends Activity {
             }
         }
 
+        //If there is no posible sum is over true
         if(canSum == false){
             isOver = true;
         }
@@ -751,14 +755,9 @@ public class Game2048 extends Activity {
     }
 
 
-//    private void serch2024() {
-//        for(int i = 0; i < buttons.size(); i++){
-//            for(int j = 0; j < buttons.size(); j++) {
-//                win = buttons.get(i).get(j).getText().equals("2048");
-//            }
-//        }
-//    }
-
+    /**
+     * Set a number to a random button if its empty
+     */
     public void setNewNumber() {
         boolean done = false;
         do{
@@ -774,10 +773,15 @@ public class Game2048 extends Activity {
         }while (!done);
 
     }
-    //Generate random number
+
+    /**
+     * generates a random number between 2 - 4
+     * @return Integer
+     */
     public Integer generateNumber(){
         //Probability of 10 per cent to be a 4
         int rand = new Random().nextInt(10);
+        //10% chance its 4
         if(rand == 0){
             return 4;
         }else{
@@ -785,6 +789,9 @@ public class Game2048 extends Activity {
         }
     }
 
+    /**
+     * Fill the button array with all the gridlayout childs
+     */
     public void setUpNewButtons() {
         //Fill list
         for (int i = 0; i < 4; i++){
@@ -802,6 +809,9 @@ public class Game2048 extends Activity {
 
     }
 
+    /**
+     * fill all the old buttons string array with the current values
+     */
     public void setUpOldButtons() {
         canUndo = false;
         //Fill list
@@ -820,8 +830,9 @@ public class Game2048 extends Activity {
     }
 
 
-
-
+    /**
+     * update old buttons array with current state
+     */
     private void updateOldButtons(){
         canUndo = true;
         oldScore = score.getText().toString();
@@ -834,6 +845,10 @@ public class Game2048 extends Activity {
             }
         }
     }
+
+    /**
+     * Undo the move, so sets the text of the old buttons to the new ones
+     */
     private void updateNewButtons(){
         canUndo = false;
         score.setText(oldScore);
@@ -849,12 +864,18 @@ public class Game2048 extends Activity {
     }
 
 
+    /**
+     * Save score to the database
+     */
     private void insertResults(){
+        //stop chronometer
         chronometer.stop();
+        //Set score
         ScoreModel actualScore = new ScoreModel();
         actualScore.setUser(MenuActivity.username);
         actualScore.setHighScore(Integer.parseInt(score.getText().toString()));
         actualScore.setTime(chronometer.getText().toString());
+        //Insert results
         Utils utils = new Utils();
         utils.insertResults2048(getApplicationContext(), actualScore);
 
@@ -862,6 +883,10 @@ public class Game2048 extends Activity {
     }
 
 
+    /**
+     * sets the window to full screen mode
+     * @param hasFocus boolean
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
