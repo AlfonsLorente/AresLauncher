@@ -31,7 +31,7 @@ public class MenuActivity extends AppCompatActivity {
     //OVERRIDE METHODS
 
     /**
-     * Instantiate variables and prepare activity
+     * Initialize variables and prepare activity
      * @param savedInstanceState Bundle
      */
     @Override

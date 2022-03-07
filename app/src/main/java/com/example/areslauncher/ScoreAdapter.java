@@ -10,15 +10,31 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * list adapter for the score item xml, it lets you inflate arrays of score values to the screen
+ */
 public class ScoreAdapter extends BaseAdapter {
+    //VARIABLES
     private Context context;
     private ArrayList<ScoreModel> scoreModels;
 
+    //CONSTRUCTOR
+    /**
+     * Initialize variables
+     * @param context Context
+     * @param scoreModels ArrayLists of scoreModels
+     */
     public ScoreAdapter(Context context, ArrayList<ScoreModel> scoreModels) {
         this.context = context;
         this.scoreModels = scoreModels;
     }
 
+    //OVERRIDES METHODS
+
+    /**
+     * Gets the size of the scoreModels array
+     * @return int
+     */
     @Override
     public int getCount() {
         return scoreModels.size();
@@ -62,9 +78,11 @@ public class ScoreAdapter extends BaseAdapter {
         return convertView;
     }
 
-
+    /**
+     * Inner class that contains the 3 values of score
+     */
     private class ViewHolder {
-
+        //VARIABLES
         protected TextView userTextView, scoreTextView, timeTextView;
 
     }

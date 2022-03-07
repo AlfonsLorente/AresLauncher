@@ -23,7 +23,7 @@ public class LogInActivity extends AppCompatActivity {
     //OVERRIDE METHODS
 
     /**
-     * Instantiate variables and listeners
+     * Initialize variables and listeners
      * @param savedInstanceState Bundle
      */
     @Override

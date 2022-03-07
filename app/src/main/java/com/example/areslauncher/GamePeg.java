@@ -46,7 +46,7 @@ public class GamePeg extends AppCompatActivity {
     //OVERRIDE METHODS
 
     /**
-     * Initialitze variables, set listeners and set up game
+     * Initialize variables, set listeners and set up game
      * @param savedInstanceState Bundle
      */
     @Override
