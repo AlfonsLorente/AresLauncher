@@ -63,6 +63,11 @@ public class Utils {
 
     }
 
+    /**
+     * Inserts results to the 2048 table
+     * @param context Context
+     * @param actualScore Score model
+     */
     public void insertResults2048(Context context, ScoreModel actualScore){
 
         DBHelper dbHelper = new DBHelper(context);
