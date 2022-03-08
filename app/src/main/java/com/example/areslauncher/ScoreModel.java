@@ -1,12 +1,16 @@
 package com.example.areslauncher;
 
+/**
+ * Class that represents each score
+ */
 public class ScoreModel {
+    //VARIABLES
     private int ID;
     private String user;
     private int highScore;
     private String time;
 
-
+    //GETTERS AND SETTERS
     public int getID() {
         return ID;
     }

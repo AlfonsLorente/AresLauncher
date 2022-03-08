@@ -20,6 +20,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Plays the 2048 game
+ */
 public class Game2048 extends Activity {
     //VARIABLES
     private final ArrayList<ArrayList<Button>> buttons = new ArrayList<ArrayList<Button>>();
@@ -40,7 +43,12 @@ public class Game2048 extends Activity {
     private Chronometer chronometer;
 
 
-    //ONCREATE
+    //OVERRIDES
+
+    /**
+     * Prepares all the variables and sets up the activity
+     * @param savedInstanceState - Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,33 +66,34 @@ public class Game2048 extends Activity {
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         score = findViewById(R.id.score);
         chronometer = findViewById(R.id.chrono_2048);
+
+        //music effect
         MenuActivity.effects.addEffect(R.raw.swipe2048_2);
         MenuActivity.effects.addEffect(R.raw.suma);
 
+        //chronometer
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
 
+        //animation duration
         fadeIn.setDuration(2500);
+        //set listeners
         setListeners();
 
         //Set up game
         setUpNewButtons();
         setNewNumber();
         setNewNumber();
-
         setUpOldButtons();
         setColors();
 
 
     }
 
-    @Override
-    protected void onDestroy() {
-        //MenuActivity.effects.removeEffect(R.raw.swipe2048_2);
-        //MenuActivity.effects.removeEffect(R.raw.suma);
-        super.onDestroy();
-    }
 
+    /**
+     * Pauses the app and the music
+     */
     @Override
     protected void onPause() {
         if (!activityPressed){
@@ -96,6 +105,9 @@ public class Game2048 extends Activity {
         super.onPause();
     }
 
+    /**
+     * Resumes the application and the music
+     */
     @Override
     protected void onResume() {
         MenuActivity.music.resume();
@@ -103,8 +115,14 @@ public class Game2048 extends Activity {
         super.onResume();
     }
 
+    //METHODS
+
+    /**
+     * Sets up the listeners
+     */
     private void setListeners() {
 
+        //Fade in animation listener
         fadeIn.setAnimationListener(new Animation.AnimationListener(){
 
             @Override
@@ -112,8 +130,13 @@ public class Game2048 extends Activity {
 
             }
 
+            /**
+             * Finishes the app
+             * @param animation - Animation
+             */
             @Override
             public void onAnimationEnd(Animation animation) {
+                //finishes the app
                 activityPressed = true;
                 Game2048.this.finish();
 
@@ -125,8 +148,11 @@ public class Game2048 extends Activity {
             }
         });
 
+        //Layout listener
         constraintLayout.setOnTouchListener(new SwipeListener(this){
-            //Swipe top
+            /**
+             * controls the on swipe top
+             */
             public void onSwipeTop() {
 
                 updateOldButtons();
@@ -136,7 +162,9 @@ public class Game2048 extends Activity {
 
             }
 
-            //Swipe Right
+            /**
+             * controls the on swipe right
+             */
             public void onSwipeRight() {
                 updateOldButtons();
                 swipeRightNumberSum();
@@ -145,7 +173,9 @@ public class Game2048 extends Activity {
 
             }
 
-            //Swipe left
+            /**
+             * controls the on swipe left
+             */
             public void onSwipeLeft() {
                 updateOldButtons();
                 swipeLeftNumberSum();
@@ -154,7 +184,9 @@ public class Game2048 extends Activity {
 
             }
 
-            //Swipe Bottom
+            /**
+             * controls the on swipe bottom
+             */
             public void onSwipeBottom() {
                 updateOldButtons();
                 swipeBottomNumberSum();
@@ -165,17 +197,27 @@ public class Game2048 extends Activity {
 
         });
 
+        //set back button listener
         backButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * finishes this activity
+             * @param view - View
+             */
             @Override
             public void onClick(View view) {
-
+                //play button effect
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
                 activityPressed = true;
                 Game2048.this.finish();
             }
         });
 
+        //restart button listener
         restartButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * saves the app results
+             * @param view - View
+             */
             @Override
             public void onClick(View view) {
                 insertResults();
@@ -190,7 +232,12 @@ public class Game2048 extends Activity {
             }
         });
 
+        //undo button listener
         undoButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * Undo the las move done
+             * @param view - View
+             */
             @Override
             public void onClick(View view) {
                 MenuActivity.effects.playEffect(R.raw.menu_pick);
@@ -204,7 +251,12 @@ public class Game2048 extends Activity {
             }
         });
 
+        //settings button listener
         settingsButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * open the music activity
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 activityPressed = true;
@@ -216,8 +268,9 @@ public class Game2048 extends Activity {
     }
 
 
-
-    //SWIPE TOP ARRANGE NUMBERS
+    /**
+     * Makes the top swipe arrange of the buttons
+     */
     private void swipeTopArrangeNumbers() {
         //Loop all the buttons
         for (int i = 0; i < buttons.size(); i++) {
@@ -247,7 +300,9 @@ public class Game2048 extends Activity {
         }
     }
 
-    //SWIPE TOP NUMBER SUM
+    /**
+     * makes the top sum of the buttons
+     */
     private void swipeTopNumberSum() {
         //Loop all the buttons
         for(int i = 0; i < buttons.size(); i++ ){
@@ -283,7 +338,9 @@ public class Game2048 extends Activity {
         }
     }
 
-    //SWIPE BOTTOM ARRANGE NUMBERS
+    /**
+     * Makes the bottom swipe arrange of the buttons
+     */
     private void swipeBottomArrangeNumbers() {
         //Reverse loop all the buttons
         for(int i = buttons.size()-1; i >= 0; i-- ){
@@ -311,7 +368,9 @@ public class Game2048 extends Activity {
         }
     }
 
-    //SWIPE BOTTOM NUMBER SUM
+    /**
+     * makes the top bottom of the buttons
+     */
     private void swipeBottomNumberSum() {
         //Reverse loop all the buttons
         for(int i = buttons.size()-1; i >= 0; i-- ){
@@ -348,7 +407,9 @@ public class Game2048 extends Activity {
         }
     }
 
-    //SWIPE LEFT ARRANGE NUMBERS
+    /**
+     * Makes the left swipe arrange of the buttons
+     */
     private void swipeLeftArrangeNumbers() {
         //Loop all the buttons
         for (int j = 0; j <  buttons.size(); j++)  {
@@ -376,7 +437,9 @@ public class Game2048 extends Activity {
         }
     }
 
-    //SWIPE LEFT NUMBER SUM
+    /**
+     * makes the left sum of the buttons
+     */
     private void swipeLeftNumberSum() {
         //Loop all the buttons
         for(int i = 0; i < buttons.size(); i++ ){
@@ -415,7 +478,10 @@ public class Game2048 extends Activity {
 
 
 
-    //SWIPE RIGHT ARRANGE NUMBERS
+    /**
+     * Makes the right swipe arrange of the buttons
+     */
+
     private void swipeRightArrangeNumbers() {
         //Reverse loop all the buttons
         for(int i = buttons.size()-1; i >= 0; i-- ){
@@ -443,7 +509,9 @@ public class Game2048 extends Activity {
         }
     }
 
-    //SWIPE RIGHT NUMBER SUM
+    /**
+     * makes the right sum of the buttons
+     */
     private void swipeRightNumberSum() {
         //Reverse loop all the buttons
         for(int i = buttons.size()-1; i >= 0; i-- ){
@@ -481,31 +549,44 @@ public class Game2048 extends Activity {
     }
 
 
-
+    /**
+     * resumes the game and checks for the win or lose and sets a new number
+     */
     public void resumeGame() {
+        //sets a new number if able
         if(ableAddNum) {
             setNewNumber();
         }else{
             Toast.makeText(getApplicationContext(), "Illegal move", Toast.LENGTH_SHORT).show();
         }
         ableAddNum = false;
+        //Set backgrounds drawables right
         setColors();
 
-        //serch2024();
+        //check if win is true
         if(win == true){
+            //save results
             insertResults();
+            //victory animation
             victorySplash.startAnimation(fadeIn);
             victorySplash.setVisibility(View.VISIBLE);
         }
+        //check for game over
         checkGameOver();
+        //if its over end the game
         if(isOver == true){
+            //save results
             insertResults();
+            //game over animation
             gameOverSplash.startAnimation(fadeIn);
             gameOverSplash.setVisibility(View.VISIBLE);
         }
 
     }
 
+    /**
+     * Set the background colors.
+     */
     private void setColors() {
         for(int i = 0; i < buttons.size(); i++) {
             for (int j = 0; j < buttons.size(); j++) {
@@ -566,11 +647,15 @@ public class Game2048 extends Activity {
     }
 
 
-
+    /**
+     * Check for the game over
+     */
     private void checkGameOver() {
+        //Variables
         isOver = false;
         boolean canSum = false;
 
+        //Loop all the buttons looking for a possible sum
         for(int i = 0; i < buttons.size(); i++) {
             for (int j = 0; j < buttons.size(); j++) {
                 String button = buttons.get(i).get(j).getText().toString();
@@ -578,6 +663,7 @@ public class Game2048 extends Activity {
                     canSum = true;
                     break;
                 }
+                //Try all possibilities
                 if (i == 0 || i == 3 || j == 0 || j == 3) {
                     if (i == 0 && j == 0){
                         if(button.equals(buttons.get(i+1).get(j).getText().toString())
@@ -661,6 +747,7 @@ public class Game2048 extends Activity {
             }
         }
 
+        //If there is no posible sum is over true
         if(canSum == false){
             isOver = true;
         }
@@ -668,14 +755,9 @@ public class Game2048 extends Activity {
     }
 
 
-//    private void serch2024() {
-//        for(int i = 0; i < buttons.size(); i++){
-//            for(int j = 0; j < buttons.size(); j++) {
-//                win = buttons.get(i).get(j).getText().equals("2048");
-//            }
-//        }
-//    }
-
+    /**
+     * Set a number to a random button if its empty
+     */
     public void setNewNumber() {
         boolean done = false;
         do{
@@ -691,10 +773,15 @@ public class Game2048 extends Activity {
         }while (!done);
 
     }
-    //Generate random number
+
+    /**
+     * generates a random number between 2 - 4
+     * @return Integer
+     */
     public Integer generateNumber(){
         //Probability of 10 per cent to be a 4
         int rand = new Random().nextInt(10);
+        //10% chance its 4
         if(rand == 0){
             return 4;
         }else{
@@ -702,6 +789,9 @@ public class Game2048 extends Activity {
         }
     }
 
+    /**
+     * Fill the button array with all the gridlayout childs
+     */
     public void setUpNewButtons() {
         //Fill list
         for (int i = 0; i < 4; i++){
@@ -709,19 +799,7 @@ public class Game2048 extends Activity {
             buttons.add(new ArrayList<Button>());
             for(int j = 0; j < 4;j++) {
                 //fill with numbers
-                int num = j;
-                switch (i) {
-                    case 1:
-                        num += 4;
-                        break;
-                    case 2:
-                        num += 8;
-                        break;
-                    case 3:
-                        num += 12;
-                        break;
-
-                }
+                int num = (i * 4) + j;
                 buttons.get(i).add((Button) gridLayoutGame.getChildAt(num));
 
             }
@@ -731,6 +809,9 @@ public class Game2048 extends Activity {
 
     }
 
+    /**
+     * fill all the old buttons string array with the current values
+     */
     public void setUpOldButtons() {
         canUndo = false;
         //Fill list
@@ -749,8 +830,9 @@ public class Game2048 extends Activity {
     }
 
 
-
-
+    /**
+     * update old buttons array with current state
+     */
     private void updateOldButtons(){
         canUndo = true;
         oldScore = score.getText().toString();
@@ -763,6 +845,10 @@ public class Game2048 extends Activity {
             }
         }
     }
+
+    /**
+     * Undo the move, so sets the text of the old buttons to the new ones
+     */
     private void updateNewButtons(){
         canUndo = false;
         score.setText(oldScore);
@@ -778,12 +864,18 @@ public class Game2048 extends Activity {
     }
 
 
+    /**
+     * Save score to the database
+     */
     private void insertResults(){
+        //stop chronometer
         chronometer.stop();
+        //Set score
         ScoreModel actualScore = new ScoreModel();
         actualScore.setUser(MenuActivity.username);
         actualScore.setHighScore(Integer.parseInt(score.getText().toString()));
         actualScore.setTime(chronometer.getText().toString());
+        //Insert results
         Utils utils = new Utils();
         utils.insertResults2048(getApplicationContext(), actualScore);
 
@@ -791,6 +883,10 @@ public class Game2048 extends Activity {
     }
 
 
+    /**
+     * sets the window to full screen mode
+     * @param hasFocus boolean
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity {
+    //VARIABLES
     private static final String TAG = MenuActivity.class.getSimpleName();
     private RelativeLayout relativeLayout;
     private ListView menuList;
@@ -27,41 +28,39 @@ public class MenuActivity extends AppCompatActivity {
 
 
 
-    /*public static boolean esTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }*/
+    //OVERRIDE METHODS
 
-
-
+    /**
+     * Initialize variables and prepare activity
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
+        //get username from the intent
         if (getIntent().getExtras() != null){
             username = getIntent().getExtras().getString(USERNAME_TAG, "_NO_USER_FOUND_ERR");
 
         }
-
+        //initialize variables
         relativeLayout = findViewById(R.id.menu_relative_layout);
         menuList = findViewById(R.id.ListView_Menu);
         menuList.setSoundEffectsEnabled(false);
-        setItemsToLV();
-        //setBackGround();
 
+        //music and effects set up
         music = new MusicPlayer(this, 0);
-
         effects = new MusicPlayer(this, 1);
         effects.addEffect(R.raw.menu_pick);
 
+        //List view set up
+        setItemsToLV();
+
+        //Set the list view menu listener
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View itemClicked,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
                 TextView textView = (TextView) itemClicked;
                 String strText = textView.getText().toString();
-
                 if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_item_play))) {
                     // Launch the Game Activity
                     activityPressed = true;
@@ -84,7 +83,7 @@ public class MenuActivity extends AppCompatActivity {
                     activityPressed = true;
                     effects.playEffect(R.raw.menu_pick);
                     Intent intent = new Intent(MenuActivity.this, SettingsActivity.class);
-                    startActivityForResult(intent, LAUNCH_SETTINGS_ACTIVITY);
+                    startActivityForResult(intent, LAUNCH_SETTINGS_ACTIVITY);//this one may return a result_ok
 
                 }
             }
@@ -97,11 +96,16 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    //onActivityResult
+    /**
+     * Will take a result code that if its ok will end this activity and go to loginActivity
+     * @param requestCode int
+     * @param resultCode int
+     * @param data Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        //if rquest code is 1 and result ok start logInActivity and end this one
         if (requestCode == LAUNCH_SETTINGS_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 startActivity(new Intent(MenuActivity.this, LogInActivity.class) );
@@ -111,12 +115,18 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Will destroy the activity
+     */
     @Override
     protected void onDestroy() {
         music.reset();
         super.onDestroy();
     }
 
+    /**
+     * Will pause the activity and pause the music only on exiting
+     */
     @Override
     protected void onPause() {
         if (!activityPressed){
@@ -127,6 +137,9 @@ public class MenuActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    /**
+     * Will resume the app and the music
+     */
     @Override
     protected void onResume() {
             music.resume();
@@ -136,38 +149,22 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-
-
+    /**
+     * Sets all the list view items
+     */
     private void setItemsToLV() {
+        //All the list view items
         String[] items = {getResources().getString(R.string.menu_item_play),
                 getResources().getString(R.string.menu_item_scores),
                 getResources().getString(R.string.menu_item_music),
                 getResources().getString(R.string.menu_item_settings)};
-        UserModel[] s = null;
+
+        //Array adapter set up
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.menu_item, items);
-        menuList.setAdapter(adapter);
+        menuList.setAdapter(adapter);//set the adapter to the list view
 
     }
 
-   /* private void setBackGround() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-        if (esTablet(this)) {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubgtablet));
-
-
-        } else if (height > 2100 && width == 1080) {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
-        } else if (height > 2850 && width == 1440) {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubackground));
-
-        } else {
-            relativeLayout.setBackground(getDrawable(R.drawable.menubackground1080));
-        }
-
-    }*/
 
 }

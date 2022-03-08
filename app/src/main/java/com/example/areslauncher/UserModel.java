@@ -1,10 +1,15 @@
 package com.example.areslauncher;
 
+/**
+ * Class that represents each user
+ */
 public class UserModel {
+    //VARIABLES
     private int ID;
     private String name;
     private String password;
 
+    //GETTERS AND SETTERS
     public int getID() {
         return ID;
     }
