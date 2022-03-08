@@ -52,7 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + GAME2048_TABLE + " (" +
                     KEY_ID_COMMON + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // id will auto-increment if no value passed
                     KEY_NAME_GAME2048 + " TEXT, " +
-                    KEY_HIGHSCORE_GAME2048 + " TEXT, " +
+                    KEY_HIGHSCORE_GAME2048 + " INTEGER, " +
                     KEY_GAME_TIME_GAME2048 + " TEXT );";
     ;
 
@@ -67,7 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + GAMEPEG_TABLE + " (" +
                     KEY_ID_COMMON + " INTEGER PRIMARY KEY, " + // id will auto-increment if no value passed
                     KEY_NAME_GAMEPEG + " TEXT, " +
-                    KEY_HIGHSCORE_GAMEPEG + " TEXT, " +
+                    KEY_HIGHSCORE_GAMEPEG + " INTEGER, " +
                     KEY_GAME_TIME_GAMEPEG + " TEXT );";
 
 
@@ -198,7 +198,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //contents to insert
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_GAMEPEG, scoreModel.getUser());
-        values.put(KEY_HIGHSCORE_GAMEPEG, String.valueOf(scoreModel.getHighScore()));
+        values.put(KEY_HIGHSCORE_GAMEPEG, scoreModel.getHighScore());
         values.put(KEY_GAME_TIME_GAMEPEG, scoreModel.getTime());
 
         try {
@@ -242,7 +242,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     scoreModel.setUser(cursor.getString(0));
-                    scoreModel.setHighScore(Integer.parseInt(cursor.getString(1)));
+                    scoreModel.setHighScore(cursor.getInt(1));
                     scoreModel.setTime(cursor.getString(2));
                 }else{
                     scoreModel = null;
@@ -302,7 +302,7 @@ public class DBHelper extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 ScoreModel scoreModel = new ScoreModel();
                 scoreModel.setUser(cursor.getString(0));
-                scoreModel.setHighScore(Integer.parseInt(cursor.getString(1)));
+                scoreModel.setHighScore(cursor.getInt(1));
                 scoreModel.setTime(cursor.getString(2));
                 scoreModels.add(scoreModel);
             }
@@ -363,7 +363,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 orderByParam = KEY_NAME_GAME2048 + " ASC";
                 break;
             case HIGHSCORE:
-                orderByParam = KEY_HIGHSCORE_GAME2048 + " ASC";
+                orderByParam = KEY_HIGHSCORE_GAME2048 + " DESC";
 
                 break;
             case TIME:
@@ -385,7 +385,7 @@ public class DBHelper extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 ScoreModel scoreModel = new ScoreModel();
                 scoreModel.setUser(cursor.getString(0));
-                scoreModel.setHighScore(Integer.parseInt(cursor.getString(1)));
+                scoreModel.setHighScore(cursor.getInt(1));
                 scoreModel.setTime(cursor.getString(2));
                 scoreModels.add(scoreModel);
             }
@@ -430,7 +430,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     scoreModel.setUser(cursor.getString(0));
-                    scoreModel.setHighScore(Integer.parseInt(cursor.getString(1)));
+                    scoreModel.setHighScore(cursor.getInt(1));
                     scoreModel.setTime(cursor.getString(2));
                 }else{
                     scoreModel = null;
